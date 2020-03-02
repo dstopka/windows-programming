@@ -1,5 +1,5 @@
 
-// 01_sort_timeView.cpp : implementation of the CMy01_sort_timeView class
+// 01_sort_timeView.cpp : implementation of the SortTimeView class
 //
 
 #include "stdafx.h"
@@ -17,27 +17,33 @@
 #endif
 
 
-// CMy01_sort_timeView
+// SortTimeView
 
-IMPLEMENT_DYNCREATE(CMy01_sort_timeView, CView)
+IMPLEMENT_DYNCREATE( SortTimeView, CView)
 
-BEGIN_MESSAGE_MAP(CMy01_sort_timeView, CView)
+BEGIN_MESSAGE_MAP( SortTimeView, CView)
+	ON_COMMAND( ID_SORT_ALL, &SortTimeView::OnSortAll )
+	ON_COMMAND( ID_SORT_SIMPLE, &SortTimeView::OnSortSimple )
+	ON_COMMAND( ID_SORT_EFFICIENT, &SortTimeView::OnSortEfficient )
+	ON_UPDATE_COMMAND_UI( ID_SORT_ALL, &SortTimeView::OnUpdateSortAll )
+	ON_UPDATE_COMMAND_UI( ID_SORT_SIMPLE, &SortTimeView::OnUpdateSortSimple )
+	ON_UPDATE_COMMAND_UI( ID_SORT_EFFICIENT, &SortTimeView::OnUpdateSortEfficient )
 END_MESSAGE_MAP()
 
-// CMy01_sort_timeView construction/destruction
+// SortTimeView construction/destruction
 
-CMy01_sort_timeView::CMy01_sort_timeView()
+SortTimeView::SortTimeView()
 {
 	// TODO: add construction code here
 	//this->chart = Chart();
 	this->clientRect = std::make_shared<CRect>();
 }
 
-CMy01_sort_timeView::~CMy01_sort_timeView()
+SortTimeView::~SortTimeView()
 {
 }
 
-BOOL CMy01_sort_timeView::PreCreateWindow(CREATESTRUCT& cs)
+BOOL SortTimeView::PreCreateWindow(CREATESTRUCT& cs)
 {
 	// TODO: Modify the Window class or styles here by modifying
 	//  the CREATESTRUCT cs
@@ -45,11 +51,11 @@ BOOL CMy01_sort_timeView::PreCreateWindow(CREATESTRUCT& cs)
 	return CView::PreCreateWindow(cs);
 }
 
-// CMy01_sort_timeView drawing
+// SortTimeView drawing
 
-void CMy01_sort_timeView::OnDraw(CDC* pDC)
+void SortTimeView::OnDraw(CDC* pDC)
 {
-	CMy01_sort_timeDoc* pDoc = GetDocument();
+	SortTimeView* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
 		return;
@@ -61,25 +67,61 @@ void CMy01_sort_timeView::OnDraw(CDC* pDC)
 }
 
 
-// CMy01_sort_timeView diagnostics
+// SortTimeView diagnostics
 
 #ifdef _DEBUG
-void CMy01_sort_timeView::AssertValid() const
+void SortTimeView::AssertValid() const
 {
 	CView::AssertValid();
 }
 
-void CMy01_sort_timeView::Dump(CDumpContext& dc) const
+void SortTimeView::Dump(CDumpContext& dc) const
 {
 	CView::Dump(dc);
 }
 
-CMy01_sort_timeDoc* CMy01_sort_timeView::GetDocument() const // non-debug version is inline
+SortTimeView* SortTimeView::GetDocument() const // non-debug version is inline
 {
-	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CMy01_sort_timeDoc)));
-	return (CMy01_sort_timeDoc*)m_pDocument;
+	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS( SortTimeView)));
+	return (SortTimeView*)m_pDocument;
 }
 #endif //_DEBUG
 
 
-// CMy01_sort_timeView message handlers
+// SortTimeView message handlers
+
+
+void SortTimeView::OnSortAll()
+{
+	// TODO: Add your command handler code here
+}
+
+
+void SortTimeView::OnSortSimple()
+{
+	// TODO: Add your command handler code here
+}
+
+
+void SortTimeView::OnSortEfficient()
+{
+	// TODO: Add your command handler code here
+}
+
+
+void SortTimeView::OnUpdateSortAll( CCmdUI *pCmdUI )
+{
+	// TODO: Add your command update UI handler code here
+}
+
+
+void SortTimeView::OnUpdateSortSimple( CCmdUI *pCmdUI )
+{
+	// TODO: Add your command update UI handler code here
+}
+
+
+void SortTimeView::OnUpdateSortEfficient( CCmdUI *pCmdUI )
+{
+	// TODO: Add your command update UI handler code here
+}

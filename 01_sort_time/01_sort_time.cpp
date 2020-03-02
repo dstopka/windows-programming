@@ -101,7 +101,7 @@ BOOL CMy01_sort_timeApp::InitInstance()
 		IDR_MAINFRAME,
 		RUNTIME_CLASS(CMy01_sort_timeDoc),
 		RUNTIME_CLASS(CMainFrame),       // main SDI frame window
-		RUNTIME_CLASS(CMy01_sort_timeView));
+		RUNTIME_CLASS(SortTimeView));
 	if (!pDocTemplate)
 		return FALSE;
 	AddDocTemplate(pDocTemplate);

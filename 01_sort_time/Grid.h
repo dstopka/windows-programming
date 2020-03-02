@@ -23,5 +23,6 @@ private:
 	Outline outline;
 	std::array<std::array<CPoint, 2>, 20> lines;
 	std::shared_ptr<CPen> pen;
+	LOGPEN logpen;
 };
 

@@ -1,19 +1,19 @@
 
-// 01_sort_timeView.h : interface of the CMy01_sort_timeView class
+// 01_sort_timeView.h : interface of the SortTimeView class
 //
 
 #pragma once
 #include "Chart.h"
 
-class CMy01_sort_timeView : public CView
+class SortTimeView : public CView
 {
 protected: // create from serialization only
-	CMy01_sort_timeView();
-	DECLARE_DYNCREATE(CMy01_sort_timeView)
+	SortTimeView();
+	DECLARE_DYNCREATE( SortTimeView)
 
 // Attributes
 public:
-	CMy01_sort_timeDoc* GetDocument() const;
+	SortTimeView* GetDocument() const;
 
 // Operations
 public:
@@ -26,7 +26,7 @@ protected:
 
 // Implementation
 public:
-	virtual ~CMy01_sort_timeView();
+	virtual ~SortTimeView();
 #ifdef _DEBUG
 	virtual void AssertValid() const;
 	virtual void Dump(CDumpContext& dc) const;
@@ -41,10 +41,17 @@ protected:
 private:
 	Chart chart;
 	std::shared_ptr<CRect> clientRect;
+public:
+	afx_msg void OnSortAll();
+	afx_msg void OnSortSimple();
+	afx_msg void OnSortEfficient();
+	afx_msg void OnUpdateSortAll( CCmdUI *pCmdUI );
+	afx_msg void OnUpdateSortSimple( CCmdUI *pCmdUI );
+	afx_msg void OnUpdateSortEfficient( CCmdUI *pCmdUI );
 };
 
 #ifndef _DEBUG  // debug version in 01_sort_timeView.cpp
-inline CMy01_sort_timeDoc* CMy01_sort_timeView::GetDocument() const
+inline CMy01_sort_timeDoc* SortTimeView::GetDocument() const
    { return reinterpret_cast<CMy01_sort_timeDoc*>(m_pDocument); }
 #endif
 

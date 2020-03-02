@@ -4,7 +4,7 @@
 
 Grid::Grid()
 {
-	this->pen = std::make_shared<CPen>( PS_SOLID, 1, RGB( 0, 0, 0 ) );
+	this->pen = std::make_shared<CPen>();
 }
 
 
@@ -14,15 +14,19 @@ Grid::~Grid()
 
 void Grid::paint( CDC *pDC )
 {
+	this->pen->CreatePen( PS_SOLID, 1, RGB( 0, 0, 0 ) );
 	CPen *pOldPen = pDC->SelectObject( pen.get() );
 	pDC->MoveTo( outline.top );
 	pDC->LineTo( outline.intersection );
 	pDC->LineTo( outline.right);
+	this->pen->DeleteObject();
+	this->pen->CreatePen( PS_SOLID, 1, RGB( 200, 200, 200 ) );
 	for(auto &x : lines )
 	{
 		pDC->MoveTo( x[0] );
 		pDC->LineTo( x[1] );
 	}
+	this->pen->DeleteObject();
 	pDC->SelectObject( pOldPen );
 }
 

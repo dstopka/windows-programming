@@ -24,6 +24,7 @@ ColorRect::~ColorRect()
 
 void ColorRect::paint( CDC *pDC )
 {
+	
 }
 
 void ColorRect::setAttr( int penWidth, COLORREF penColor, COLORREF bgColor )

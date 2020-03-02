@@ -4,7 +4,7 @@
 
 Chart::Chart()
 {
-	this->grid = std::make_shared<Grid>();
+	this->grid = std::make_shared<Grid >();
 }
 
 
