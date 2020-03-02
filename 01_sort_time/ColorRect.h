@@ -13,12 +13,12 @@ public:
 
 	void paint( CDC *pDC );
 	void setAttr( int penWidth = 0, COLORREF penColor = BLACK, COLORREF bgColor = BLACK );
-	std::unique_ptr<CPen> getPen();
-	std::unique_ptr<CBrush> getBrush();
+	std::shared_ptr<CPen> getPen();
+	std::shared_ptr<CBrush> getBrush();
 
 private:
 	void createAttr( int penWidth, COLORREF penColor, COLORREF bgColor );
-	std::unique_ptr<CPen> pen;
-	std::unique_ptr<CBrush> brush;
+	std::shared_ptr<CPen> pen;
+	std::shared_ptr<CBrush> brush;
 };
 

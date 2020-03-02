@@ -29,7 +29,8 @@ END_MESSAGE_MAP()
 CMy01_sort_timeView::CMy01_sort_timeView()
 {
 	// TODO: add construction code here
-
+	//this->chart = Chart();
+	this->clientRect = std::make_shared<CRect>();
 }
 
 CMy01_sort_timeView::~CMy01_sort_timeView()
@@ -46,12 +47,15 @@ BOOL CMy01_sort_timeView::PreCreateWindow(CREATESTRUCT& cs)
 
 // CMy01_sort_timeView drawing
 
-void CMy01_sort_timeView::OnDraw(CDC* /*pDC*/)
+void CMy01_sort_timeView::OnDraw(CDC* pDC)
 {
 	CMy01_sort_timeDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
 		return;
+	GetClientRect( this->clientRect.get() );
+	this->chart.getGrid()->calculateLines( this->clientRect );
+	this->chart.getGrid()->paint( pDC );
 
 	// TODO: add draw code for native data here
 }

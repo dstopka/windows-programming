@@ -3,7 +3,7 @@
 //
 
 #pragma once
-
+#include "Chart.h"
 
 class CMy01_sort_timeView : public CView
 {
@@ -37,6 +37,10 @@ protected:
 // Generated message map functions
 protected:
 	DECLARE_MESSAGE_MAP()
+
+private:
+	Chart chart;
+	std::shared_ptr<CRect> clientRect;
 };
 
 #ifndef _DEBUG  // debug version in 01_sort_timeView.cpp

@@ -190,6 +190,7 @@
     <ClInclude Include="01_sort_timeView.h" />
     <ClInclude Include="Chart.h" />
     <ClInclude Include="ColorRect.h" />
+    <ClInclude Include="Grid.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="sorts.h" />
@@ -202,6 +203,7 @@
     <ClCompile Include="01_sort_timeView.cpp" />
     <ClCompile Include="Chart.cpp" />
     <ClCompile Include="ColorRect.cpp" />
+    <ClCompile Include="Grid.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="sorts.cpp" />
     <ClCompile Include="stdafx.cpp">

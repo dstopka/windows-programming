@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "sorts.h"
 #include <iostream>
 #include <stdlib.h>
