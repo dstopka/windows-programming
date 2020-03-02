@@ -4,14 +4,19 @@
 
 Chart::Chart()
 {
-	this->grid = std::make_shared<Grid >();
+	this->grid = Grid();
 }
 
 
 Chart::~Chart()
 {}
 
-std::shared_ptr<Grid> Chart::getGrid()
+Grid& Chart::getGrid()
 {
 	return this->grid;
+}
+
+std::vector<ColorRect>& Chart::getRects()
+{
+	return this->rects;
 }

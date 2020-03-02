@@ -22,7 +22,8 @@ private:
 	//void setAttr( int penWidth = 0, COLORREF penColor = BLACK, COLORREF bgColor = BLACK );
 	Outline outline;
 	std::array<std::array<CPoint, 2>, 20> lines;
-	std::shared_ptr<CPen> pen;
+	std::shared_ptr<CPen> penGrid;
+	std::shared_ptr<CPen> penOutline;
 	LOGPEN logpen;
 };
 

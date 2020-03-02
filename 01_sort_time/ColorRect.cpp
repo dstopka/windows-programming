@@ -4,18 +4,22 @@
 
 ColorRect::ColorRect( CRect *rect, int penWidth, COLORREF penColor, COLORREF bgColor ) : CRect(rect)
 {
+	this->createAttr( penWidth, penColor, bgColor );
 }
 
 ColorRect::ColorRect( const CRect &rect, int penWidth, COLORREF penColor, COLORREF bgColor ) :CRect(rect)
 {
+	this->createAttr( penWidth, penColor, bgColor );
 }
 
 ColorRect::ColorRect( const CPoint &leftTop, const CPoint &rightBottom, int penWidth, COLORREF penColor, COLORREF bgColor ) : CRect(leftTop.x, leftTop.y, rightBottom.x, rightBottom.y)
 {
+	this->createAttr( penWidth, penColor, bgColor );
 }
 
 ColorRect::ColorRect( const CPoint &point, const CSize &size, int penWidth, COLORREF penColor, COLORREF bgColor ) : CRect(point, size)
 {
+	this->createAttr( penWidth, penColor, bgColor );
 }
 
 ColorRect::~ColorRect()
@@ -24,11 +28,16 @@ ColorRect::~ColorRect()
 
 void ColorRect::paint( CDC *pDC )
 {
-	
+	CPen *oldPen = (CPen *)pDC->SelectObject( this->pen.get() );
+	CBrush *oldBrush = (CBrush *)pDC->SelectObject( this->brush.get() );
+	pDC->Rectangle(this->top, this->left, this->bottom, this->right);
+	(CPen *)pDC->SelectObject( oldPen );
+	(CBrush *)pDC->SelectObject( oldBrush );
 }
 
 void ColorRect::setAttr( int penWidth, COLORREF penColor, COLORREF bgColor )
 {
+
 }
 
 std::shared_ptr<CPen> ColorRect::getPen()
@@ -43,4 +52,6 @@ std::shared_ptr<CBrush> ColorRect::getBrush()
 
 void ColorRect::createAttr( int penWidth, COLORREF penColor, COLORREF bgColor )
 {
+	this->pen = std::make_shared<CPen>( PS_SOLID, penWidth, penColor );
+	this->brush = std::make_shared<CBrush>( bgColor );
 }

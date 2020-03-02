@@ -6,7 +6,7 @@ class ColorRect : public CRect
 {
 public:
 	ColorRect(CRect *rect = NULL, int penWidth = 0, COLORREF penColor = BLACK, COLORREF bgColor = BLACK);
-	ColorRect( const CRect &rect = NULL, int penWidth = 0, COLORREF penColor = BLACK, COLORREF bgColor = BLACK );
+	ColorRect( const CRect &rect, int penWidth = 0, COLORREF penColor = BLACK, COLORREF bgColor = BLACK );
 	ColorRect( const CPoint &leftTop, const CPoint &rightBottom, int penWidth = 0, COLORREF penColor = BLACK, COLORREF bgColor = BLACK );
 	ColorRect( const CPoint &point, const CSize &size, int penWidth = 0, COLORREF penColor = BLACK, COLORREF bgColor = BLACK );
 	~ColorRect();

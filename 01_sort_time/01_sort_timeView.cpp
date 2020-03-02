@@ -37,6 +37,10 @@ SortTimeView::SortTimeView()
 	// TODO: add construction code here
 	//this->chart = Chart();
 	this->clientRect = std::make_shared<CRect>();
+	this->crectan = CRect( 100, 100, 200, 200 );
+	this->allSorts = false;
+	this->simpleSorts = false;
+	this->efficientSorts = false;
 }
 
 SortTimeView::~SortTimeView()
@@ -55,13 +59,14 @@ BOOL SortTimeView::PreCreateWindow(CREATESTRUCT& cs)
 
 void SortTimeView::OnDraw(CDC* pDC)
 {
-	SortTimeView* pDoc = GetDocument();
+	CMy01_sort_timeDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
 		return;
 	GetClientRect( this->clientRect.get() );
-	this->chart.getGrid()->calculateLines( this->clientRect );
-	this->chart.getGrid()->paint( pDC );
+	this->chart.getGrid().calculateLines( this->clientRect );
+	this->chart.getGrid().paint( pDC );
+	this->crectan.paint(pDC);
 
 	// TODO: add draw code for native data here
 }
@@ -80,10 +85,10 @@ void SortTimeView::Dump(CDumpContext& dc) const
 	CView::Dump(dc);
 }
 
-SortTimeView* SortTimeView::GetDocument() const // non-debug version is inline
+CMy01_sort_timeDoc* SortTimeView::GetDocument() const // non-debug version is inline
 {
-	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS( SortTimeView)));
-	return (SortTimeView*)m_pDocument;
+	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS( CMy01_sort_timeDoc )));
+	return (CMy01_sort_timeDoc*)m_pDocument;
 }
 #endif //_DEBUG
 
@@ -93,35 +98,50 @@ SortTimeView* SortTimeView::GetDocument() const // non-debug version is inline
 
 void SortTimeView::OnSortAll()
 {
-	// TODO: Add your command handler code here
+	this->chart.getRects().clear();
+	this->allSorts = true;
+	this->simpleSorts = false;
+	this->efficientSorts = false;
+	Invalidate();
+	UpdateWindow();
 }
 
 
 void SortTimeView::OnSortSimple()
 {
-	// TODO: Add your command handler code here
+	this->chart.getRects().clear();
+	this->allSorts = false;
+	this->simpleSorts = true;
+	this->efficientSorts = false;
+	Invalidate();
+	UpdateWindow();
 }
 
 
 void SortTimeView::OnSortEfficient()
 {
-	// TODO: Add your command handler code here
+	this->chart.getRects().clear();
+	this->allSorts = false;
+	this->simpleSorts = false;
+	this->efficientSorts = true;
+	Invalidate();
+	UpdateWindow();
 }
 
 
 void SortTimeView::OnUpdateSortAll( CCmdUI *pCmdUI )
 {
-	// TODO: Add your command update UI handler code here
+	pCmdUI->Enable( !allSorts );
 }
 
 
 void SortTimeView::OnUpdateSortSimple( CCmdUI *pCmdUI )
 {
-	// TODO: Add your command update UI handler code here
+	pCmdUI->Enable( !simpleSorts );
 }
 
 
 void SortTimeView::OnUpdateSortEfficient( CCmdUI *pCmdUI )
 {
-	// TODO: Add your command update UI handler code here
+	pCmdUI->Enable( !efficientSorts );
 }

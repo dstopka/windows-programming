@@ -13,20 +13,18 @@ protected: // create from serialization only
 
 // Attributes
 public:
-	SortTimeView* GetDocument() const;
-
-// Operations
-public:
-
-// Overrides
-public:
+	CMy01_sort_timeDoc* GetDocument() const;
 	virtual void OnDraw(CDC* pDC);  // overridden to draw this view
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
-protected:
-
-// Implementation
-public:
 	virtual ~SortTimeView();
+
+	afx_msg void OnSortAll();
+	afx_msg void OnSortSimple();
+	afx_msg void OnSortEfficient();
+	afx_msg void OnUpdateSortAll( CCmdUI *pCmdUI );
+	afx_msg void OnUpdateSortSimple( CCmdUI *pCmdUI );
+	afx_msg void OnUpdateSortEfficient( CCmdUI *pCmdUI );
+	
 #ifdef _DEBUG
 	virtual void AssertValid() const;
 	virtual void Dump(CDumpContext& dc) const;
@@ -40,14 +38,11 @@ protected:
 
 private:
 	Chart chart;
+	ColorRect crectan;
 	std::shared_ptr<CRect> clientRect;
-public:
-	afx_msg void OnSortAll();
-	afx_msg void OnSortSimple();
-	afx_msg void OnSortEfficient();
-	afx_msg void OnUpdateSortAll( CCmdUI *pCmdUI );
-	afx_msg void OnUpdateSortSimple( CCmdUI *pCmdUI );
-	afx_msg void OnUpdateSortEfficient( CCmdUI *pCmdUI );
+	bool allSorts;
+	bool efficientSorts;
+	bool simpleSorts;
 };
 
 #ifndef _DEBUG  // debug version in 01_sort_timeView.cpp

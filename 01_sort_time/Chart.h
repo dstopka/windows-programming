@@ -1,6 +1,7 @@
 #pragma once
 #include <array>
 #include <memory>
+#include <vector>
 #include "ColorRect.h"
 #include "Grid.h"
 
@@ -10,9 +11,12 @@ public:
 	Chart();
 	~Chart();
 
-	std::shared_ptr<Grid> getGrid();
+	Grid &getGrid();
+	std::vector<ColorRect> &getRects();
 
 private:
-	std::shared_ptr<Grid> grid;	
+	Grid grid;
+	std::vector<CString> labelsX;
+	std::vector<CString> labelsY;
+	std::vector<ColorRect> rects;
 };
-
