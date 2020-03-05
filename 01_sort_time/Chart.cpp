@@ -4,6 +4,7 @@
 #include <ctime>
 #include <cstdlib>
 #include <algorithm>
+#include "sorts.h"
 #include "resource.h"
 
 
@@ -13,6 +14,7 @@ Chart::Chart()
 	this->loadSortsLabels();
 	sortArr = new int[MAX_ELEMENTS];
 	std::srand( std::time( nullptr ) );
+	max = 40;
 }
 
 
@@ -33,14 +35,18 @@ std::vector<ColorRect>& Chart::getRects()
 
 void Chart::setSortsType( enum sorts choice )
 {
-	sortsType = choice;	
+	sortsType = choice;
+	this->fillArray();
+	this->sort();
 }
 
 void Chart::paint( std::shared_ptr<CRect> clientWindow, CDC *pDC )
 {
 	grid.calculateLines( clientWindow );
 	grid.paint( pDC );
-	paintLabelsX( clientWindow, pDC );		
+	paintLabelsX( clientWindow, pDC );
+	for ( auto &x : sortBars )
+		x.paint( pDC );
 }
 
 void Chart::loadSortsLabels()
@@ -82,10 +88,10 @@ void Chart::fillArray()
 		*p = rand() % MAX_ELEMENTS;
 }
 
-unsigned long Chart::sort( std::function<void( int*, int )> sort )
+unsigned long Chart::callSort( std::function<void( int*, int )> sort )
 {
 	int* arr = new int[MAX_ELEMENTS];
-	std::copy( sortArr, sortArr + MAX_ELEMENTS, arr );
+	std::copy( sortArr, sortArr + MAX_ELEMENTS, stdext::checked_array_iterator<int*>(arr, MAX_ELEMENTS ));
 	unsigned long startTime = GetTickCount();
 	sort( arr, MAX_ELEMENTS );
 	unsigned long endTime = GetTickCount();
@@ -94,3 +100,16 @@ unsigned long Chart::sort( std::function<void( int*, int )> sort )
 	return endTime - startTime;
 }
 
+void Chart::sort()
+{
+	unsigned long sortTime;
+	int idx = 0;
+	if ( sortsType == ALL || sortsType == SIMPLE )
+	{
+		sortTime = callSort( BubbleSort );
+		max = sortTime > max ? sortTime : max;
+		sortBars.push_back( ColorRect(CPoint(10,10), CPoint(50, 50), 1, PINK, PINK) );
+	}
+	//if ( sortsType == ALL || sortsType == EFFICIENT )
+		
+}

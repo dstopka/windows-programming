@@ -22,10 +22,12 @@ public:
 	
 private:
 	void loadSortsLabels();
+	void calculateLabelsY();
 	void paintLabelsX( std::shared_ptr<CRect> clientWindow, CDC *pDC );
 	void paintLabelsY( std::shared_ptr<CRect> clientWindow, CDC *pDC );
 	void fillArray();
-	unsigned long sort( std::function<void( int*, int )> sort );
+	unsigned long callSort( std::function<void( int*, int )> sort );
+	void sort();
 	
 private:
 	std::array<CString, 3> labelsSimpleSorts;
@@ -35,4 +37,5 @@ private:
 	std::vector<ColorRect> sortBars;
 	int* sortArr;
 	sorts sortsType;
+	unsigned long max;
 };
