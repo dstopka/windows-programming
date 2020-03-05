@@ -314,11 +314,30 @@ void UpdateHeap( int* pTab, int left, int right )
 			if ( pTab[j] < pTab[j + 1] )
 				j++;
 
-		if ( x > pTab[j] ) break;//!!!
+		if ( x > pTab[j] )
+			break;
 
 		pTab[i] = pTab[j];
 		i = j;
 		j = 2 * i + 1;
 	}
 	pTab[i] = x;
+}
+
+void callMergeSort( int *pTab, int nSize )
+{
+	int* tmp = (int*)calloc( nSize, sizeof( int ) );
+	if ( !tmp )
+	{
+		printf( "\nMEMORY ERROR!!\n" );
+	}
+	MergeSort( pTab, tmp, nSize, 0, nSize - 1 );
+	free( tmp );
+}
+
+//----------------------------
+
+void callQuickSort( int *pTab, int nSize )
+{
+	QuickSort( pTab, 0, nSize - 1 );
 }

@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "Chart.h"
-
+#include <random>
+#include <ctime>
+#include <cstdlib>
+#include <algorithm>
 #include "resource.h"
 
 
@@ -8,11 +11,15 @@ Chart::Chart()
 {
 	grid = Grid();
 	this->loadSortsLabels();
+	sortArr = new int[MAX_ELEMENTS];
+	std::srand( std::time( nullptr ) );
 }
 
 
 Chart::~Chart()
-{}
+{
+	delete sortArr;
+}
 
 Grid& Chart::getGrid()
 {
@@ -66,5 +73,24 @@ void Chart::paintLabelsX( std::shared_ptr<CRect> clientWindow, CDC *pDC )
 
 void Chart::paintLabelsY( std::shared_ptr<CRect> clientWindow, CDC *pDC )
 {
+}
+
+void Chart::fillArray()
+{
+	int* p = sortArr;
+	for ( int i = 0; i < MAX_ELEMENTS; ++i, ++p )
+		*p = rand() % MAX_ELEMENTS;
+}
+
+unsigned long Chart::sort( std::function<void( int*, int )> sort )
+{
+	int* arr = new int[MAX_ELEMENTS];
+	std::copy( sortArr, sortArr + MAX_ELEMENTS, arr );
+	unsigned long startTime = GetTickCount();
+	sort( arr, MAX_ELEMENTS );
+	unsigned long endTime = GetTickCount();
+	delete []arr;
+
+	return endTime - startTime;
 }
 

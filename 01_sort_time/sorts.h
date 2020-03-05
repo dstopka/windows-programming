@@ -12,6 +12,8 @@ void QuickSort( int* tab, int left, int right );
 void MergeSort( int* pTab, int* ptmp, int nSize, int left, int right );
 void MergeSortSequence( int* tab, int nSize );
 void HeapSort( int* Tab, int nSize );
+void callMergeSort( int *t, int nSize );
+void callQuickSort( int *t, int nSize );
 
 #endif
 
