@@ -2,42 +2,43 @@
 #include "ColorRect.h"
 
 
-ColorRect::ColorRect( CRect *rect, int penWidth, COLORREF penColor, COLORREF bgColor ) : CRect(rect)
+ColorRect::ColorRect(CRect* rect, int penWidth, COLORREF penColor, COLORREF bgColor) : CRect(rect)
 {
-	this->createAttr( penWidth, penColor, bgColor );
+	this->createAttr(penWidth, penColor, bgColor);
 }
 
-ColorRect::ColorRect( const CRect &rect, int penWidth, COLORREF penColor, COLORREF bgColor ) :CRect(rect)
+ColorRect::ColorRect(const CRect& rect, int penWidth, COLORREF penColor, COLORREF bgColor) : CRect(rect)
 {
-	this->createAttr( penWidth, penColor, bgColor );
+	this->createAttr(penWidth, penColor, bgColor);
 }
 
-ColorRect::ColorRect( const CPoint &leftTop, const CPoint &rightBottom, int penWidth, COLORREF penColor, COLORREF bgColor ) : CRect(leftTop.x, leftTop.y, rightBottom.x, rightBottom.y)
+ColorRect::ColorRect(const CPoint& leftTop, const CPoint& rightBottom, int penWidth, COLORREF penColor,
+                     COLORREF bgColor) : CRect(leftTop.x, leftTop.y, rightBottom.x, rightBottom.y)
 {
-	this->createAttr( penWidth, penColor, bgColor );
+	this->createAttr(penWidth, penColor, bgColor);
 }
 
-ColorRect::ColorRect( const CPoint &point, const CSize &size, int penWidth, COLORREF penColor, COLORREF bgColor ) : CRect(point, size)
+ColorRect::ColorRect(const CPoint& point, const CSize& size, int penWidth, COLORREF penColor, COLORREF bgColor) : CRect(
+	point, size)
 {
-	this->createAttr( penWidth, penColor, bgColor );
+	this->createAttr(penWidth, penColor, bgColor);
 }
 
 ColorRect::~ColorRect()
 {
 }
 
-void ColorRect::paint( CDC *pDC )
+void ColorRect::paint(CDC* pDC)
 {
-	CPen *oldPen = (CPen *)pDC->SelectObject( this->pen.get() );
-	CBrush *oldBrush = (CBrush *)pDC->SelectObject( this->brush.get() );
+	CPen* oldPen = static_cast<CPen*>(pDC->SelectObject(this->pen.get()));
+	CBrush* oldBrush = static_cast<CBrush*>(pDC->SelectObject(this->brush.get()));
 	pDC->Rectangle(this->top, this->left, this->bottom, this->right);
-	(CPen *)pDC->SelectObject( oldPen );
-	(CBrush *)pDC->SelectObject( oldBrush );
+	static_cast<CPen*>(pDC->SelectObject(oldPen));
+	static_cast<CBrush*>(pDC->SelectObject(oldBrush));
 }
 
-void ColorRect::setAttr( int penWidth, COLORREF penColor, COLORREF bgColor )
+void ColorRect::setAttr(int penWidth, COLORREF penColor, COLORREF bgColor)
 {
-
 }
 
 std::shared_ptr<CPen> ColorRect::getPen()
@@ -50,8 +51,8 @@ std::shared_ptr<CBrush> ColorRect::getBrush()
 	return this->brush;
 }
 
-void ColorRect::createAttr( int penWidth, COLORREF penColor, COLORREF bgColor )
+void ColorRect::createAttr(int penWidth, COLORREF penColor, COLORREF bgColor)
 {
-	this->pen = std::make_shared<CPen>( PS_SOLID, penWidth, penColor );
-	this->brush = std::make_shared<CBrush>( bgColor );
+	this->pen = std::make_shared<CPen>(PS_SOLID, penWidth, penColor);
+	this->brush = std::make_shared<CBrush>(bgColor);
 }

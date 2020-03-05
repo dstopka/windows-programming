@@ -1,7 +1,6 @@
 #pragma once
 #include "atltypes.h"
 #include <memory>
-#define BLACK RGB(0,0,0)
 class ColorRect : public CRect
 {
 public:

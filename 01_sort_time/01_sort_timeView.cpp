@@ -1,4 +1,3 @@
-
 // 01_sort_timeView.cpp : implementation of the SortTimeView class
 //
 
@@ -19,15 +18,15 @@
 
 // SortTimeView
 
-IMPLEMENT_DYNCREATE( SortTimeView, CView)
+IMPLEMENT_DYNCREATE(SortTimeView, CView)
 
-BEGIN_MESSAGE_MAP( SortTimeView, CView)
-	ON_COMMAND( ID_SORT_ALL, &SortTimeView::OnSortAll )
-	ON_COMMAND( ID_SORT_SIMPLE, &SortTimeView::OnSortSimple )
-	ON_COMMAND( ID_SORT_EFFICIENT, &SortTimeView::OnSortEfficient )
-	ON_UPDATE_COMMAND_UI( ID_SORT_ALL, &SortTimeView::OnUpdateSortAll )
-	ON_UPDATE_COMMAND_UI( ID_SORT_SIMPLE, &SortTimeView::OnUpdateSortSimple )
-	ON_UPDATE_COMMAND_UI( ID_SORT_EFFICIENT, &SortTimeView::OnUpdateSortEfficient )
+BEGIN_MESSAGE_MAP(SortTimeView, CView)
+		ON_COMMAND(ID_SORT_ALL, &SortTimeView::OnSortAll)
+		ON_COMMAND(ID_SORT_SIMPLE, &SortTimeView::OnSortSimple)
+		ON_COMMAND(ID_SORT_EFFICIENT, &SortTimeView::OnSortEfficient)
+		ON_UPDATE_COMMAND_UI(ID_SORT_ALL, &SortTimeView::OnUpdateSortAll)
+		ON_UPDATE_COMMAND_UI(ID_SORT_SIMPLE, &SortTimeView::OnUpdateSortSimple)
+		ON_UPDATE_COMMAND_UI(ID_SORT_EFFICIENT, &SortTimeView::OnUpdateSortEfficient)
 END_MESSAGE_MAP()
 
 // SortTimeView construction/destruction
@@ -37,7 +36,7 @@ SortTimeView::SortTimeView()
 	// TODO: add construction code here
 	//this->chart = Chart();
 	this->clientRect = std::make_shared<CRect>();
-	this->crectan = CRect( 100, 100, 200, 200 );
+	this->crectan = CRect(100, 100, 200, 200);
 	this->allSorts = false;
 	this->simpleSorts = false;
 	this->efficientSorts = false;
@@ -63,10 +62,16 @@ void SortTimeView::OnDraw(CDC* pDC)
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
 		return;
-	GetClientRect( this->clientRect.get() );
-	this->chart.getGrid().calculateLines( this->clientRect );
-	this->chart.getGrid().paint( pDC );
-	this->crectan.paint(pDC);
+	GetClientRect(this->clientRect.get());
+
+	if (this->allSorts || this->simpleSorts | this->efficientSorts)
+	{
+		
+		this->crectan.paint(pDC);
+		//for (int i = 1; i <= this->chart.labelsY.size(); ++i)
+			//pDC->TextOutW(100 * i + 50, this->clientRect->Height() * .9 + 10, this->chart.labelsY[i - 1]);
+		chart.paint(this->clientRect, pDC);
+	}
 
 	// TODO: add draw code for native data here
 }
@@ -88,7 +93,7 @@ void SortTimeView::Dump(CDumpContext& dc) const
 CMy01_sort_timeDoc* SortTimeView::GetDocument() const // non-debug version is inline
 {
 	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS( CMy01_sort_timeDoc )));
-	return (CMy01_sort_timeDoc*)m_pDocument;
+	return static_cast<CMy01_sort_timeDoc*>(m_pDocument);
 }
 #endif //_DEBUG
 
@@ -98,10 +103,11 @@ CMy01_sort_timeDoc* SortTimeView::GetDocument() const // non-debug version is in
 
 void SortTimeView::OnSortAll()
 {
-	this->chart.getRects().clear();
-	this->allSorts = true;
-	this->simpleSorts = false;
-	this->efficientSorts = false;
+	chart.getRects().clear();
+	allSorts = true;
+	simpleSorts = false;
+	efficientSorts = false;
+	chart.setSortsType(ALL);
 	Invalidate();
 	UpdateWindow();
 }
@@ -109,10 +115,11 @@ void SortTimeView::OnSortAll()
 
 void SortTimeView::OnSortSimple()
 {
-	this->chart.getRects().clear();
-	this->allSorts = false;
-	this->simpleSorts = true;
-	this->efficientSorts = false;
+	chart.getRects().clear();
+	allSorts = false;
+	simpleSorts = true;
+	efficientSorts = false;
+	chart.setSortsType(SIMPLE);
 	Invalidate();
 	UpdateWindow();
 }
@@ -120,28 +127,29 @@ void SortTimeView::OnSortSimple()
 
 void SortTimeView::OnSortEfficient()
 {
-	this->chart.getRects().clear();
-	this->allSorts = false;
-	this->simpleSorts = false;
-	this->efficientSorts = true;
+	chart.getRects().clear();
+	allSorts = false;
+	simpleSorts = false;
+	efficientSorts = true;
+	chart.setSortsType(EFFICIENT);
 	Invalidate();
 	UpdateWindow();
 }
 
 
-void SortTimeView::OnUpdateSortAll( CCmdUI *pCmdUI )
+void SortTimeView::OnUpdateSortAll(CCmdUI* pCmdUI)
 {
-	pCmdUI->Enable( !allSorts );
+	pCmdUI->Enable(!allSorts);
 }
 
 
-void SortTimeView::OnUpdateSortSimple( CCmdUI *pCmdUI )
+void SortTimeView::OnUpdateSortSimple(CCmdUI* pCmdUI)
 {
-	pCmdUI->Enable( !simpleSorts );
+	pCmdUI->Enable(!simpleSorts);
 }
 
 
-void SortTimeView::OnUpdateSortEfficient( CCmdUI *pCmdUI )
+void SortTimeView::OnUpdateSortEfficient(CCmdUI* pCmdUI)
 {
-	pCmdUI->Enable( !efficientSorts );
+	pCmdUI->Enable(!efficientSorts);
 }
