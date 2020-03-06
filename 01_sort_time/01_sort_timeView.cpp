@@ -67,7 +67,7 @@ void SortTimeView::OnDraw(CDC* pDC)
 	if (this->allSorts || this->simpleSorts | this->efficientSorts)
 	{
 		
-		this->crectan.paint(pDC);
+		//this->crectan.paint(pDC);
 		//for (int i = 1; i <= this->chart.labelsY.size(); ++i)
 			//pDC->TextOutW(100 * i + 50, this->clientRect->Height() * .9 + 10, this->chart.labelsY[i - 1]);
 		chart.paint(this->clientRect, pDC);
@@ -103,7 +103,7 @@ CMy01_sort_timeDoc* SortTimeView::GetDocument() const // non-debug version is in
 
 void SortTimeView::OnSortAll()
 {
-	chart.getRects().clear();
+	//chart.getRects().clear();
 	allSorts = true;
 	simpleSorts = false;
 	efficientSorts = false;
@@ -115,7 +115,7 @@ void SortTimeView::OnSortAll()
 
 void SortTimeView::OnSortSimple()
 {
-	chart.getRects().clear();
+	//chart.getRects().clear();
 	allSorts = false;
 	simpleSorts = true;
 	efficientSorts = false;
@@ -127,7 +127,7 @@ void SortTimeView::OnSortSimple()
 
 void SortTimeView::OnSortEfficient()
 {
-	chart.getRects().clear();
+	//chart.getRects().clear();
 	allSorts = false;
 	simpleSorts = false;
 	efficientSorts = true;

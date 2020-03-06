@@ -26,16 +26,19 @@ private:
 	void paintLabelsX( std::shared_ptr<CRect> clientWindow, CDC *pDC );
 	void paintLabelsY( std::shared_ptr<CRect> clientWindow, CDC *pDC );
 	void fillArray();
-	unsigned long callSort( std::function<void( int*, int )> sort );
+	void createBars( std::shared_ptr<CRect> clientWindow );
+	void callSort( std::function<void( int*, int )> sort );
 	void sort();
+	void resetSorts();
 	
 private:
 	std::array<CString, 3> labelsSimpleSorts;
 	std::array<CString, 3> labelsEfficientSorts;
 	Grid grid;
-	std::vector<CString> labelsX;	
+	std::array<CString, 21> labelsY;	
 	std::vector<ColorRect> sortBars;
-	int* sortArr;
+	std::vector<unsigned long> sortTimes;
+	int* sortArr = new int[MAX_ELEMENTS];
 	sorts sortsType;
 	unsigned long max;
 };

@@ -41,3 +41,11 @@ void Grid::calculateLines(std::shared_ptr<CRect> clientWindow)
 	this->lines[0][0] = {100, 10};
 	this->lines[0][1] = {static_cast<int>(clientWindow->Width() * .9), 10};
 }
+
+std::array<double, 20> Grid::getLinesY()
+{
+	std::array<double, 20> y;
+	for ( int i = 0; i < 20; ++i )
+		y[i] = lines[i][0].x;
+	return y;
+}

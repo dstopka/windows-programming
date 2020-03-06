@@ -17,6 +17,7 @@ public:
 	~Grid();
 	void paint( CDC *pDC );
 	void calculateLines( std::shared_ptr<CRect> clientWindow);
+	std::array<double, 20> getLinesY();
 
 private:
 	//void setAttr( int penWidth = 0, COLORREF penColor = BLACK, COLORREF bgColor = BLACK );
@@ -24,6 +25,5 @@ private:
 	std::array<std::array<CPoint, 2>, 20> lines;
 	std::shared_ptr<CPen> penGrid;
 	std::shared_ptr<CPen> penOutline;
-	int max;
 };
 
