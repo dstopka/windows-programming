@@ -31,12 +31,12 @@ void Grid::paint(CDC* pDC)
 void Grid::calculateLines(std::shared_ptr<CRect> clientWindow)
 {
 	this->outline.top = {100, 10};
-	this->outline.intersection = {100, static_cast<int>(clientWindow->Height() * .9)};
-	this->outline.right = {static_cast<int>(clientWindow->Width() * .9), static_cast<int>(clientWindow->Height() * .9)};
+	this->outline.intersection = {100, static_cast<int>(clientWindow->Height() * .9) + 10};
+	this->outline.right = {static_cast<int>(clientWindow->Width() * .9), static_cast<int>(clientWindow->Height() * .9) + 10};
 	for (auto i = 19; i > 0; --i)
 	{
-		this->lines[i][0] = {100, static_cast<int>(clientWindow->Height() * .9 / 20 * i)};
-		this->lines[i][1] = {static_cast<int>(clientWindow->Width() * .9), static_cast<int>(clientWindow->Height() * .9 / 20 * i)};
+		this->lines[i][0] = {100, static_cast<int>(clientWindow->Height() * .9 / 20 * i) + 10};
+		this->lines[i][1] = {static_cast<int>(clientWindow->Width() * .9), static_cast<int>(clientWindow->Height() * .9 / 20 * i) + 10};
 	}
 	this->lines[0][0] = {100, 10};
 	this->lines[0][1] = {static_cast<int>(clientWindow->Width() * .9), 10};

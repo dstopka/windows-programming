@@ -22,6 +22,7 @@ public:
 	
 private:
 	void loadSortsLabels();
+	void loadColors();
 	void calculateLabelsY();
 	void paintLabelsX( std::shared_ptr<CRect> clientWindow, CDC *pDC );
 	void paintLabelsY( std::shared_ptr<CRect> clientWindow, CDC *pDC );
@@ -30,6 +31,7 @@ private:
 	void callSort( std::function<void( int*, int )> sort );
 	void sort();
 	void resetSorts();
+	void createFont( std::shared_ptr<CFont> fontObj, CString fontType, int height, int width );
 	
 private:
 	std::array<CString, 3> labelsSimpleSorts;
@@ -39,6 +41,9 @@ private:
 	std::vector<ColorRect> sortBars;
 	std::vector<unsigned long> sortTimes;
 	int* sortArr = new int[MAX_ELEMENTS];
+	std::array<COLORREF, 6> barColors;
 	sorts sortsType;
 	unsigned long max;
+	std::shared_ptr<CFont> fontAxisX;
+	std::shared_ptr<CFont> fontAxisY;
 };
