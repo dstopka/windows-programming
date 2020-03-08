@@ -24,6 +24,7 @@ public:
 
 	void setSortsType(enum sorts choice);
 	void paint( std::shared_ptr<CRect> clientWindow, CDC *pDC );
+	static void createFont( std::shared_ptr<CFont> fontObj, CString fontType, int height, int width );
 	
 private:
 	void loadSortsLabels();
@@ -31,19 +32,15 @@ private:
 	void calculateLabelsY();
 	void paintLabelsX( std::shared_ptr<CRect> clientWindow, CDC *pDC );
 	void paintLabelsY( std::shared_ptr<CRect> clientWindow, CDC *pDC );
-	//void fillArray();
 	void createBars( std::shared_ptr<CRect> clientWindow );
 	void callSort( std::function<void( int*, int )> sort );
 	void sort();
 	void resetSorts();
-	void createFont( std::shared_ptr<CFont> fontObj, CString fontType, int height, int width );
 	
 private:
 	Grid grid_;
-	std::array<CString, 3> labelsSimpleSorts;
-	std::array<CString, 3> labelsEfficientSorts;
 	std::map<std::string, std::array<CString, 3>> labelsAxisX_;
-	std::array<CString, 21> labelsY_;
+	std::array<CString, 21> labelsAxisY_;
 	
 	sorts sortsType_;
 	std::vector<ColorRect> sortBars_;

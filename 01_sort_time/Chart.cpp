@@ -47,28 +47,19 @@ Chart::~Chart()
 {
 	delete sortArray_;
 }
-/*
-Grid& Chart::getGrid()
-{
-	return this->grid_;
-}
 
-std::vector<ColorRect>& Chart::getRects()
-{
-	return this->sortBars_;
-}*/
-
-void Chart::setSortsType( enum sorts choice )
+void
+Chart::setSortsType( enum sorts choice )
 {
 	this->resetSorts();
 	sortsType_ = choice;
-	//this->fillArray();
 	fillArray( sortArray_, MAX_ELEMENTS );
 	this->sort();
 	std::random_shuffle( barColors_.begin(), barColors_.end() );
 }
 
-void Chart::paint( std::shared_ptr<CRect> clientWindow, CDC *pDC )
+void
+Chart::paint( std::shared_ptr<CRect> clientWindow, CDC *pDC )
 {
 	sortBars_.clear();
 	grid_.calculateLines( clientWindow );
@@ -81,30 +72,26 @@ void Chart::paint( std::shared_ptr<CRect> clientWindow, CDC *pDC )
 		x.paint( pDC );
 }
 
-void Chart::loadSortsLabels()
+void
+Chart::loadSortsLabels()
 {
 	CString str;
 	str.LoadStringW( IDS_BUBBLE_SORT );
 	labelsAxisX_["Simple Sorts"][0] = str;
-	labelsSimpleSorts[0] = str;
 	str.LoadStringW( IDS_SELECT_SORT );
 	labelsAxisX_["Simple Sorts"][1] = str;
-	labelsSimpleSorts[1] = str;
 	str.LoadStringW( IDS_INSERT_SORT );
 	labelsAxisX_["Simple Sorts"][2] = str;
-	labelsSimpleSorts[2] = str;
 	str.LoadStringW( IDS_QUICK_SORT );
 	labelsAxisX_["Efficient Sorts"][0] = str;
-	labelsEfficientSorts[0] = str;
 	str.LoadStringW( IDS_HEAP_SORT );
 	labelsAxisX_["Efficient Sorts"][1] = str;
-	labelsEfficientSorts[1] = str;
 	str.LoadStringW( IDS_HALF_SORT );
 	labelsAxisX_["Efficient Sorts"][2] = str;
-	labelsEfficientSorts[2] = str;
 }
 
-void Chart::loadColors()
+void
+Chart::loadColors()
 {
 	barColors_[0] = MINT;
 	barColors_[1] = VIOLET;
@@ -114,22 +101,24 @@ void Chart::loadColors()
 	barColors_[5] = PINK;
 }
 
-void Chart::calculateLabelsY()
+void
+Chart::calculateLabelsY()
 {
 	CString str;
 	for ( int i = 0; i < 20; ++i )
 	{
 		str.Format( L"%lu", static_cast<unsigned long>(max_ / 19.0 * (19 - i)) );
-		labelsY_[i+1] = str;
+		labelsAxisY_[i+1] = str;
 	}
 
 	str.Format( L"%lu", max_ + max_ / 38 );
-	labelsY_[0] = str;
+	labelsAxisY_[0] = str;
 }
 
-void Chart::paintLabelsX( std::shared_ptr<CRect> clientWindow, CDC *pDC )
+void
+Chart::paintLabelsX( std::shared_ptr<CRect> clientWindow, CDC *pDC )
 {
-	CFont* oldFont = (CFont*)pDC->SelectObject( fontAxisX_.get() );
+	CFont* oldFont = static_cast<CFont*>(pDC->SelectObject( fontAxisX_.get() ));
 	
 	int idx = 0;
 	if(sortsType_ == ALL || sortsType_ == SIMPLE)
@@ -143,44 +132,43 @@ void Chart::paintLabelsX( std::shared_ptr<CRect> clientWindow, CDC *pDC )
 	pDC->SelectObject( oldFont );
 }
 
-void Chart::paintLabelsY( std::shared_ptr<CRect> clientWindow, CDC *pDC )
+void
+Chart::paintLabelsY( std::shared_ptr<CRect> clientWindow, CDC *pDC )
 {
 	CFont* oldFont = static_cast<CFont*>(pDC->SelectObject( fontAxisY_.get() ));
 	for(int i = 0; i <= 20; ++i )
-		pDC->TextOutW( 60, static_cast<int>(clientWindow->Height() * .9 / 20 * i), labelsY_[i] );
+		pDC->TextOutW( 60, static_cast<int>(clientWindow->Height() * .9 / 20 * i), labelsAxisY_[i] );
 	pDC->SelectObject( oldFont );
 }
 
-/*void Chart::fillArray()
-{
-	int *p = sortArray_;
-	for ( int i = 0; i < MAX_ELEMENTS; ++i, ++p )
-		*p = rand() % MAX_ELEMENTS;
-}*/
-
-void Chart::createBars( std::shared_ptr<CRect> clientWindow )
+void
+Chart::createBars( std::shared_ptr<CRect> clientWindow )
 {
 	for(int i = 0; i < sortTimes_.size(); ++i )
-		sortBars_.push_back( ColorRect( CPoint( clientWindow->Height() * .9 + 10, 170 + 97 * i),
-			CSize( -((clientWindow->Height() * .9 - clientWindow->Height() * .9 / 20) / max_ * sortTimes_[i]), 30 ), 1, BLACK, barColors_[i] ) );
+		sortBars_.push_back( ColorRect( CPoint( 170 + 97 * i, clientWindow->Height() * .9 + 10 ),
+			CSize( 30, -((clientWindow->Height() * .9 - clientWindow->Height() * .9 / 20) / max_ * sortTimes_[i]) ), 1, BLACK, barColors_[i] ) );
 }
 
-void Chart::callSort( std::function<void( int*, int )> sort )
+void
+Chart::callSort( std::function<void( int*, int )> sort )
 {
 	unsigned long sortTime;
 	int *arr = new int[MAX_ELEMENTS];
 	for ( int i = 0; i < MAX_ELEMENTS; ++i )
 		arr[i] = sortArray_[i];
+	
 	unsigned long startTime = GetTickCount();
 	sort( arr, MAX_ELEMENTS );
 	unsigned long endTime = GetTickCount();
 	sortTime = endTime - startTime;
 	max_ = sortTime > max_ ? sortTime : max_;
 	sortTimes_.push_back( sortTime );
+	
 	delete []arr;
 }
 
-void Chart::sort()
+void
+Chart::sort()
 {
 	if ( sortsType_ == ALL || sortsType_ == SIMPLE )
 	{
@@ -188,23 +176,25 @@ void Chart::sort()
 		callSort( SelectionSort );
 		callSort( InsertionSort );
 	}
+	
 	if ( sortsType_ == ALL || sortsType_ == EFFICIENT )
 	{
 		callSort( callQuickSort );
 		callSort( HeapSort );
 		callSort( HalfSort );
-	}
-		
+	}		
 }
 
-void Chart::resetSorts()
+void
+Chart::resetSorts()
 {
 	sortTimes_.clear();
 	sortBars_.clear();
 	max_ = 40;
 }
 
-void Chart::createFont( std::shared_ptr<CFont> fontObj, CString fontType, int height, int width)
+void
+Chart::createFont( std::shared_ptr<CFont> fontObj, CString fontType, int height, int width)
 {
 	LOGFONT logFont;
 	memset( &logFont, 0, sizeof( LOGFONT ) );

@@ -13,7 +13,8 @@ Grid::~Grid()
 {
 }
 
-void Grid::paint(CDC* pDC)
+void
+Grid::paint(CDC* pDC)
 {
 	CPen* pOldPen = pDC->SelectObject(penOutline_.get());
 	pDC->MoveTo(outline_.top);
@@ -28,7 +29,8 @@ void Grid::paint(CDC* pDC)
 	pDC->SelectObject(pOldPen);
 }
 
-void Grid::calculateLines(std::shared_ptr<CRect> clientWindow)
+void
+Grid::calculateLines(std::shared_ptr<CRect> clientWindow)
 {
 	this->outline_.top = {100, 10};
 	this->outline_.intersection = {100, static_cast<int>(clientWindow->Height() * .9) + 10};
@@ -41,12 +43,3 @@ void Grid::calculateLines(std::shared_ptr<CRect> clientWindow)
 	this->lines_[0][0] = {100, 10};
 	this->lines_[0][1] = {static_cast<int>(clientWindow->Width() * .9), 10};
 }
-/*
-std::array<double, 20> Grid::getLinesY()
-{
-	std::array<double, 20> y;
-	for ( int i = 0; i < 20; ++i )
-		y[i] = lines_[i][0].x;
-	return y;
-}
-*/

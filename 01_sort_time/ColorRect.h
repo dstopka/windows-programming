@@ -10,10 +10,10 @@ public:
 	ColorRect( const CPoint &point, const CSize &size, int penWidth = 0, COLORREF penColor = BLACK, COLORREF bgColor = BLACK );
 	~ColorRect();
 
-	void paint( CDC *pDC );
+	void paint( CDC *pDC ) const;
 	void setAttr( int penWidth = 0, COLORREF penColor = BLACK, COLORREF bgColor = BLACK );
-	std::shared_ptr<CPen> getPen();
-	std::shared_ptr<CBrush> getBrush();
+	std::shared_ptr<CPen> getPen() const;
+	std::shared_ptr<CBrush> getBrush() const;
 
 private:
 	void createAttr( int penWidth, COLORREF penColor, COLORREF bgColor );
