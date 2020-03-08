@@ -4,8 +4,8 @@
 
 Grid::Grid()
 {
-	this->penOutline = std::make_shared<CPen>(PS_SOLID, 1, BLACK);
-	this->penGrid = std::make_shared<CPen>(PS_SOLID, 1, GREY);
+	this->penOutline_ = std::make_shared<CPen>(PS_SOLID, 1, BLACK);
+	this->penGrid_ = std::make_shared<CPen>(PS_SOLID, 1, GREY);
 }
 
 
@@ -15,12 +15,12 @@ Grid::~Grid()
 
 void Grid::paint(CDC* pDC)
 {
-	CPen* pOldPen = pDC->SelectObject(penOutline.get());
-	pDC->MoveTo(outline.top);
-	pDC->LineTo(outline.intersection);
-	pDC->LineTo(outline.right);
-	pDC->SelectObject(penGrid.get());
-	for (auto& x : lines)
+	CPen* pOldPen = pDC->SelectObject(penOutline_.get());
+	pDC->MoveTo(outline_.top);
+	pDC->LineTo(outline_.intersection);
+	pDC->LineTo(outline_.right);
+	pDC->SelectObject(penGrid_.get());
+	for (auto& x : lines_)
 	{
 		pDC->MoveTo(x[0]);
 		pDC->LineTo(x[1]);
@@ -30,22 +30,23 @@ void Grid::paint(CDC* pDC)
 
 void Grid::calculateLines(std::shared_ptr<CRect> clientWindow)
 {
-	this->outline.top = {100, 10};
-	this->outline.intersection = {100, static_cast<int>(clientWindow->Height() * .9) + 10};
-	this->outline.right = {static_cast<int>(clientWindow->Width() * .9), static_cast<int>(clientWindow->Height() * .9) + 10};
+	this->outline_.top = {100, 10};
+	this->outline_.intersection = {100, static_cast<int>(clientWindow->Height() * .9) + 10};
+	this->outline_.right = {static_cast<int>(clientWindow->Width() * .9), static_cast<int>(clientWindow->Height() * .9) + 10};
 	for (auto i = 19; i > 0; --i)
 	{
-		this->lines[i][0] = {100, static_cast<int>(clientWindow->Height() * .9 / 20 * i) + 10};
-		this->lines[i][1] = {static_cast<int>(clientWindow->Width() * .9), static_cast<int>(clientWindow->Height() * .9 / 20 * i) + 10};
+		this->lines_[i][0] = {100, static_cast<int>(clientWindow->Height() * .9 / 20 * i) + 10};
+		this->lines_[i][1] = {static_cast<int>(clientWindow->Width() * .9), static_cast<int>(clientWindow->Height() * .9 / 20 * i) + 10};
 	}
-	this->lines[0][0] = {100, 10};
-	this->lines[0][1] = {static_cast<int>(clientWindow->Width() * .9), 10};
+	this->lines_[0][0] = {100, 10};
+	this->lines_[0][1] = {static_cast<int>(clientWindow->Width() * .9), 10};
 }
-
+/*
 std::array<double, 20> Grid::getLinesY()
 {
 	std::array<double, 20> y;
 	for ( int i = 0; i < 20; ++i )
-		y[i] = lines[i][0].x;
+		y[i] = lines_[i][0].x;
 	return y;
 }
+*/

@@ -68,8 +68,8 @@ void SortTimeView::OnDraw(CDC* pDC)
 	{
 		
 		//this->crectan.paint(pDC);
-		//for (int i = 1; i <= this->chart.labelsY.size(); ++i)
-			//pDC->TextOutW(100 * i + 50, this->clientRect->Height() * .9 + 10, this->chart.labelsY[i - 1]);
+		//for (int i = 1; i <= this->chart.labelsY_.size(); ++i)
+			//pDC->TextOutW(100 * i + 50, this->clientRect->Height() * .9 + 10, this->chart.labelsY_[i - 1]);
 		chart.paint(this->clientRect, pDC);
 	}
 

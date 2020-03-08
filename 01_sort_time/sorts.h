@@ -15,5 +15,7 @@ void HeapSort( int* Tab, int nSize );
 void callMergeSort( int *t, int nSize );
 void callQuickSort( int *t, int nSize );
 
+void fillArray(int* array, int nSize);
+
 #endif
 

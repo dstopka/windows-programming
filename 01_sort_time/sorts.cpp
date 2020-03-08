@@ -341,3 +341,10 @@ void callQuickSort( int *pTab, int nSize )
 {
 	QuickSort( pTab, 0, nSize - 1 );
 }
+
+void fillArray( int* array, int nSize )
+{
+	int *p = array;
+	for ( int i = 0; i < nSize; ++i, ++p )
+		*p = rand() % nSize;
+}

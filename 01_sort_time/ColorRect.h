@@ -17,7 +17,7 @@ public:
 
 private:
 	void createAttr( int penWidth, COLORREF penColor, COLORREF bgColor );
-	std::shared_ptr<CPen> pen;
-	std::shared_ptr<CBrush> brush;
+	std::shared_ptr<CPen> pen_;
+	std::shared_ptr<CBrush> brush_;
 };
 

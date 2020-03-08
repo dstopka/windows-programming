@@ -3,6 +3,8 @@
 #include <memory>
 #include <vector>
 #include <functional>
+#include <map>
+
 #include "ColorRect.h"
 #include "Grid.h"
 
@@ -14,9 +16,12 @@ class Chart
 {
 public:
 	Chart();
+	Chart( const Chart& chart );
+	Chart( const Chart&& chart ) noexcept;
+	Chart& operator=( const Chart& chart );
+	Chart& operator=( Chart&& chart ) noexcept;
 	~Chart();
-	Grid &getGrid();
-	std::vector<ColorRect> &getRects();
+
 	void setSortsType(enum sorts choice);
 	void paint( std::shared_ptr<CRect> clientWindow, CDC *pDC );
 	
@@ -26,7 +31,7 @@ private:
 	void calculateLabelsY();
 	void paintLabelsX( std::shared_ptr<CRect> clientWindow, CDC *pDC );
 	void paintLabelsY( std::shared_ptr<CRect> clientWindow, CDC *pDC );
-	void fillArray();
+	//void fillArray();
 	void createBars( std::shared_ptr<CRect> clientWindow );
 	void callSort( std::function<void( int*, int )> sort );
 	void sort();
@@ -34,16 +39,20 @@ private:
 	void createFont( std::shared_ptr<CFont> fontObj, CString fontType, int height, int width );
 	
 private:
+	Grid grid_;
 	std::array<CString, 3> labelsSimpleSorts;
 	std::array<CString, 3> labelsEfficientSorts;
-	Grid grid;
-	std::array<CString, 21> labelsY;	
-	std::vector<ColorRect> sortBars;
-	std::vector<unsigned long> sortTimes;
-	int* sortArr = new int[MAX_ELEMENTS];
-	std::array<COLORREF, 6> barColors;
-	sorts sortsType;
-	unsigned long max;
-	std::shared_ptr<CFont> fontAxisX;
-	std::shared_ptr<CFont> fontAxisY;
+	std::map<std::string, std::array<CString, 3>> labelsAxisX_;
+	std::array<CString, 21> labelsY_;
+	
+	sorts sortsType_;
+	std::vector<ColorRect> sortBars_;
+	std::array<COLORREF, 6> barColors_;
+
+	int* sortArray_;
+	std::vector<unsigned long> sortTimes_;
+	unsigned long max_;
+
+	std::shared_ptr<CFont> fontAxisX_;
+	std::shared_ptr<CFont> fontAxisY_;
 };

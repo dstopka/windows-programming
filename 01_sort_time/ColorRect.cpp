@@ -30,8 +30,8 @@ ColorRect::~ColorRect()
 
 void ColorRect::paint(CDC* pDC)
 {
-	CPen* oldPen = static_cast<CPen*>(pDC->SelectObject(this->pen.get()));
-	CBrush* oldBrush = static_cast<CBrush*>(pDC->SelectObject(this->brush.get()));
+	CPen* oldPen = static_cast<CPen*>(pDC->SelectObject(this->pen_.get()));
+	CBrush* oldBrush = static_cast<CBrush*>(pDC->SelectObject(this->brush_.get()));
 	pDC->Rectangle(this->top, this->left, this->bottom, this->right);
 	static_cast<CPen*>(pDC->SelectObject(oldPen));
 	static_cast<CBrush*>(pDC->SelectObject(oldBrush));
@@ -43,16 +43,16 @@ void ColorRect::setAttr(int penWidth, COLORREF penColor, COLORREF bgColor)
 
 std::shared_ptr<CPen> ColorRect::getPen()
 {
-	return this->pen;
+	return this->pen_;
 }
 
 std::shared_ptr<CBrush> ColorRect::getBrush()
 {
-	return this->brush;
+	return this->brush_;
 }
 
 void ColorRect::createAttr(int penWidth, COLORREF penColor, COLORREF bgColor)
 {
-	this->pen = std::make_shared<CPen>(PS_SOLID, penWidth, penColor);
-	this->brush = std::make_shared<CBrush>(bgColor);
+	this->pen_ = std::make_shared<CPen>(PS_SOLID, penWidth, penColor);
+	this->brush_ = std::make_shared<CBrush>(bgColor);
 }
