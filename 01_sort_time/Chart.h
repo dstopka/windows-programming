@@ -8,7 +8,11 @@
 #include "ColorRect.h"
 #include "Grid.h"
 
-#define MAX_ELEMENTS 10000
+#define MAX_ELEMENTS			50000
+#define SIMPLE_SORTS_ELEMENTS	10000
+#define COLORS_NUMBER			6
+#define VERTICAL_DIVISION		21
+#define SORTS_GROUP_NUMBER		3
 
 enum sorts { ALL, SIMPLE, EFFICIENT };
 
@@ -35,12 +39,12 @@ private:
 	
 private:
 	Grid grid_;
-	std::map<std::string, std::array<CString, 3>> labelsAxisX_;
-	std::array<CString, 21> labelsAxisY_;
+	std::map<std::string, std::array<CString, SORTS_GROUP_NUMBER>> labelsAxisX_;
+	std::array<CString, VERTICAL_DIVISION> labelsAxisY_;
 	
 	sorts sortsType_;
 	std::vector<ColorRect> sortBars_;
-	std::array<COLORREF, 6> barColors_;
+	std::array<COLORREF, COLORS_NUMBER> barColors_;
 
 	int* sortArray_;
 	std::vector<unsigned long> sortTimes_;

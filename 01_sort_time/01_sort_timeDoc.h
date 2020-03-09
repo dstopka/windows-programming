@@ -4,7 +4,7 @@
 
 
 #pragma once
-
+#include "Chart.h"
 
 class CMy01_sort_timeDoc : public CDocument
 {
@@ -14,7 +14,7 @@ protected: // create from serialization only
 
 // Attributes
 public:
-
+	Chart& getChart();
 // Operations
 public:
 
@@ -45,4 +45,7 @@ protected:
 	// Helper function that sets search content for a Search Handler
 	void SetSearchContent(const CString& value);
 #endif // SHARED_HANDLERS
+
+private:
+	Chart chart_;
 };

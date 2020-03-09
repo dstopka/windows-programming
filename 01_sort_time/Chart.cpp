@@ -25,13 +25,14 @@ Chart::Chart()
 
 Chart::~Chart()
 {
-	delete sortArray_;
+	delete []sortArray_;
 }
 
 void
 Chart::setSortsType( enum sorts choice )
 {
 	sortsType_ = choice;
+	this->resetSorts();
 	this->sort();
 	std::random_shuffle( barColors_.begin(), barColors_.end() );
 }
@@ -56,7 +57,6 @@ Chart::loadSortsLabels()
 	CString str;
 	str.LoadStringW( IDS_BUBBLE_SORT );
 	labelsAxisX_["Simple Sorts"][0] = str;
-
 	str.LoadStringW( IDS_SELECT_SORT );
 	labelsAxisX_["Simple Sorts"][1] = str;
 	str.LoadStringW( IDS_INSERT_SORT );
@@ -116,7 +116,7 @@ Chart::paintLabelsY( std::shared_ptr<CRect> clientWindow, CDC *pDC )
 {
 	CFont* oldFont = static_cast<CFont*>(pDC->SelectObject( fontAxisY_.get() ));
 	for(int i = 0; i <= 20; ++i )
-		pDC->TextOutW( 60, static_cast<int>(clientWindow->Height() * 0.9 / 20 * i), labelsAxisY_[i] );
+		pDC->TextOutW( 55, static_cast<int>(clientWindow->Height() * 0.9 / 20 * i), labelsAxisY_[i] );
 	pDC->SelectObject( oldFont );
 }
 
@@ -134,12 +134,12 @@ Chart::createBars( std::shared_ptr<CRect> clientWindow )
 void
 Chart::callSort( std::function<void( int*, int )> sort )
 {
-	int *arr = new int[MAX_ELEMENTS];
-	for ( int i = 0; i < MAX_ELEMENTS; ++i )
-		arr[i] = sortArray_[i];
-	
+	int nSize = sortsType_ == SIMPLE ? SIMPLE_SORTS_ELEMENTS : MAX_ELEMENTS;
+	int *arr = new int[nSize];
+	for ( int i = 0; i < nSize; ++i )
+		arr[i] = sortArray_[i];	
 	unsigned long startTime = GetTickCount();
-	sort( arr, MAX_ELEMENTS );
+	sort( arr, nSize );
 	unsigned long endTime = GetTickCount();
 	unsigned long sortTime = endTime - startTime;
 	max_ = sortTime > max_ ? sortTime : max_;
@@ -151,14 +151,11 @@ Chart::callSort( std::function<void( int*, int )> sort )
 void
 Chart::sort()
 {
-	this->resetSorts();
-	fillArray( sortArray_, MAX_ELEMENTS );
 	if ( sortsType_ == ALL || sortsType_ == SIMPLE )
 	{
 		callSort( BubbleSort );
 		callSort( SelectionSort );
 		callSort( InsertionSort );
-
 	}
 	
 	if ( sortsType_ == ALL || sortsType_ == EFFICIENT )
@@ -175,6 +172,17 @@ Chart::resetSorts()
 	sortTimes_.clear();
 	sortBars_.clear();
 	max_ = 40;
+	delete []sortArray_;
+	if ( sortsType_ == SIMPLE )
+	{
+		sortArray_ = new int[SIMPLE_SORTS_ELEMENTS];
+		fillArray( sortArray_, SIMPLE_SORTS_ELEMENTS );
+	}
+	else
+	{
+		sortArray_ = new int[MAX_ELEMENTS];
+		fillArray( sortArray_, MAX_ELEMENTS );
+	}
 }
 
 void

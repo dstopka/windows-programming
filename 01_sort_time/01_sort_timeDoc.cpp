@@ -33,6 +33,11 @@ CMy01_sort_timeDoc::CMy01_sort_timeDoc()
 
 }
 
+Chart & CMy01_sort_timeDoc::getChart()
+{
+	return chart_;
+}
+
 CMy01_sort_timeDoc::~CMy01_sort_timeDoc()
 {
 }

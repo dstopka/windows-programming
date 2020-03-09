@@ -33,10 +33,7 @@ END_MESSAGE_MAP()
 
 SortTimeView::SortTimeView()
 {
-	// TODO: add construction code here
-	//this->chart = Chart();
-	this->clientRect = std::make_shared<CRect>();
-	this->crectan = CRect(100, 100, 200, 200);
+	this->clientRect_ = std::make_shared<CRect>();
 	this->allSorts = false;
 	this->simpleSorts = false;
 	this->efficientSorts = false;
@@ -58,22 +55,15 @@ BOOL SortTimeView::PreCreateWindow(CREATESTRUCT& cs)
 
 void SortTimeView::OnDraw(CDC* pDC)
 {
-	CMy01_sort_timeDoc* pDoc = GetDocument();
-	ASSERT_VALID(pDoc);
-	if (!pDoc)
+	document_ = GetDocument();
+	ASSERT_VALID(document_);
+	if (!document_)
 		return;
-	GetClientRect(this->clientRect.get());
+	GetClientRect(this->clientRect_.get());
 
 	if (this->allSorts || this->simpleSorts | this->efficientSorts)
-	{
-		
-		//this->crectan.paint(pDC);
-		//for (int i = 1; i <= this->chart.labelsAxisY_.size(); ++i)
-			//pDC->TextOutW(100 * i + 50, this->clientRect->Height() * .9 + 10, this->chart.labelsAxisY_[i - 1]);
-		chart.paint(this->clientRect, pDC);
-	}
+		document_->getChart().paint(this->clientRect_, pDC);
 
-	// TODO: add draw code for native data here
 }
 
 
@@ -103,11 +93,10 @@ CMy01_sort_timeDoc* SortTimeView::GetDocument() const // non-debug version is in
 
 void SortTimeView::OnSortAll()
 {
-	//chart.getRects().clear();
 	allSorts = true;
 	simpleSorts = false;
 	efficientSorts = false;
-	chart.setSortsType(ALL);
+	document_->getChart().setSortsType(ALL);
 	Invalidate();
 	UpdateWindow();
 }
@@ -115,11 +104,10 @@ void SortTimeView::OnSortAll()
 
 void SortTimeView::OnSortSimple()
 {
-	//chart.getRects().clear();
 	allSorts = false;
 	simpleSorts = true;
 	efficientSorts = false;
-	chart.setSortsType(SIMPLE);
+	document_->getChart().setSortsType(SIMPLE);
 	Invalidate();
 	UpdateWindow();
 }
@@ -127,11 +115,10 @@ void SortTimeView::OnSortSimple()
 
 void SortTimeView::OnSortEfficient()
 {
-	//chart.getRects().clear();
 	allSorts = false;
 	simpleSorts = false;
 	efficientSorts = true;
-	chart.setSortsType(EFFICIENT);
+	document_->getChart().setSortsType(EFFICIENT);
 	Invalidate();
 	UpdateWindow();
 }

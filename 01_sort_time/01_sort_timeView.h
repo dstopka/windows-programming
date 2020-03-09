@@ -37,9 +37,9 @@ protected:
 	DECLARE_MESSAGE_MAP()
 
 private:
-	Chart chart;
-	ColorRect crectan;
-	std::shared_ptr<CRect> clientRect;
+	//Chart chart_;
+	std::shared_ptr<CRect> clientRect_;
+	CMy01_sort_timeDoc* document_;
 	bool allSorts;
 	bool efficientSorts;
 	bool simpleSorts;

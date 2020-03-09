@@ -40,6 +40,11 @@ void ColorRect::paint( CDC * pDC ) const
 void
 ColorRect::setAttr(int penWidth, COLORREF penColor, COLORREF bgColor)
 {
+	pen_->DeleteObject();
+	brush_->DeleteObject();
+
+	pen_->CreatePen(  PS_SOLID, penWidth, penColor );
+	brush_->CreateSolidBrush(bgColor);
 }
 
 std::shared_ptr<CPen>
