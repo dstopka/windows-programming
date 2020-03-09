@@ -264,7 +264,7 @@ BEGIN
     IDS_INSERT_SORT         "Insert"
     IDS_SELECT_SORT         "Select"
     IDS_BUBBLE_SORT         "Bubble"
-    IDS_HALF_SORT           "Half"
+    IDS_HALF_SORT           "Binary"
     IDS_QUICK_SORT          "Quick"
     IDS_HEAP_SORT           "Heap"
 END

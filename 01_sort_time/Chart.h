@@ -16,10 +16,6 @@ class Chart
 {
 public:
 	Chart();
-	Chart( const Chart& chart );
-	Chart( const Chart&& chart ) noexcept;
-	Chart& operator=( const Chart& chart );
-	Chart& operator=( Chart&& chart ) noexcept;
 	~Chart();
 
 	void setSortsType(enum sorts choice);
