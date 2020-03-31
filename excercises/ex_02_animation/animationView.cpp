@@ -25,9 +25,16 @@ BEGIN_MESSAGE_MAP(CanimationView, CView)
 	ON_COMMAND( ID_START_STOP, &CanimationView::OnStartStop )
 	ON_WM_DESTROY()
 	ON_WM_TIMER()
+	ON_WM_ERASEBKGND()
 END_MESSAGE_MAP()
 
 // CanimationView construction/destruction
+
+void CALLBACK ZfxTimerProc(HWND hWnd, UINT nMsg, UINT nIDEvent, DWORD dwTime)
+{
+	::SendMessage( hWnd, WM_TIMER, 0, 0 );
+}
+
 
 CanimationView::CanimationView()
 {
@@ -36,6 +43,8 @@ CanimationView::CanimationView()
 	ballBrush_ = std::make_unique<CBrush>( BLUE );
 	ballOffX_ = 3;
 	ballOffY_ = 1;
+	isStart_ = FALSE;
+	clientRect_ = std::make_unique<CRect>( 0, 0, 0, 0 );
 }
 
 CanimationView::~CanimationView()
@@ -58,13 +67,33 @@ void CanimationView::OnDraw(CDC* pDC)
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
 		return;
-
+	/*
 	CPen* oldPen = pDC->SelectObject( ballPen_.get() );
 	CBrush* oldBrush = pDC->SelectObject( ballBrush_.get() );
 
 	pDC->Ellipse( ball_.get() );
 	pDC->SelectObject( oldPen );
 	pDC->SelectObject( oldBrush );
+	*/
+
+	CDC memDC;
+	bool b = memDC.CreateCompatibleDC( pDC );
+	ASSERT( b );
+	CBitmap bmp;
+	b = bmp.CreateCompatibleBitmap( pDC, clientRect_->Width(), clientRect_->Height() );
+	ASSERT( b );
+	auto oldBitmap = memDC.SelectObject( &bmp );
+	memDC.FillSolidRect( clientRect_.get(), RGB( 230, 230, 230 ) );
+
+	CPen* oldPen = memDC.SelectObject( ballPen_.get() );
+	CBrush* oldBrush = memDC.SelectObject( ballBrush_.get() );
+
+	b = pDC->BitBlt( 0, 0, clientRect_->Width(), clientRect_->Height(), &memDC, 0, 0, SRCCOPY );
+	ASSERT( b );
+
+	memDC.SelectObject( oldBitmap );
+	bmp.DeleteObject();
+	memDC.DeleteDC();
 }
 
 
@@ -94,7 +123,7 @@ CanimationDoc* CanimationView::GetDocument() const // non-debug version is inlin
 
 void CanimationView::OnStartStop()
 {
-	// TODO: Add your command handler code here
+	isStart_ = !isStart_;
 }
 
 
@@ -102,7 +131,7 @@ void CanimationView::OnInitialUpdate()
 {
 	CView::OnInitialUpdate();
 
-	timerID_ = SetTimer( WM_USER + 1, 20, nullptr );
+	timerID_ = SetTimer( WM_USER + 1, 20, ZfxTimerProc );
 }
 
 
@@ -115,7 +144,25 @@ void CanimationView::OnDestroy()
 
 void CanimationView::OnTimer( UINT_PTR nIDEvent )
 {
-	// TODO: Add your message handler code here and/or call default
-
+	if ( isStart_ )
+	{
+		ball_->OffsetRect( ballOffX_, ballOffY_ );
+		Invalidate();
+	}
 	CView::OnTimer( nIDEvent );
+}
+
+
+
+BOOL CanimationView::OnEraseBkgnd( CDC* pDC )
+{
+	return 1;
+	//return CView::OnEraseBkgnd( pDC );
+}
+
+
+void CanimationView::OnPrepareDC( CDC* pDC, CPrintInfo* pInfo )
+{
+	GetClientRect( clientRect_.get() );
+	CView::OnPrepareDC( pDC, pInfo );
 }

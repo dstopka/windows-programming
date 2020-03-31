@@ -50,11 +50,15 @@ private:
 	std::unique_ptr<CBrush> ballBrush_;
 	int ballOffX_;
 	int ballOffY_;
+	bool isStart_;
+	std::unique_ptr<CRect> clientRect_;
 	
 public:
 	virtual void OnInitialUpdate();
 	afx_msg void OnDestroy();
 	afx_msg void OnTimer( UINT_PTR nIDEvent );
+	afx_msg BOOL OnEraseBkgnd( CDC* pDC );
+	virtual void OnPrepareDC( CDC* pDC, CPrintInfo* pInfo = NULL );
 };
 
 #ifndef _DEBUG  // debug version in animationView.cpp
