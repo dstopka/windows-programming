@@ -78,8 +78,10 @@ IDR_COUNTRIES_BAR TOOLBAR 33, 28
 BEGIN
     BUTTON      ID_JAMAJKA
     BUTTON      ID_JAPAN
+    BUTTON      ID_POLAND
     SEPARATOR
     BUTTON      ID_APP_ABOUT
+    BUTTON      ID_BUTTON32784
 END
 
 
@@ -162,6 +164,7 @@ BEGIN
         MENUITEM "Jamajka",                     ID_JAMAJKA
         MENUITEM SEPARATOR
         MENUITEM "Japan",                       ID_JAPAN
+        MENUITEM "Poland",                      ID_POLAND
     END
     POPUP "&Help"
     BEGIN
@@ -381,6 +384,11 @@ STRINGTABLE
 BEGIN
     AFX_IDS_SCRESTORE       "Restore the window to normal size"
     AFX_IDS_SCTASKLIST      "Activate Task List"
+END
+
+STRINGTABLE
+BEGIN
+    ID_POLAND               "Select Poland"
 END
 
 #endif    // English (United States) resources

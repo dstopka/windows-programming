@@ -3,6 +3,7 @@
 //
 
 #include "stdafx.h"
+#include <memory>
 // SHARED_HANDLERS can be defined in an ATL project implementing preview, thumbnail
 // and search filter handlers and allows sharing of document code with that project.
 #ifndef SHARED_HANDLERS
@@ -11,6 +12,8 @@
 
 #include "ex_01_toolbarDoc.h"
 #include "01_toolbarView.h"
+
+#include "MainFrm.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -26,14 +29,16 @@ BEGIN_MESSAGE_MAP(Cex_01_toolbarView, CView)
 	ON_UPDATE_COMMAND_UI( ID_JAMAJKA, &Cex_01_toolbarView::OnUpdateJamajka )
 	ON_COMMAND( ID_JAPAN, &Cex_01_toolbarView::OnJapan )
 	ON_UPDATE_COMMAND_UI( ID_JAPAN, &Cex_01_toolbarView::OnUpdateJapan )
+	ON_COMMAND( ID_POLAND, &Cex_01_toolbarView::OnPoland )
 END_MESSAGE_MAP()
 
 // Cex_01_toolbarView construction/destruction
 
 Cex_01_toolbarView::Cex_01_toolbarView()
 {
-	isJamajka = TRUE;
-	isJapan = FALSE;
+	isJamajka_ = TRUE;
+	isJapan_ = FALSE;
+	isPoland_ = FALSE;
 }
 
 Cex_01_toolbarView::~Cex_01_toolbarView()
@@ -87,25 +92,33 @@ Cex_01_toolbarDoc* Cex_01_toolbarView::GetDocument() const // non-debug version 
 
 void Cex_01_toolbarView::OnJamajka()
 {
-	isJamajka = FALSE;
-	isJapan = TRUE;
+	isJamajka_ = FALSE;
+	isJapan_ = TRUE;
 }
 
 
 void Cex_01_toolbarView::OnUpdateJamajka( CCmdUI *pCmdUI )
 {
-	pCmdUI->Enable( isJamajka );
+	pCmdUI->Enable( isJamajka_ );
 }
 
 
 void Cex_01_toolbarView::OnJapan()
 {
-	isJamajka = TRUE;
-	isJapan = FALSE;
+	isJamajka_ = TRUE;
+	isJapan_ = FALSE;
 }
 
 
 void Cex_01_toolbarView::OnUpdateJapan( CCmdUI *pCmdUI )
 {
-	pCmdUI->Enable( isJapan );
+	pCmdUI->Enable( isJapan_ );
+}
+
+
+void Cex_01_toolbarView::OnPoland()
+{
+	isPoland_ = !isPoland_;
+	auto frame = static_cast<CMainFrame*>( GetParentFrame() );
+	frame->resetButton( isPoland_ );
 }

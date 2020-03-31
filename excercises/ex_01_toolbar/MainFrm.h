@@ -21,6 +21,7 @@ public:
 // Overrides
 public:
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
+	void resetButton( bool button );
 
 // Implementation
 public:

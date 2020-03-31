@@ -29,7 +29,7 @@ static UINT indicators[] =
 
 // CMainFrame construction/destruction
 
-std::vector<UINT> CMainFrame::buttonsIDs = { ID_JAMAJKA, ID_JAPAN, ID_APP_ABOUT };
+std::vector<UINT> CMainFrame::buttonsIDs = { ID_JAMAJKA, ID_JAPAN, ID_POLAND, ID_APP_ABOUT };
 
 CMainFrame::CMainFrame()
 {
@@ -55,7 +55,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	if( !m_wndToolBar.Create(this) || 
 		!m_wndToolBar.LoadBitmap(IDR_COUNTRIES_BAR) ||
-		!m_wndToolBar.SetButtons(&buttonsIDs[0], buttonsIDs.size() * sizeof(UINT)))
+		!m_wndToolBar.SetButtons(&buttonsIDs[0], buttonsIDs.size()))
 	{
 		TRACE0( "Failed to create status bar\n" );
 		return -1;      // fail to create
@@ -90,6 +90,17 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 	//  the CREATESTRUCT cs
 
 	return TRUE;
+}
+
+void CMainFrame::resetButton( bool button )
+{
+	const int buttonIx = buttonsIDs.size();
+	if ( button )
+		m_wndToolBar.SetButtonInfo( 2, ID_POLAND, TBBS_BUTTON, buttonIx );
+	else
+		m_wndToolBar.SetButtonInfo( 2, ID_POLAND, TBBS_BUTTON, 2 );
+
+	m_wndToolBar.Invalidate();
 }
 
 // CMainFrame diagnostics

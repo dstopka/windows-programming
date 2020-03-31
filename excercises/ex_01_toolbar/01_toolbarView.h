@@ -44,8 +44,11 @@ public:
 	afx_msg void OnUpdateJapan( CCmdUI *pCmdUI );
 
 private:
-	bool isJapan;
-	bool isJamajka;
+	bool isJapan_;
+	bool isJamajka_;
+	bool isPoland_;
+public:
+	afx_msg void OnPoland();
 };
 
 #ifndef _DEBUG  // debug version in 01_toolbarView.cpp
