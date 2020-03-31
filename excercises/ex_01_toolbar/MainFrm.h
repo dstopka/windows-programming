@@ -3,6 +3,7 @@
 //
 
 #pragma once
+#include <vector>
 
 class CMainFrame : public CFrameWnd
 {
@@ -30,8 +31,9 @@ public:
 #endif
 
 protected:  // control bar embedded members
-	CToolBar          m_wndToolBar;
-	CStatusBar        m_wndStatusBar;
+	CToolBar					m_wndToolBar;
+	CStatusBar					m_wndStatusBar;
+	static std::vector<UINT>	buttonsIDs;
 
 // Generated message map functions
 protected:
