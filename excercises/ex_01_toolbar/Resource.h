@@ -14,14 +14,14 @@
 #define ID_COUNTRIES_POLAND             32781
 #define ID_POLAND                       32782
 #define ID_BUTTON32784                  32784
-#define ID_BUTTON32786                  32786
+#define ID_COUNTRIES                    32792
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        312
-#define _APS_NEXT_COMMAND_VALUE         32788
+#define _APS_NEXT_COMMAND_VALUE         32794
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           310
 #endif

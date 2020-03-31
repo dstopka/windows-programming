@@ -119,6 +119,7 @@ BOOL Cex_01_toolbarApp::InitInstance()
 		return FALSE;
 
 	// The one and only window has been initialized, so show and update it
+	m_pMainWnd->SetWindowText( L"Stopka Dariusz Toolbar");
 	m_pMainWnd->ShowWindow(SW_SHOW);
 	m_pMainWnd->UpdateWindow();
 	return TRUE;
