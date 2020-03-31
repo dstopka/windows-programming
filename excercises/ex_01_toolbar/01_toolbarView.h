@@ -37,6 +37,15 @@ protected:
 // Generated message map functions
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnJamajka();
+	afx_msg void OnUpdateJamajka( CCmdUI *pCmdUI );
+	afx_msg void OnJapan();
+	afx_msg void OnUpdateJapan( CCmdUI *pCmdUI );
+
+private:
+	bool isJapan;
+	bool isJamajka;
 };
 
 #ifndef _DEBUG  // debug version in 01_toolbarView.cpp

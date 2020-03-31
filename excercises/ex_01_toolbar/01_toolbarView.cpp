@@ -22,14 +22,18 @@
 IMPLEMENT_DYNCREATE(Cex_01_toolbarView, CView)
 
 BEGIN_MESSAGE_MAP(Cex_01_toolbarView, CView)
+	ON_COMMAND( ID_JAMAJKA, &Cex_01_toolbarView::OnJamajka )
+	ON_UPDATE_COMMAND_UI( ID_JAMAJKA, &Cex_01_toolbarView::OnUpdateJamajka )
+	ON_COMMAND( ID_JAPAN, &Cex_01_toolbarView::OnJapan )
+	ON_UPDATE_COMMAND_UI( ID_JAPAN, &Cex_01_toolbarView::OnUpdateJapan )
 END_MESSAGE_MAP()
 
 // Cex_01_toolbarView construction/destruction
 
 Cex_01_toolbarView::Cex_01_toolbarView()
 {
-	// TODO: add construction code here
-
+	isJamajka = TRUE;
+	isJapan = FALSE;
 }
 
 Cex_01_toolbarView::~Cex_01_toolbarView()
@@ -79,3 +83,29 @@ Cex_01_toolbarDoc* Cex_01_toolbarView::GetDocument() const // non-debug version 
 
 
 // Cex_01_toolbarView message handlers
+
+
+void Cex_01_toolbarView::OnJamajka()
+{
+	isJamajka = FALSE;
+	isJapan = TRUE;
+}
+
+
+void Cex_01_toolbarView::OnUpdateJamajka( CCmdUI *pCmdUI )
+{
+	pCmdUI->Enable( isJamajka );
+}
+
+
+void Cex_01_toolbarView::OnJapan()
+{
+	isJamajka = TRUE;
+	isJapan = FALSE;
+}
+
+
+void Cex_01_toolbarView::OnUpdateJapan( CCmdUI *pCmdUI )
+{
+	pCmdUI->Enable( isJapan );
+}
