@@ -22,6 +22,7 @@
 IMPLEMENT_DYNCREATE(CanimationView, CView)
 
 BEGIN_MESSAGE_MAP(CanimationView, CView)
+	ON_COMMAND( ID_START_STOP, &CanimationView::OnStartStop )
 END_MESSAGE_MAP()
 
 // CanimationView construction/destruction
@@ -79,3 +80,9 @@ CanimationDoc* CanimationView::GetDocument() const // non-debug version is inlin
 
 
 // CanimationView message handlers
+
+
+void CanimationView::OnStartStop()
+{
+	// TODO: Add your command handler code here
+}

@@ -37,6 +37,8 @@ protected:
 // Generated message map functions
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnStartStop();
 };
 
 #ifndef _DEBUG  // debug version in animationView.cpp
