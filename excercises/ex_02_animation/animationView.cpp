@@ -44,7 +44,7 @@ CanimationView::CanimationView()
 	ballOffX_ = 3;
 	ballOffY_ = 1;
 	isStart_ = FALSE;
-	clientRect_ = std::make_unique<CRect>( 0, 0, 0, 0 );
+	clientRect_ = std::make_unique<CRect>( );
 }
 
 CanimationView::~CanimationView()
@@ -87,6 +87,11 @@ void CanimationView::OnDraw(CDC* pDC)
 
 	CPen* oldPen = memDC.SelectObject( ballPen_.get() );
 	CBrush* oldBrush = memDC.SelectObject( ballBrush_.get() );
+
+	memDC.Ellipse( ball_.get() );
+
+	memDC.SelectObject( oldPen );
+	memDC.SelectObject( oldBrush );
 
 	b = pDC->BitBlt( 0, 0, clientRect_->Width(), clientRect_->Height(), &memDC, 0, 0, SRCCOPY );
 	ASSERT( b );
