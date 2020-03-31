@@ -3,7 +3,10 @@
 //
 
 #pragma once
+#include <memory>
 
+#define BALL_SIZE 10
+#define BLUE COLORREF RGB(0, 0, 255)
 
 class CanimationView : public CView
 {
@@ -39,6 +42,19 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnStartStop();
+
+private:
+	UINT_PTR timerID_;
+	std::unique_ptr<CRect> ball_;
+	std::unique_ptr<CPen> ballPen_;
+	std::unique_ptr<CBrush> ballBrush_;
+	int ballOffX_;
+	int ballOffY_;
+	
+public:
+	virtual void OnInitialUpdate();
+	afx_msg void OnDestroy();
+	afx_msg void OnTimer( UINT_PTR nIDEvent );
 };
 
 #ifndef _DEBUG  // debug version in animationView.cpp

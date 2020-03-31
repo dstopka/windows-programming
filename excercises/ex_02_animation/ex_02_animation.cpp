@@ -153,6 +153,8 @@ protected:
 // Implementation
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnTimer( UINT_PTR nIDEvent );
 };
 
 CAboutDlg::CAboutDlg() : CDialogEx(IDD_ABOUTBOX)
@@ -165,6 +167,7 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 }
 
 BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
+	ON_WM_TIMER()
 END_MESSAGE_MAP()
 
 // App command to run the dialog
@@ -175,6 +178,3 @@ void CanimationApp::OnAppAbout()
 }
 
 // CanimationApp message handlers
-
-
-

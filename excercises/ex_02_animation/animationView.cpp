@@ -23,14 +23,19 @@ IMPLEMENT_DYNCREATE(CanimationView, CView)
 
 BEGIN_MESSAGE_MAP(CanimationView, CView)
 	ON_COMMAND( ID_START_STOP, &CanimationView::OnStartStop )
+	ON_WM_DESTROY()
+	ON_WM_TIMER()
 END_MESSAGE_MAP()
 
 // CanimationView construction/destruction
 
 CanimationView::CanimationView()
 {
-	// TODO: add construction code here
-
+	ball_ = std::make_unique<CRect>( 20, 20, 20 + BALL_SIZE, 20 + BALL_SIZE );
+	ballPen_ = std::make_unique<CPen>( PS_SOLID, 1, BLUE );
+	ballBrush_ = std::make_unique<CBrush>( BLUE );
+	ballOffX_ = 3;
+	ballOffY_ = 1;
 }
 
 CanimationView::~CanimationView()
@@ -47,14 +52,19 @@ BOOL CanimationView::PreCreateWindow(CREATESTRUCT& cs)
 
 // CanimationView drawing
 
-void CanimationView::OnDraw(CDC* /*pDC*/)
+void CanimationView::OnDraw(CDC* pDC)
 {
 	CanimationDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
 		return;
 
-	// TODO: add draw code for native data here
+	CPen* oldPen = pDC->SelectObject( ballPen_.get() );
+	CBrush* oldBrush = pDC->SelectObject( ballBrush_.get() );
+
+	pDC->Ellipse( ball_.get() );
+	pDC->SelectObject( oldPen );
+	pDC->SelectObject( oldBrush );
 }
 
 
@@ -85,4 +95,27 @@ CanimationDoc* CanimationView::GetDocument() const // non-debug version is inlin
 void CanimationView::OnStartStop()
 {
 	// TODO: Add your command handler code here
+}
+
+
+void CanimationView::OnInitialUpdate()
+{
+	CView::OnInitialUpdate();
+
+	timerID_ = SetTimer( WM_USER + 1, 20, nullptr );
+}
+
+
+void CanimationView::OnDestroy()
+{
+	KillTimer( timerID_ );
+	CView::OnDestroy();
+}
+
+
+void CanimationView::OnTimer( UINT_PTR nIDEvent )
+{
+	// TODO: Add your message handler code here and/or call default
+
+	CView::OnTimer( nIDEvent );
 }
