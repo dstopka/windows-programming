@@ -12,6 +12,8 @@
 #include "BallsAnimationDoc.h"
 #include "BallsAnimationView.h"
 
+#include "MainFrm.h"
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -26,6 +28,7 @@ BEGIN_MESSAGE_MAP(CMyBallsAnimationView, CView)
 	ON_COMMAND( ID_BALL_DELETE, &CMyBallsAnimationView::OnBallDelete )
 	ON_COMMAND( ID_ANIMATION_START, &CMyBallsAnimationView::OnAnimationStart )
 	ON_COMMAND( ID_ANIMATION_STOP, &CMyBallsAnimationView::OnAnimationStop )
+	ON_COMMAND( ID_START_STOP, &CMyBallsAnimationView::OnStartStop )
 	ON_UPDATE_COMMAND_UI( ID_ANIMATION_START, &CMyBallsAnimationView::OnUpdateAnimationStart )
 	ON_UPDATE_COMMAND_UI( ID_ANIMATION_STOP, &CMyBallsAnimationView::OnUpdateAnimationStop )
 END_MESSAGE_MAP()
@@ -101,12 +104,16 @@ void CMyBallsAnimationView::OnBallDelete()
 void CMyBallsAnimationView::OnAnimationStart()
 {
 	isAnimation_ = true;
+	auto frame = static_cast<CMainFrame*>(GetParentFrame());
+	frame->resetButton( isAnimation_ );
 }
 
 
 void CMyBallsAnimationView::OnAnimationStop()
 {
 	isAnimation_ = false;
+	auto frame = static_cast<CMainFrame*>(GetParentFrame());
+	frame->resetButton( isAnimation_ );
 }
 
 
@@ -119,4 +126,12 @@ void CMyBallsAnimationView::OnUpdateAnimationStart( CCmdUI *pCmdUI )
 void CMyBallsAnimationView::OnUpdateAnimationStop( CCmdUI *pCmdUI )
 {
 	pCmdUI->Enable( isAnimation_ );
+}
+
+
+void CMyBallsAnimationView::OnStartStop()
+{
+	isAnimation_ = !isAnimation_;
+	auto frame = static_cast<CMainFrame*>(GetParentFrame());
+	frame->resetButton( isAnimation_ );
 }

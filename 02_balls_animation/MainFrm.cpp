@@ -27,6 +27,13 @@ static UINT indicators[] =
 	ID_INDICATOR_SCRL,
 };
 
+std::vector<UINT> CMainFrame::buttonsIDs_ =
+{
+	ID_BALL_ADD,
+	ID_BALL_DELETE,
+	ID_START_STOP
+};
+
 // CMainFrame construction/destruction
 
 CMainFrame::CMainFrame()
@@ -43,12 +50,17 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if (CFrameWnd::OnCreate(lpCreateStruct) == -1)
 		return -1;
 
-	if (!m_wndToolBar.CreateEx(this, TBSTYLE_FLAT, WS_CHILD | WS_VISIBLE | CBRS_TOP | CBRS_GRIPPER | CBRS_TOOLTIPS | CBRS_FLYBY | CBRS_SIZE_DYNAMIC) ||
-		!m_wndToolBar.LoadToolBar(IDR_MAINFRAME))
+	if ( !m_wndToolBar.Create( this ) ||
+		!m_wndToolBar.LoadBitmap( IDR_MAINFRAME ) ||
+		!m_wndToolBar.SetButtons( &buttonsIDs_[0], buttonsIDs_.size() ) )
 	{
-		TRACE0("Failed to create toolbar\n");
+		TRACE0( "Failed to create status bar\n" );
 		return -1;      // fail to create
 	}
+
+	CToolBarCtrl& BarCtrl = m_wndToolBar.GetToolBarCtrl();
+	BarCtrl.SetBitmapSize( CSize( 30, 30 ) );
+	BarCtrl.SetButtonSize( CSize( 38, 37 ) );
 
 	if (!m_wndStatusBar.Create(this))
 	{
@@ -74,6 +86,17 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 	//  the CREATESTRUCT cs
 
 	return TRUE;
+}
+
+void CMainFrame::resetButton( bool button )
+{
+	const int buttonIx = buttonsIDs_.size();
+	if ( button )
+		m_wndToolBar.SetButtonInfo( 2, ID_START_STOP, TBBS_BUTTON, buttonIx );
+	else
+		m_wndToolBar.SetButtonInfo( 2, ID_START_STOP, TBBS_BUTTON, 2 );
+
+	m_wndToolBar.Invalidate();
 }
 
 // CMainFrame diagnostics

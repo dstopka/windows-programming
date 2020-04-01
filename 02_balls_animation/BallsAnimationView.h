@@ -37,6 +37,7 @@ public:
 	afx_msg void OnBallDelete();
 	afx_msg void OnAnimationStart();
 	afx_msg void OnAnimationStop();
+	afx_msg void OnStartStop();
 	afx_msg void OnUpdateAnimationStart( CCmdUI *pCmdUI );
 	afx_msg void OnUpdateAnimationStop( CCmdUI *pCmdUI );
 
