@@ -9,7 +9,7 @@
 #include "MainFrm.h"
 
 #include "BallsAnimationDoc.h"
-#include "BallsAnimation.h"
+#include "BallsAnimationView.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

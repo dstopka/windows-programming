@@ -186,7 +186,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="02_balls_animation.h" />
-    <ClInclude Include="BallsAnimation.h" />
+    <ClInclude Include="BallsAnimationView.h" />
     <ClInclude Include="BallsAnimationDoc.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="Resource.h" />
@@ -195,7 +195,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="02_balls_animation.cpp" />
-    <ClCompile Include="BallsAnimation.cpp" />
+    <ClCompile Include="BallsAnimationView.cpp" />
     <ClCompile Include="BallsAnimationDoc.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -219,4 +219,9 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="02_balls_animation.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>
