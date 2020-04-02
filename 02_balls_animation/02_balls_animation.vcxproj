@@ -186,8 +186,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="02_balls_animation.h" />
+    <ClInclude Include="Ball.h" />
     <ClInclude Include="BallsAnimationView.h" />
     <ClInclude Include="BallsAnimationDoc.h" />
+    <ClInclude Include="Colors.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
@@ -195,6 +197,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="02_balls_animation.cpp" />
+    <ClCompile Include="Ball.cpp" />
     <ClCompile Include="BallsAnimationView.cpp" />
     <ClCompile Include="BallsAnimationDoc.cpp" />
     <ClCompile Include="MainFrm.cpp" />
