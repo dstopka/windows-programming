@@ -25,7 +25,7 @@ public:
 	void setBoundRect( const CRect& boundRect );
 
 private:
-	inline void createObjects( COLORREF color = BLACK );
+	inline void createObjects( COLORREF color );
 
 private:
 	std::unique_ptr<CPen> pen_;

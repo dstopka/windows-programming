@@ -3,20 +3,21 @@
 #include <vector>
 #include "Ball.h"
 
+#define BALL_MIN_SIZE 40
+#define BALL_MAX_SIZE 140
+#define OFFSET_VEC_MIN 1
+#define OFFSET_VEC_MAX 10
+
 class BallsField
 {
 public:
 	BallsField();
-	~BallsField();
 
 public:
 	void addBall();
 	void deleteBall();
-	void drawBalls();
+	void paintBalls( CDC& memDC );
 	void changeBallsOffset();
-
-private:
-
 
 private:
 	std::vector<Ball> balls_;

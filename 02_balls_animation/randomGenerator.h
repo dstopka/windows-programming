@@ -1,18 +1,10 @@
 #pragma once
 
-class randomGenerator
+namespace Random
 {
-public:
-	randomGenerator();
-	~randomGenerator();
-
-public:
 	template<typename T> 
-	void random( T lowerBound, T upperBound );
-
+	static T random( T lowerBound, T upperBound )
+	{
+		return static_cast<T>(rand() % upperBound + lowerBound);
+	}
 };
-
-template<typename T>
-inline void randomGenerator::random( T lowerBound, T upperBound )
-{
-}
