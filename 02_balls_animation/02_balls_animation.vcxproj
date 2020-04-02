@@ -189,6 +189,7 @@
     <ClInclude Include="Ball.h" />
     <ClInclude Include="BallsAnimationView.h" />
     <ClInclude Include="BallsAnimationDoc.h" />
+    <ClInclude Include="BallsField.h" />
     <ClInclude Include="Colors.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="Resource.h" />
@@ -200,6 +201,7 @@
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="BallsAnimationView.cpp" />
     <ClCompile Include="BallsAnimationDoc.cpp" />
+    <ClCompile Include="BallsField.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
