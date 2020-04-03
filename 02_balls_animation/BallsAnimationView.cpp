@@ -47,11 +47,12 @@ void CALLBACK ZfxTimerProc( HWND hWnd, UINT nMsg, UINT nIDEvent, DWORD dwTime )
 CMyBallsAnimationView::CMyBallsAnimationView()
 {
 	isAnimation_ = false;
-	clientRect_ = std::make_shared<CRect>();
+	document_ = nullptr;
 }
 
 CMyBallsAnimationView::~CMyBallsAnimationView()
 {
+	delete document_;
 }
 
 BOOL CMyBallsAnimationView::PreCreateWindow(CREATESTRUCT& cs)
@@ -70,8 +71,8 @@ void CMyBallsAnimationView::OnDraw(CDC* pDC)
 	ASSERT_VALID( document_ );
 	if (!document_ )
 		return;
-
-	document_->getBallsField().paint( pDC, clientRect_ );
+	document_->getBallsField().setBoundRect( clientRect_ );
+	document_->getBallsField().paint( pDC );
 }
 
 
@@ -181,14 +182,17 @@ BOOL CMyBallsAnimationView::OnEraseBkgnd( CDC* pDC )
 
 void CMyBallsAnimationView::OnPrepareDC( CDC* pDC, CPrintInfo* pInfo )
 {
-	GetClientRect( clientRect_.get() );
+	GetClientRect( clientRect_ );	
 	CView::OnPrepareDC( pDC, pInfo );
 }
 
 
 void CMyBallsAnimationView::OnSize( UINT nType, int cx, int cy )
 {
+	if ( document_ )
+	{
+		document_->getBallsField().offsetBalls( clientRect_.right - cx, clientRect_.bottom - cy );
+		Invalidate();
+	}
 	CView::OnSize( nType, cx, cy );
-
-	// TODO: Add your message handler code here
 }

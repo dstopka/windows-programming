@@ -53,7 +53,7 @@ private:
 	bool isAnimation_;
 	CMyBallsAnimationDoc* document_;
 	UINT_PTR timerID_;
-	std::shared_ptr<CRect> clientRect_;
+	CRect clientRect_;
 };
 
 #ifndef _DEBUG  // debug version in BallsAnimation.cpp

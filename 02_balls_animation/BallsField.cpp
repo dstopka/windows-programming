@@ -9,20 +9,20 @@ BallsField::BallsField()
 	this->addBall();
 }
 
-void BallsField::paint( CDC* pDC, std::shared_ptr<CRect>& clientRect )
+void BallsField::paint( CDC* pDC )
 {
 	CDC memDC;
 	bool b = memDC.CreateCompatibleDC( pDC );
 	ASSERT( b );
 	CBitmap bmp;
-	b = bmp.CreateCompatibleBitmap( pDC, clientRect->Width(), clientRect->Height() );
+	b = bmp.CreateCompatibleBitmap( pDC, boundRect_.Width(), boundRect_.Height() );
 	ASSERT( b );
 	auto oldBitmap = memDC.SelectObject( &bmp );
-	memDC.FillSolidRect( clientRect.get(), GREY );
+	memDC.FillSolidRect( boundRect_, GREY );
 
 	this->paintBalls( memDC );
 
-	b = pDC->BitBlt( 0, 0, clientRect->Width(), clientRect->Height(), &memDC, 0, 0, SRCCOPY );
+	b = pDC->BitBlt( 0, 0, boundRect_.Width(), boundRect_.Height(), &memDC, 0, 0, SRCCOPY );
 	ASSERT( b );
 
 	memDC.SelectObject( oldBitmap );
@@ -60,6 +60,19 @@ void BallsField::offsetBalls()
 {
 	for(auto& x : balls_ )
 	{
-		x.offset();
+		x.offset( boundRect_ );
 	}
+}
+
+void BallsField::offsetBalls( int cx, int cy )
+{
+	for ( auto& x : balls_ )
+	{
+		x.OffsetRect(-cx, -cy);
+	}
+}
+
+void BallsField::setBoundRect( CRect& boundRect )
+{
+	boundRect_ = boundRect;
 }

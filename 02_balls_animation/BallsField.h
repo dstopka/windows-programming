@@ -14,15 +14,18 @@ public:
 	BallsField();
 
 public:
-	void paint( CDC* pDC, std::shared_ptr<CRect>& clientRect );
+	void paint( CDC* pDC );
 	void addBall();
 	void deleteBall();
 	void offsetBalls();
+	void offsetBalls(int cx, int cy);
+	void setBoundRect(CRect& boundRect );
 
 private:
 	void paintBalls( CDC& memDC );
 
 private:
 	std::vector<Ball> balls_;
+	CRect boundRect_;
 };
 

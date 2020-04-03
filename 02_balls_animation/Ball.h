@@ -22,8 +22,7 @@ public:
 	void paint( CDC& memDC );
 	void setOffset( int nOffsetX, int nOffsetY );
 	void setBall( const CRect& rect, COLORREF color, int nOffX, int nOffY );
-	void setBoundRect( const CRect& boundRect );
-	void offset();
+	void offset( CRect& boundRect );
 
 private:
 	inline void createObjects( COLORREF color );
@@ -31,7 +30,6 @@ private:
 private:
 	std::shared_ptr<CPen> pen_;
 	std::shared_ptr<CBrush> brush_;
-	std::shared_ptr<CRect> boundRect_;
 	int nOffsetX_;
 	int nOffsetY_;
 };
