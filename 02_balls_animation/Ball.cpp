@@ -10,17 +10,18 @@ Ball::Ball( int nOffX, int nOffY,
 	this->createObjects( color );
 }
 
-Ball::Ball( int nOffX, int nOffY, const CRect& rect, COLORREF color )
+Ball::Ball( const CRect& rect, int nOffX, int nOffY, COLORREF color )
 	: CRect(rect), nOffsetX_( nOffX ), nOffsetY_( nOffY )
 {
 	this->createObjects( color );
 }
 
-Ball::Ball( int nOffX, int nOffY, const CPoint& point, const CSize& size, COLORREF color ) 
+Ball::Ball( const CPoint& point, const CSize& size, int nOffX, int nOffY, COLORREF color )
 	: CRect(point, size), nOffsetX_( nOffX ), nOffsetY_( nOffY )
 {
 	this->createObjects( color );
 }
+
 
 Ball::~Ball()
 {
@@ -53,8 +54,8 @@ void Ball::paint(CDC& memDC)
 
 inline void Ball::createObjects( COLORREF color )
 {
-	pen_ = std::make_unique<CPen>( PS_SOLID, 1, color );
-	brush_ = std::make_unique<CBrush>( color );
+	pen_ = std::make_shared<CPen>( PS_SOLID, 1, color );
+	brush_ = std::make_shared<CBrush>( color );
 }
 
 void Ball::setOffset( int nOffsetX, int nOffsetY )

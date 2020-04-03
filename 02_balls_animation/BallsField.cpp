@@ -15,7 +15,7 @@ void BallsField::addBall()
 		auto size = Random::random( BALL_MIN_SIZE, BALL_MAX_SIZE );
 		auto offX = Random::random( OFFSET_VEC_MIN, OFFSET_VEC_MAX );
 		auto offY = Random::random( OFFSET_VEC_MIN, OFFSET_VEC_MAX );
-		//balls_.push_back( Ball(offX, offY, 0, 0, size, size, color ));
+		balls_.push_back( Ball(offX, offY, 0, 0, size, size, color ));
 	}
 }
 

@@ -7,13 +7,13 @@
 class Ball : public CRect
 {
 public:
-	Ball(int nOffX, int nOffY, const int left = 0,
-			const int top = 0,
-			const int right = 0, 
-			const int bottom = 0,
+	Ball(int nOffX, int nOffY, int left = 0,
+			int top = 0,
+			int right = 0, 
+			int bottom = 0,
 			COLORREF color = BLACK);
-	Ball( int nOffX, int nOffY, const CRect& rect, COLORREF color = BLACK );
-	Ball( int nOffX, int nOffY, const CPoint& point, const CSize& size, COLORREF color = BLACK );
+	Ball( const CRect& rect, int nOffX, int nOffY, COLORREF color = BLACK );
+	Ball( const CPoint& point, const CSize& size, int nOffX, int nOffY, COLORREF color = BLACK );
 	~Ball();
 
 public:
@@ -28,9 +28,9 @@ private:
 	inline void createObjects( COLORREF color );
 
 private:
-	std::unique_ptr<CPen> pen_;
-	std::unique_ptr<CBrush> brush_;
-	std::unique_ptr<CRect> boundRect_;
+	std::shared_ptr<CPen> pen_;
+	std::shared_ptr<CBrush> brush_;
+	std::shared_ptr<CRect> boundRect_;
 	int nOffsetX_;
 	int nOffsetY_;
 };
