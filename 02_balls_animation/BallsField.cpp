@@ -5,6 +5,7 @@
 
 BallsField::BallsField()
 {
+	std::srand( time( nullptr ) );
 	this->addBall();
 }
 
@@ -59,6 +60,6 @@ void BallsField::offsetBalls()
 {
 	for(auto& x : balls_ )
 	{
-		x.OffsetRect();
+		x.offset();
 	}
 }

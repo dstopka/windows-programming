@@ -30,7 +30,7 @@ public:
 	virtual void Dump(CDumpContext& dc) const;
 #endif
 
-	BallsField getBallsField();
+	BallsField& getBallsField();
 
 protected:
 

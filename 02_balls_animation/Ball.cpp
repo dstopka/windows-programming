@@ -3,7 +3,7 @@
 
 
 Ball::Ball( int nOffX, int nOffY, 
-			const int left, const int top, const int right, const int bottom, 
+			int left, int top, int right, int bottom, 
 			COLORREF color ) : CRect( left, top, right, bottom ), 
 								nOffsetX_(nOffX), nOffsetY_( nOffY )
 {
