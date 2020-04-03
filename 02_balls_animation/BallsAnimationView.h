@@ -43,6 +43,14 @@ public:
 
 private:
 	bool isAnimation_;
+	CMyBallsAnimationDoc* document_;
+public:
+	virtual void OnInitialUpdate();
+	afx_msg void OnDestroy();
+	afx_msg void OnTimer( UINT_PTR nIDEvent );
+	afx_msg BOOL OnEraseBkgnd( CDC* pDC );
+	virtual void OnPrepareDC( CDC* pDC, CPrintInfo* pInfo = NULL );
+	afx_msg void OnSize( UINT nType, int cx, int cy );
 };
 
 #ifndef _DEBUG  // debug version in BallsAnimation.cpp

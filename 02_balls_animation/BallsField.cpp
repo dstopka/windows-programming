@@ -5,6 +5,28 @@
 
 BallsField::BallsField()
 {
+	this->addBall();
+}
+
+void BallsField::paint( CDC* pDC )
+{
+	CDC memDC;
+	bool b = memDC.CreateCompatibleDC( pDC );
+	ASSERT( b );
+	CBitmap bmp;
+	b = bmp.CreateCompatibleBitmap( pDC, clientRect_->Width(), clientRect_->Height() );
+	ASSERT( b );
+	auto oldBitmap = memDC.SelectObject( &bmp );
+	memDC.FillSolidRect( clientRect_.get(), RGB( 230, 230, 230 ) );
+
+	this->paintBalls( memDC );
+
+	b = pDC->BitBlt( 0, 0, clientRect_->Width(), clientRect_->Height(), &memDC, 0, 0, SRCCOPY );
+	ASSERT( b );
+
+	memDC.SelectObject( oldBitmap );
+	bmp.DeleteObject();
+	memDC.DeleteDC();
 }
 
 void BallsField::addBall()

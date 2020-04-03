@@ -131,6 +131,10 @@ void CMyBallsAnimationDoc::Dump(CDumpContext& dc) const
 {
 	CDocument::Dump(dc);
 }
+BallsField CMyBallsAnimationDoc::getBallsField()
+{
+	return ballsField_;
+}
 #endif //_DEBUG
 
 

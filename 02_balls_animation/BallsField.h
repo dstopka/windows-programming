@@ -14,10 +14,13 @@ public:
 	BallsField();
 
 public:
+	void paint( CDC* pDC );
 	void addBall();
 	void deleteBall();
-	void paintBalls( CDC& memDC );
 	void changeBallsOffset();
+
+private:
+	void paintBalls( CDC& memDC );
 
 private:
 	std::vector<Ball> balls_;

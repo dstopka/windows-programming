@@ -1,3 +1,23 @@
-﻿  Ball.cpp
-  02_balls_animation.vcxproj -> D:\Documents\University\Semestr 6\Windows\windows-programming\02_balls_animation\Debug\02_balls_animation.exe
-  02_balls_animation.vcxproj -> D:\Documents\University\Semestr 6\Windows\windows-programming\02_balls_animation\Debug\02_balls_animation.pdb (Partial PDB)
+﻿  BallsField.cpp
+d:\documents\university\semestr 6\windows\windows-programming\02_balls_animation\ballsfield.cpp(13): warning C4800: 'BOOL': forcing value to bool 'true' or 'false' (performance warning)
+d:\documents\university\semestr 6\windows\windows-programming\02_balls_animation\ballsfield.cpp(16): error C2065: 'clientRect_': undeclared identifier
+d:\documents\university\semestr 6\windows\windows-programming\02_balls_animation\ballsfield.cpp(16): error C2227: left of '->Width' must point to class/struct/union/generic type
+  d:\documents\university\semestr 6\windows\windows-programming\02_balls_animation\ballsfield.cpp(16): note: type is 'unknown-type'
+d:\documents\university\semestr 6\windows\windows-programming\02_balls_animation\ballsfield.cpp(16): error C2227: left of '->Height' must point to class/struct/union/generic type
+  d:\documents\university\semestr 6\windows\windows-programming\02_balls_animation\ballsfield.cpp(16): note: type is 'unknown-type'
+d:\documents\university\semestr 6\windows\windows-programming\02_balls_animation\ballsfield.cpp(16): error C2660: 'CBitmap::CreateCompatibleBitmap': function does not take 1 arguments
+d:\documents\university\semestr 6\windows\windows-programming\02_balls_animation\ballsfield.cpp(19): error C2065: 'clientRect_': undeclared identifier
+d:\documents\university\semestr 6\windows\windows-programming\02_balls_animation\ballsfield.cpp(19): error C2228: left of '.get' must have class/struct/union
+  d:\documents\university\semestr 6\windows\windows-programming\02_balls_animation\ballsfield.cpp(19): note: type is 'unknown-type'
+d:\documents\university\semestr 6\windows\windows-programming\02_balls_animation\ballsfield.cpp(23): error C2065: 'clientRect_': undeclared identifier
+d:\documents\university\semestr 6\windows\windows-programming\02_balls_animation\ballsfield.cpp(23): error C2227: left of '->Width' must point to class/struct/union/generic type
+  d:\documents\university\semestr 6\windows\windows-programming\02_balls_animation\ballsfield.cpp(23): note: type is 'unknown-type'
+d:\documents\university\semestr 6\windows\windows-programming\02_balls_animation\ballsfield.cpp(23): error C2227: left of '->Height' must point to class/struct/union/generic type
+  d:\documents\university\semestr 6\windows\windows-programming\02_balls_animation\ballsfield.cpp(23): note: type is 'unknown-type'
+d:\documents\university\semestr 6\windows\windows-programming\02_balls_animation\ballsfield.cpp(23): error C2660: 'CDC::BitBlt': function does not take 6 arguments
+  BallsAnimationView.cpp
+  BallsAnimationDoc.cpp
+  Generating Code...
+  Compiling...
+  02_balls_animation.cpp
+  Generating Code...

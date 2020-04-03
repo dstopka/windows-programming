@@ -1,10 +1,5 @@
-
-// BallsAnimationDoc.h : interface of the CMyBallsAnimationDoc class
-//
-
-
 #pragma once
-
+#include "BallsField.h"
 
 class CMyBallsAnimationDoc : public CDocument
 {
@@ -35,11 +30,16 @@ public:
 	virtual void Dump(CDumpContext& dc) const;
 #endif
 
+	BallsField getBallsField();
+
 protected:
 
 // Generated message map functions
 protected:
 	DECLARE_MESSAGE_MAP()
+
+private:
+	BallsField ballsField_;
 
 #ifdef SHARED_HANDLERS
 	// Helper function that sets search content for a Search Handler
