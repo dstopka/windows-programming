@@ -41,9 +41,6 @@ public:
 	afx_msg void OnUpdateAnimationStart( CCmdUI *pCmdUI );
 	afx_msg void OnUpdateAnimationStop( CCmdUI *pCmdUI );
 
-private:
-	bool isAnimation_;
-	CMyBallsAnimationDoc* document_;
 public:
 	virtual void OnInitialUpdate();
 	afx_msg void OnDestroy();
@@ -51,6 +48,12 @@ public:
 	afx_msg BOOL OnEraseBkgnd( CDC* pDC );
 	virtual void OnPrepareDC( CDC* pDC, CPrintInfo* pInfo = NULL );
 	afx_msg void OnSize( UINT nType, int cx, int cy );
+
+private:
+	bool isAnimation_;
+	CMyBallsAnimationDoc* document_;
+	UINT_PTR timerID_;
+	std::shared_ptr<CRect> clientRect_;
 };
 
 #ifndef _DEBUG  // debug version in BallsAnimation.cpp

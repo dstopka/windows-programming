@@ -39,9 +39,15 @@ END_MESSAGE_MAP()
 
 // CMyBallsAnimationView construction/destruction
 
+void CALLBACK ZfxTimerProc( HWND hWnd, UINT nMsg, UINT nIDEvent, DWORD dwTime )
+{
+	::SendMessage( hWnd, WM_TIMER, 0, 0 );
+}
+
 CMyBallsAnimationView::CMyBallsAnimationView()
 {
 	isAnimation_ = false;
+	clientRect_ = std::make_shared<CRect>();
 }
 
 CMyBallsAnimationView::~CMyBallsAnimationView()
@@ -65,7 +71,7 @@ void CMyBallsAnimationView::OnDraw(CDC* pDC)
 	if (!document_ )
 		return;
 
-	document_->getBallsField().paint( pDC );
+	document_->getBallsField().paint( pDC, clientRect_ );
 }
 
 
@@ -145,38 +151,37 @@ void CMyBallsAnimationView::OnInitialUpdate()
 {
 	CView::OnInitialUpdate();
 
-	// TODO: Add your specialized code here and/or call the base class
+	timerID_ = SetTimer( WM_USER + 1, 20, ZfxTimerProc );
 }
 
 
 void CMyBallsAnimationView::OnDestroy()
 {
+	KillTimer( timerID_ );
 	CView::OnDestroy();
-
-	// TODO: Add your message handler code here
 }
 
 
 void CMyBallsAnimationView::OnTimer( UINT_PTR nIDEvent )
 {
-	// TODO: Add your message handler code here and/or call default
-
+	if ( isAnimation_ )
+	{
+		document_->getBallsField().offsetBalls();
+		Invalidate();
+	}
 	CView::OnTimer( nIDEvent );
 }
 
 
 BOOL CMyBallsAnimationView::OnEraseBkgnd( CDC* pDC )
 {
-	// TODO: Add your message handler code here and/or call default
-
-	return CView::OnEraseBkgnd( pDC );
+	return 1;
 }
 
 
 void CMyBallsAnimationView::OnPrepareDC( CDC* pDC, CPrintInfo* pInfo )
 {
-	// TODO: Add your specialized code here and/or call the base class
-
+	GetClientRect( clientRect_.get() );
 	CView::OnPrepareDC( pDC, pInfo );
 }
 

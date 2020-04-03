@@ -8,20 +8,20 @@ BallsField::BallsField()
 	this->addBall();
 }
 
-void BallsField::paint( CDC* pDC )
+void BallsField::paint( CDC* pDC, std::shared_ptr<CRect>& clientRect )
 {
 	CDC memDC;
 	bool b = memDC.CreateCompatibleDC( pDC );
 	ASSERT( b );
 	CBitmap bmp;
-	b = bmp.CreateCompatibleBitmap( pDC, clientRect_->Width(), clientRect_->Height() );
+	b = bmp.CreateCompatibleBitmap( pDC, clientRect->Width(), clientRect->Height() );
 	ASSERT( b );
 	auto oldBitmap = memDC.SelectObject( &bmp );
-	memDC.FillSolidRect( clientRect_.get(), RGB( 230, 230, 230 ) );
+	memDC.FillSolidRect( clientRect.get(), GREY );
 
 	this->paintBalls( memDC );
 
-	b = pDC->BitBlt( 0, 0, clientRect_->Width(), clientRect_->Height(), &memDC, 0, 0, SRCCOPY );
+	b = pDC->BitBlt( 0, 0, clientRect->Width(), clientRect->Height(), &memDC, 0, 0, SRCCOPY );
 	ASSERT( b );
 
 	memDC.SelectObject( oldBitmap );
@@ -55,6 +55,10 @@ void BallsField::paintBalls( CDC& memDC )
 		x.paint(  memDC );
 }
 
-void BallsField::changeBallsOffset()
+void BallsField::offsetBalls()
 {
+	for(auto& x : balls_ )
+	{
+		x.OffsetRect();
+	}
 }

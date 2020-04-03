@@ -14,10 +14,10 @@ public:
 	BallsField();
 
 public:
-	void paint( CDC* pDC );
+	void paint( CDC* pDC, std::shared_ptr<CRect>& clientRect );
 	void addBall();
 	void deleteBall();
-	void changeBallsOffset();
+	void offsetBalls();
 
 private:
 	void paintBalls( CDC& memDC );

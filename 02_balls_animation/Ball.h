@@ -23,6 +23,7 @@ public:
 	void setOffset( int nOffsetX, int nOffsetY );
 	void setBall( const CRect& rect, COLORREF color, int nOffX, int nOffY );
 	void setBoundRect( const CRect& boundRect );
+	void offset();
 
 private:
 	inline void createObjects( COLORREF color );

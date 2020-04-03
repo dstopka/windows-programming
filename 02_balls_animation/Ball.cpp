@@ -63,3 +63,8 @@ void Ball::setOffset( int nOffsetX, int nOffsetY )
 	nOffsetX_ = nOffsetX;
 	nOffsetY_ = nOffsetY;
 }
+
+void Ball::offset()
+{
+	this->OffsetRect( nOffsetX_, nOffsetY_ );
+}
