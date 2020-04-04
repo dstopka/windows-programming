@@ -45,9 +45,7 @@ void BallsField::addBall()
 void BallsField::deleteBall()
 {
 	if ( balls_.size() > 1 )
-	{
 		balls_.pop_back();
-	}
 }
 
 void BallsField::paintBalls( CDC& memDC )
@@ -59,17 +57,13 @@ void BallsField::paintBalls( CDC& memDC )
 void BallsField::offsetBalls()
 {
 	for(auto& x : balls_ )
-	{
 		x.offset( boundRect_ );
-	}
 }
 
 void BallsField::offsetBalls( int cx, int cy )
 {
 	for ( auto& x : balls_ )
-	{
-		x.OffsetRect(-cx, -cy);
-	}
+		x.replace(static_cast<double>(cx)/boundRect_.right, static_cast<double>(cy) /boundRect_.bottom);
 }
 
 void BallsField::setBoundRect( CRect& boundRect )

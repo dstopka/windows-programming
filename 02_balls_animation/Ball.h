@@ -18,11 +18,12 @@ public:
 
 public:
 	inline void setColor( COLORREF );
-	inline void setBallSize( const CRect& );
-	void paint( CDC& memDC );
+	inline void setBallSize( const CRect& rect);
 	void setOffset( int nOffsetX, int nOffsetY );
 	void setBall( const CRect& rect, COLORREF color, int nOffX, int nOffY );
+	void paint( CDC& memDC );
 	void offset( CRect& boundRect );
+	void replace( double moveX, double moveY );
 
 private:
 	inline void createObjects( COLORREF color );

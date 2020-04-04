@@ -189,9 +189,12 @@ void CMyBallsAnimationView::OnPrepareDC( CDC* pDC, CPrintInfo* pInfo )
 
 void CMyBallsAnimationView::OnSize( UINT nType, int cx, int cy )
 {
+	//TODO:
+	//		+/- resizing
+	//		not pushing out of bands
 	if ( document_ )
 	{
-		document_->getBallsField().offsetBalls( clientRect_.right - cx, clientRect_.bottom - cy );
+		document_->getBallsField().offsetBalls( cx, cy );
 		Invalidate();
 	}
 	CView::OnSize( nType, cx, cy );

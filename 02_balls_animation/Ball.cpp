@@ -66,15 +66,20 @@ void Ball::setOffset( int nOffsetX, int nOffsetY )
 
 void Ball::setBall( const CRect & rect, COLORREF color, int nOffX, int nOffY )
 {
+	this->setBallSize( rect );
+	this->setColor( color );
+	this->setOffset( nOffX, nOffY );
 }
 
 
 void Ball::offset( CRect& boundRect )
 {
 	this->OffsetRect( nOffsetX_, nOffsetY_ );
-	auto newOffsetX = nOffsetX_;
-	auto newOffsetY = nOffsetY_;
-	if ( top < boundRect.top || bottom > boundRect.bottom ) newOffsetY *= -1;
-	if (left < boundRect.left || right > boundRect.right ) newOffsetX *= -1;
-	this->setOffset( newOffsetX, newOffsetY );
+	if ( top < boundRect.top || bottom > boundRect.bottom ) nOffsetY_ *= -1;
+	if (left < boundRect.left || right > boundRect.right ) nOffsetX_ *= -1;
+}
+
+void Ball::replace( double moveX, double moveY )
+{
+	this->MoveToXY( moveX * left, moveY * top );
 }
