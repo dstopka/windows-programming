@@ -21,9 +21,11 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 
 	DECLARE_MESSAGE_MAP()
+
 private:
 	int m_nNum;
 	int m_nAcceptanceKind;
+
 	BOOL m_bFirst;
 	CComboBox m_ComboLetters;
 	BOOL m_bSecond;

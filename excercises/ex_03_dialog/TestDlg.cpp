@@ -30,13 +30,14 @@ CTestDlg::~CTestDlg()
 void CTestDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange( pDX );
-	DDX_Control( pDX, IDC_DATANUM, m_nNum );
-	DDX_Control( pDX, IDC_EGZ, m_nAcceptanceKind );
-	DDX_Control( pDX, IDC_FIRST, m_bFirst );
+
+	DDX_Text( pDX, IDC_DATANUM, m_nNum );
+	DDX_Radio( pDX, IDC_EGZ, m_nAcceptanceKind );
+	DDX_Check( pDX, IDC_FIRST, m_bFirst );
 	DDX_Control( pDX, IDC_LETTERS, m_ComboLetters );
-	DDX_Control( pDX, IDC_SECOND, m_bSecond );
-	DDX_Control( pDX, IDC_THIRD, m_bThird );
-	DDX_Control( pDX, IDC_WYKL, m_nLectureKind );
+	DDX_Check( pDX, IDC_SECOND, m_bSecond );
+	DDX_Check( pDX, IDC_THIRD, m_bThird );
+	DDX_Radio( pDX, IDC_WYKL, m_nLectureKind );
 }
 
 

@@ -22,6 +22,8 @@
 IMPLEMENT_DYNCREATE(CDialogView, CView)
 
 BEGIN_MESSAGE_MAP(CDialogView, CView)
+	ON_COMMAND( ID_DLG_TEST, &CDialogView::OnDlgTest )
+	ON_UPDATE_COMMAND_UI( ID_DLG_TEST, &CDialogView::OnUpdateDlgTest )
 END_MESSAGE_MAP()
 
 // CDialogView construction/destruction
@@ -79,3 +81,16 @@ CDialogDoc* CDialogView::GetDocument() const // non-debug version is inline
 
 
 // CDialogView message handlers
+
+
+void CDialogView::OnDlgTest()
+{
+	CTestDlg dlg;
+	dlg.DoModal();
+}
+
+
+void CDialogView::OnUpdateDlgTest( CCmdUI *pCmdUI )
+{
+	pCmdUI->Enable( 1 );
+}

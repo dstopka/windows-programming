@@ -3,7 +3,7 @@
 //
 
 #pragma once
-
+#include "TestDlg.h"
 
 class CDialogView : public CView
 {
@@ -37,6 +37,9 @@ protected:
 // Generated message map functions
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnDlgTest();
+	afx_msg void OnUpdateDlgTest( CCmdUI *pCmdUI );
 };
 
 #ifndef _DEBUG  // debug version in dialogView.cpp
