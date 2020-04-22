@@ -31,4 +31,8 @@ private:
 	BOOL m_bSecond;
 	BOOL m_bThird;
 	int m_nLectureKind;
+public:
+	virtual BOOL OnInitDialog();
+	afx_msg void OnGenerRandom();
+	afx_msg void OnOk();
 };
