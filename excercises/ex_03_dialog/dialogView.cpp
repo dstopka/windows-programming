@@ -86,7 +86,10 @@ CDialogDoc* CDialogView::GetDocument() const // non-debug version is inline
 void CDialogView::OnDlgTest()
 {
 	CTestDlg dlg;
-	dlg.DoModal();
+	if ( dlg.DoModal() == IDOK )
+		AfxMessageBox( L"Ustawienia w oknie dialogowym zaakceptowane!" );
+	else
+		AfxMessageBox( L"Rezygnacja z ustawieñ" );
 }
 
 

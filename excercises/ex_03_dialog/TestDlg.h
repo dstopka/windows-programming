@@ -1,5 +1,6 @@
 #pragma once
 #include "afxwin.h"
+#include "afxcmn.h"
 
 
 // CTestDlg dialog
@@ -25,7 +26,6 @@ protected:
 private:
 	int m_nNum;
 	int m_nAcceptanceKind;
-
 	BOOL m_bFirst;
 	CComboBox m_ComboLetters;
 	BOOL m_bSecond;
@@ -35,4 +35,6 @@ public:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnGenerRandom();
 	afx_msg void OnOk();
+private:
+	CSpinButtonCtrl m_Spin;
 };

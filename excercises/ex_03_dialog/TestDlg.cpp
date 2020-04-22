@@ -38,6 +38,7 @@ void CTestDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Check( pDX, IDC_SECOND, m_bSecond );
 	DDX_Check( pDX, IDC_THIRD, m_bThird );
 	DDX_Radio( pDX, IDC_WYKL, m_nLectureKind );
+	DDX_Control( pDX, IDC_SPIN_NUM, m_Spin );
 }
 
 
@@ -55,7 +56,7 @@ BOOL CTestDlg::OnInitDialog()
 	CDialog::OnInitDialog();
 
 	m_ComboLetters.SetCurSel( 3 );
-
+	m_Spin.SetRange( 0, UD_MAXVAL );
 	return TRUE;  // return TRUE unless you set the focus to a control
 				  // EXCEPTION: OCX Property Pages should return FALSE
 }
