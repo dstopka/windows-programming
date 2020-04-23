@@ -186,6 +186,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ex_04_flower_shop.h" />
+    <ClInclude Include="FlowerShop.h" />
     <ClInclude Include="FlowerShopDoc.h" />
     <ClInclude Include="flowerShopView.h" />
     <ClInclude Include="MainFrm.h" />
@@ -195,6 +196,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ex_04_flower_shop.cpp" />
+    <ClCompile Include="FlowerShop.cpp" />
     <ClCompile Include="FlowerShopDoc.cpp" />
     <ClCompile Include="flowerShopView.cpp" />
     <ClCompile Include="MainFrm.cpp" />
@@ -219,4 +221,9 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="ex_04_flower_shop.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

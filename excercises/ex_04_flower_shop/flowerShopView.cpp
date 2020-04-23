@@ -22,6 +22,8 @@
 IMPLEMENT_DYNCREATE(CFlowerShopView, CView)
 
 BEGIN_MESSAGE_MAP(CFlowerShopView, CView)
+	ON_COMMAND( ID_FLOWER_SHOP, &CFlowerShopView::OnFlowerShop )
+	ON_UPDATE_COMMAND_UI( ID_FLOWER_SHOP, &CFlowerShopView::OnUpdateFlowerShop )
 END_MESSAGE_MAP()
 
 // CFlowerShopView construction/destruction
@@ -79,3 +81,16 @@ CFlowerShopDoc* CFlowerShopView::GetDocument() const // non-debug version is inl
 
 
 // CFlowerShopView message handlers
+
+
+void CFlowerShopView::OnFlowerShop()
+{
+	CFlowerShop flwShp;
+	flwShp.DoModal();
+}
+
+
+void CFlowerShopView::OnUpdateFlowerShop( CCmdUI *pCmdUI )
+{
+	pCmdUI->Enable( 1 );
+}

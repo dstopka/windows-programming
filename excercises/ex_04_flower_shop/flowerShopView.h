@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "FlowerShop.h"
 
 class CFlowerShopView : public CView
 {
@@ -37,6 +38,9 @@ protected:
 // Generated message map functions
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnFlowerShop();
+	afx_msg void OnUpdateFlowerShop( CCmdUI *pCmdUI );
 };
 
 #ifndef _DEBUG  // debug version in flowerShopView.cpp
