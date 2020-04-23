@@ -15,9 +15,10 @@
 #define IDC_NONE                        1005
 #define IDC_PAPER                       1006
 #define IDC_RESULT                      1007
-#define IDC_SPIN1                       1008
-#define IDC_SPIN2                       1009
-#define IDC_SPIN3                       1010
+#define IDC_SPIN_TULIP                  1008
+#define IDC_SPIN_ROSE                   1009
+#define IDC_SPIN_FREZ                   1010
+#define IDC_CALCULATE                   1011
 #define ID_KWIACIARNIA_OTW32771         32771
 #define ID_FLOWER_SHOP                  32772
 
@@ -27,7 +28,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        312
 #define _APS_NEXT_COMMAND_VALUE         32773
-#define _APS_NEXT_CONTROL_VALUE         1009
+#define _APS_NEXT_CONTROL_VALUE         1012
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif
