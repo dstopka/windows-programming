@@ -321,7 +321,7 @@ END
 
 STRINGTABLE
 BEGIN
-    AFX_IDS_APP_TITLE       "ex_03_dialog"
+    AFX_IDS_APP_TITLE       "Dialog1"
     AFX_IDS_IDLEMESSAGE     "Ready"
 END
 

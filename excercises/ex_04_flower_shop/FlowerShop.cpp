@@ -13,7 +13,7 @@ IMPLEMENT_DYNAMIC(CFlowerShop, CDialog)
 
 CFlowerShop::CFlowerShop(CWnd* pParent /*=NULL*/)
 	: CDialog(IDD_FLOWERSHP, pParent)
-	, m_nPackageKind( 0 )
+	, m_nPackageKind( 2 )
 	, m_nDiscount( 0 )
 	, m_nTulip( 0 )
 	, m_nFreesia( 0 )
@@ -62,5 +62,19 @@ BOOL CFlowerShop::OnInitDialog()
 
 void CFlowerShop::OnCalculate()
 {
-	// TODO: Add your control notification handler code here
+	UpdateData();
+	double nPayment = 0;
+	nPayment += m_nTulip * 4;
+	nPayment += m_nRose * 3;
+	nPayment += m_nFreesia * 2;
+	if ( m_nPackageKind == 0 )
+		nPayment += 2;
+	else if ( m_nPackageKind == 1 )
+		nPayment += 1;
+	if ( m_nDiscount )
+		nPayment *= (100.0 - m_nDiscount) / 100;
+	CString str;
+	str.Format( L"%.2f", nPayment );
+	CWnd* pWnd = GetDlgItem( IDC_RESULT );
+	pWnd->SetWindowTextW( str );
 }

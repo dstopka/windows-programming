@@ -214,6 +214,8 @@
     <None Include="res\ex_04_flower_shop.rc2" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="res\bitmap1.bmp" />
+    <Image Include="res\bitmap2.bmp" />
     <Image Include="res\ex_04_flower_shop.ico" />
     <Image Include="res\ex_04_flower_shopDoc.ico" />
     <Image Include="res\Toolbar.bmp" />

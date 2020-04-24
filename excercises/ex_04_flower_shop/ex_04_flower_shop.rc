@@ -63,6 +63,14 @@ END
 
 /////////////////////////////////////////////////////////////////////////////
 //
+// Bitmap
+//
+
+IDB_BITMAP2             BITMAP                  "res\\bitmap2.bmp"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
 // Dialog
 //
 
@@ -93,7 +101,7 @@ BEGIN
     LTEXT           "Frezja (2z³)",IDC_STATIC,31,86,38,8
     LTEXT           "%",IDC_STATIC,116,131,8,8
     LTEXT           "",IDC_RESULT,96,172,99,16,SS_SUNKEN
-    CONTROL         "",IDC_STATIC,"Static",SS_BITMAP,207,176,15,13
+    CONTROL         IDB_BITMAP2,IDC_STATIC,"Static",SS_BITMAP | SS_CENTERIMAGE | SS_SUNKEN,201,166,28,27
 END
 
 
