@@ -186,6 +186,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Complex.h" />
+    <ClInclude Include="ComplexCalc.h" />
     <ClInclude Include="ComplexCalcDoc.h" />
     <ClInclude Include="ComplexCalcView.h" />
     <ClInclude Include="ex_05_complex_calc.h" />
@@ -196,6 +197,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Complex.cpp" />
+    <ClCompile Include="ComplexCalc.cpp" />
     <ClCompile Include="ComplexCalcDoc.cpp" />
     <ClCompile Include="ComplexCalcView.cpp" />
     <ClCompile Include="ex_05_complex_calc.cpp" />
@@ -221,4 +223,9 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="ex_05_complex_calc.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

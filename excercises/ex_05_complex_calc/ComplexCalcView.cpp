@@ -22,6 +22,7 @@
 IMPLEMENT_DYNCREATE(CComplexCalcView, CView)
 
 BEGIN_MESSAGE_MAP(CComplexCalcView, CView)
+	ON_COMMAND( ID_CALCULATOR_COMPLEX, &CComplexCalcView::OnComplexCalc )
 END_MESSAGE_MAP()
 
 // CComplexCalcView construction/destruction
@@ -79,3 +80,10 @@ CComplexCalcDoc* CComplexCalcView::GetDocument() const // non-debug version is i
 
 
 // CComplexCalcView message handlers
+
+
+void CComplexCalcView::OnComplexCalc()
+{
+	CComplexCalc dlg;
+	dlg.DoModal();
+}

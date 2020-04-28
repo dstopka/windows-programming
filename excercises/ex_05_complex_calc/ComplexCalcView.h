@@ -3,7 +3,7 @@
 //
 
 #pragma once
-
+#include "ComplexCalc.h"
 
 class CComplexCalcView : public CView
 {
@@ -37,6 +37,8 @@ protected:
 // Generated message map functions
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
+	afx_msg void OnComplexCalc();
 };
 
 #ifndef _DEBUG  // debug version in ComplexCalcView.cpp
