@@ -42,7 +42,7 @@
     <ClInclude Include="Complex.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ComplexCalc.h">
+    <ClInclude Include="ComplexCalcDialog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -65,7 +65,7 @@
     <ClCompile Include="Complex.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ComplexCalc.cpp">
+    <ClCompile Include="ComplexCalcDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -3,7 +3,7 @@
 //
 
 #pragma once
-#include "ComplexCalc.h"
+#include "ComplexCalcDialog.h"
 
 class CComplexCalcView : public CView
 {

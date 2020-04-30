@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 #include "ex_05_complex_calc.h"
-#include "ComplexCalc.h"
+#include "ComplexCalcDialog.h"
 #include "afxdialogex.h"
 
 
