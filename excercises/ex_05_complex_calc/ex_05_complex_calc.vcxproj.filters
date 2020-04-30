@@ -45,6 +45,9 @@
     <ClInclude Include="ComplexCalcDialog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CanonComplex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ex_05_complex_calc.cpp">
@@ -66,6 +69,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ComplexCalcDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CanonComplex.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

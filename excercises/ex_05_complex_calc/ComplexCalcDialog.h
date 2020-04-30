@@ -1,4 +1,5 @@
 #pragma once
+#include "CanonComplex.h"
 
 
 // CComplexCalc dialog
@@ -22,4 +23,13 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	virtual BOOL OnInitDialog();
+	afx_msg void OnBnClickedAdd();
+	afx_msg void OnBnClickedSub();
+	afx_msg void OnBnClickedMod();
+	afx_msg void OnBnClickedMult();
+	afx_msg void OnBnClickedDiv();
+	afx_msg void OnBnClickedCoup();
+private:
+	CCanonComplex m_firstComplex;
+	CCanonComplex m_secondComplex;
 };

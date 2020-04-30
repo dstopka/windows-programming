@@ -185,6 +185,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CanonComplex.h" />
     <ClInclude Include="Complex.h" />
     <ClInclude Include="ComplexCalcDialog.h" />
     <ClInclude Include="ComplexCalcDoc.h" />
@@ -196,6 +197,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CanonComplex.cpp" />
     <ClCompile Include="Complex.cpp" />
     <ClCompile Include="ComplexCalcDialog.cpp" />
     <ClCompile Include="ComplexCalcDoc.cpp" />
