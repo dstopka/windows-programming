@@ -1,4 +1,6 @@
 #pragma once
+#include <vector>
+
 #include "CanonComplex.h"
 
 
@@ -30,6 +32,11 @@ public:
 	afx_msg void OnBnClickedDiv();
 	afx_msg void OnBnClickedCoup();
 private:
-	CCanonComplex m_firstComplex;
-	CCanonComplex m_secondComplex;
+	CString m_firstComplex;
+	CString m_secondComplex;
+public:
+	afx_msg void OnBnClickedModFirst();
+	afx_msg void OnBnClickedModSecond();
+	afx_msg void OnBnClickedCoupledFirst();
+	afx_msg void OnBnClickedCoupledSecond();
 };

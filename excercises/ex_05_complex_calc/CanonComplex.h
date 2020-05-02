@@ -7,7 +7,7 @@ class CCanonComplex :
 public:
 	CCanonComplex(const CComplex& complex);
 	~CCanonComplex();
-	friend std::ostream & operator <<( std::ostream &output, const CComplex& c );
-	friend std::istream & operator >>( std::istream &input,  CComplex& c );
+	friend std::ostream & operator<<( std::ostream &output, const CCanonComplex& c );
+	friend std::istream & operator>>( std::istream &input, CCanonComplex& c );
 };
 

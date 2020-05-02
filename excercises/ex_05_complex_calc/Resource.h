@@ -13,9 +13,12 @@
 #define IDC_MULT                        1003
 #define IDC_SUB                         1004
 #define IDC_DIV                         1005
-#define IDC_COUP                        1006
-#define IDC_MOD                         1007
+#define IDC_MOD_FIRST                   1007
 #define IDC_RESULT                      1008
+#define IDC_MOD_SECOND                  1009
+#define IDC_COUPLED_FIRST               1010
+#define IDC_MOD4                        1011
+#define IDC_COUPLED_SECOND              1011
 #define ID_CALCULATOR_COMPLEX           32771
 
 // Next default values for new objects

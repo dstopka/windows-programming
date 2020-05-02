@@ -26,7 +26,7 @@ public:
 	CComplex Coupled() const;
 	double Module() const;
 	
-private:
+protected:
 	double m_re;
 	double m_im;
 };
