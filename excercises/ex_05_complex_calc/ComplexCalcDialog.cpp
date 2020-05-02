@@ -35,10 +35,8 @@ void CComplexCalc::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CComplexCalc, CDialog)
 	ON_BN_CLICKED( IDC_ADD, &CComplexCalc::OnBnClickedAdd )
 	ON_BN_CLICKED( IDC_SUB, &CComplexCalc::OnBnClickedSub )
-	ON_BN_CLICKED( IDC_MOD, &CComplexCalc::OnBnClickedMod )
 	ON_BN_CLICKED( IDC_MULT, &CComplexCalc::OnBnClickedMult )
 	ON_BN_CLICKED( IDC_DIV, &CComplexCalc::OnBnClickedDiv )
-	ON_BN_CLICKED( IDC_COUP, &CComplexCalc::OnBnClickedCoup )
 	ON_BN_CLICKED( IDC_MOD_FIRST, &CComplexCalc::OnBnClickedModFirst )
 	ON_BN_CLICKED( IDC_MOD_SECOND, &CComplexCalc::OnBnClickedModSecond )
 	ON_BN_CLICKED( IDC_COUPLED_FIRST, &CComplexCalc::OnBnClickedCoupledFirst )
@@ -100,12 +98,6 @@ void CComplexCalc::OnBnClickedSub()
 }
 
 
-void CComplexCalc::OnBnClickedMod()
-{
-	// TODO: Add your control notification handler code here
-}
-
-
 void CComplexCalc::OnBnClickedMult()
 {
 	UpdateData();
@@ -146,32 +138,63 @@ void CComplexCalc::OnBnClickedDiv()
 }
 
 
-void CComplexCalc::OnBnClickedCoup()
-{
-	// TODO: Add your control notification handler code here
-}
-
-
-
 void CComplexCalc::OnBnClickedModFirst()
 {
-	// TODO: Add your control notification handler code here
+	UpdateData();
+	USES_CONVERSION;
+	std::stringstream ss( W2A( m_firstComplex ) );
+	CCanonComplex c( CComplex( 0, 0 ) );
+	ss >> c;
+	double mod = c.Module();
+	CString str;
+	str.Format( L"%f", mod );
+	CWnd* pWnd = GetDlgItem( IDC_RESULT );
+	pWnd->SetWindowTextW( str );
 }
 
 
 void CComplexCalc::OnBnClickedModSecond()
 {
-	// TODO: Add your control notification handler code here
+	UpdateData();
+	USES_CONVERSION;
+	std::stringstream ss( W2A( m_secondComplex ) );
+	CCanonComplex c( CComplex( 0, 0 ) );
+	ss >> c;
+	double mod = c.Module();
+	CString str;
+	str.Format( L"%f", mod );
+	CWnd* pWnd = GetDlgItem( IDC_RESULT );
+	pWnd->SetWindowTextW( str );
 }
 
 
 void CComplexCalc::OnBnClickedCoupledFirst()
 {
-	// TODO: Add your control notification handler code here
+	UpdateData();
+	USES_CONVERSION;
+	std::stringstream ss( W2A( m_firstComplex ) );
+	CCanonComplex c( CComplex( 0, 0 ) );
+	ss >> c;
+	c = c.Coupled();
+	ss.clear();
+	ss.str( "" );
+	ss << c;
+	CWnd* pWnd = GetDlgItem( IDC_RESULT );
+	pWnd->SetWindowTextW( CA2T( ss.str().c_str() ) );
 }
 
 
 void CComplexCalc::OnBnClickedCoupledSecond()
 {
-	// TODO: Add your control notification handler code here
+	UpdateData();
+	USES_CONVERSION;
+	std::stringstream ss( W2A( m_secondComplex ) );
+	CCanonComplex c( CComplex( 0, 0 ) );
+	ss >> c;
+	c = c.Coupled();
+	ss.clear();
+	ss.str( "" );
+	ss << c;
+	CWnd* pWnd = GetDlgItem( IDC_RESULT );
+	pWnd->SetWindowTextW( CA2T( ss.str().c_str() ) );
 }

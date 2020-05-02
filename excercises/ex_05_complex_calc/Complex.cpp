@@ -38,15 +38,16 @@ CComplex & CComplex::operator-=( const CComplex & rhs )
 
 CComplex & CComplex::operator*=( const CComplex & rhs )
 {
+	double temp = this->m_re;
 	this->m_re = this->m_re * rhs.getRe() - this->m_im * rhs.getIm();
-	this->m_im = this->m_re * rhs.getIm() + this->m_im * rhs.getRe();
+	this->m_im = temp * rhs.getIm() + this->m_im * rhs.getRe();
 	return *this;
 }
 
 CComplex & CComplex::operator/=( const CComplex & rhs )
 {
-	CComplex numerator(rhs * rhs.Module());
-	*this *= rhs;
+	CComplex numerator(rhs * rhs.Coupled());
+	*this *= rhs.Coupled();
 	this->m_re /= numerator.getRe();
 	this->m_im /= numerator.getRe();
 	return *this;
