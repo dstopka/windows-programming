@@ -15,26 +15,33 @@ std::ostream & operator<<( std::ostream & output, const CCanonComplex & c )
 {
 	bool realPrinted = false;
 
-	if ( c.m_re != 0 || (c.m_re == 0 && c.m_im == 0) ) {
+	if ( c.m_re != 0 || (c.m_re == 0 && c.m_im == 0) )
+	{
 		output << c.m_re;
 		realPrinted = true;
 	}
 
-	if ( c.m_im > 0 ) {
-		if ( realPrinted ) {
+	if ( c.m_im > 0 ) 
+	{
+		if ( realPrinted )
+		{
 			output << "+";
 		}
-		if ( c.m_im != 1 ) {
+		if ( c.m_im != 1 )
+		{
 			output << c.m_im;
 		}
 		output << "i";
 	}
 
-	else if ( c.m_im < 0 ) {
-		if ( c.m_im == -1 ) {
+	else if ( c.m_im < 0 )
+	{
+		if ( c.m_im == -1 )
+		{
 			output << "-";
 		}
-		else {
+		else 
+		{
 			output << c.m_im;
 		}
 		output << "i";
@@ -46,34 +53,38 @@ std::ostream & operator<<( std::ostream & output, const CCanonComplex & c )
 std::istream & operator>>( std::istream & input, CCanonComplex & c )
 {
 	std::string complexText;
-	int plusPos, minusPos, i_Pos;
+	int plusPos;
+	int minusPos;
+	int iPos;
 	double coefficient1;
-	bool real, imag;
+	bool real;
+	bool imag;
 
-	input >> coefficient1; // fails for pure imag nums converts "bi" to zero.
+	input >> coefficient1;
 	getline( input, complexText );
 
 	plusPos = complexText.find( '+' );
 	minusPos = complexText.find( '-' );
-	i_Pos = complexText.find( 'i' );
+	iPos = complexText.find( 'i' );
 
-	real = i_Pos < 0; // real number won't contain the character i
-	imag = minusPos < 0 && plusPos < 0; // pure imag number if no + or -
+	real = iPos < 0;
+	imag = minusPos < 0 && plusPos < 0;
 
-	if ( real ) {
+	if ( real )
+	{
 		c.m_re = coefficient1;
 		c.m_im = 0.0;
 	}
-
-	else if ( imag ) {
+	else if ( imag ) 
+	{
 		c.m_re = 0.0;
 		c.m_im = coefficient1;
 	}
-
-	else {
+	else 
+	{
 		c.m_re = coefficient1;
 
-		complexText.replace( i_Pos, 1, " " );
+		complexText.replace( iPos, 1, " " );
 
 		if ( plusPos >= 0 )
 			complexText.replace( plusPos, 1, " " );
@@ -84,7 +95,7 @@ std::istream & operator>>( std::istream & input, CCanonComplex & c )
 		c.m_im = atof( complexText.c_str() );
 
 		if ( c.m_im == 0 )
-			c.m_im = 1; // 1 + i, 1 - i
+			c.m_im = 1;
 
 		if ( minusPos >= 0 )
 			c.m_im = -c.m_im;
