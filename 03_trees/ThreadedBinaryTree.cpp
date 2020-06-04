@@ -7,7 +7,7 @@ ThreadedBinaryTree<T>::ThreadedBinaryTree()
 	root_ = std::make_shared<struct Node<T>>();
 	root_->right = root_->left = root_;
 	root_->lTag = root_->rTag = 0;
-	root_->keyValue = nullptr;
+	root_->keyValue = Random::random(MIN_VALUE, MAX_VALUE);
 }
 
 template<typename T>
@@ -113,5 +113,28 @@ ThreadedBinaryTree<T>::printInOrder()
 		}
 	}
 	//std::cout << std::endl;
+}
+
+template<typename T>
+bool ThreadedBinaryTree<T>::findKey( const T key ) const
+{
+	auto current = root_;
+	for(;; )
+	{
+		if ( current->keyValue > key )
+		{
+			if ( !current->lTag )
+				return false;
+			current = current->left;
+		}
+		else if ( current->keyValue < key )
+		{
+			if ( !current->rTag )
+				return false;
+			current = current->right;
+		}
+		else
+			return true;
+	}
 }
 

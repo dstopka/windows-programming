@@ -17,6 +17,7 @@ public:
 	void clear();
 	void insert(const T key );
 	void printInOrder();
+	bool findKey( const T key ) const;
 
 private:
 	std::shared_ptr<struct Node<T>> root_;
