@@ -3,7 +3,7 @@
 
 struct Node
 {
-	char keyValue;
+	int keyValue;
 	std::shared_ptr<Node> left;
 	std::shared_ptr<Node> right;
 	bool rTag;

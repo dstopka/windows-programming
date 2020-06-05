@@ -2,8 +2,8 @@
 #include "Node.h"
 #include "RandomGenerator.h"
 
-#define MIN_VALUE 'a'
-#define MAX_VALUE 'z'
+#define MIN_VALUE 1
+#define MAX_VALUE 100
 
 class ThreadedBinaryTree
 {
@@ -12,12 +12,14 @@ public:
 	~ThreadedBinaryTree();
 	//ThreadedBinaryTree( const ThreadedBinaryTree& tree );
 	//ThreadedBinaryTree& operator=( const ThreadedBinaryTree& tree );
-	void clear();
+	void make();
 	void insert(const char key );
 	void printInOrder( std::shared_ptr<CRect> clientWindow, CDC *pDC );
+	void draw( std::shared_ptr<CRect> clientWindow, CDC *pDC );
 	bool findKey( const char key ) const;
 
 private:
+	void drawNode( std::shared_ptr<Node> node, int x, int y, int lvl, std::shared_ptr<CRect> clientWindow, CDC * pDC );
 	std::shared_ptr<struct Node> root_;
 	bool direction_left_;
 	bool direction_right_;

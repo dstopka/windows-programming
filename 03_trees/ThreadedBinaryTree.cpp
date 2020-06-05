@@ -3,10 +3,8 @@
 
 ThreadedBinaryTree::ThreadedBinaryTree()
 {
-	root_ = std::make_shared<struct Node>();
-	root_->right = root_->left = root_;
-	root_->lTag = root_->rTag = 0;
-	root_->keyValue = Random::random(MIN_VALUE, MAX_VALUE);
+	srand( time( nullptr ) );
+	root_ = nullptr;
 }
 
 ThreadedBinaryTree::~ThreadedBinaryTree()
@@ -14,7 +12,7 @@ ThreadedBinaryTree::~ThreadedBinaryTree()
 }
 
 void
-ThreadedBinaryTree::clear()
+ThreadedBinaryTree::make()
 {
 	root_ = std::make_shared<struct Node>();
 	root_->right = root_->left = root_;
@@ -23,11 +21,11 @@ ThreadedBinaryTree::clear()
 }
 
 void
-ThreadedBinaryTree::insert(const char key )
+ThreadedBinaryTree::insert( const char key )
 {
 	auto newNode = std::make_shared<struct Node>();
 	newNode->keyValue = key;
-
+	/*
 	if(root_ == root_->left && root_ == root_->right )
 	{
 		newNode->left = root_;
@@ -37,63 +35,64 @@ ThreadedBinaryTree::insert(const char key )
 		newNode->lTag = newNode->rTag = false;
 	}
 	else
+	{*/
+	auto current = root_;// ->left;
+	for ( ;;)
 	{
-		auto current = root_->left;
-		for(;;)
+		if ( current->keyValue > newNode->keyValue )
 		{
-			if(current->keyValue > newNode->keyValue )
+			if ( !current->lTag )
 			{
-				if ( !current->lTag )
-				{
-					direction_left_ = true;
-					direction_right_ = false;
-					break;
-				}
-				current = current->left;
+				direction_left_ = true;
+				direction_right_ = false;
+				break;
 			}
-			else
+			current = current->left;
+		}
+		else
+		{
+			if ( !current->rTag )
 			{
-				if( !current->rTag )
-				{
-					direction_right_ = true;
-					direction_left_ = false;
-					break;
-				}
-				current = current->right;
+				direction_right_ = true;
+				direction_left_ = false;
+				break;
 			}
-		}
-		if(direction_left_ )
-		{
-			newNode->left = current->left;
-			newNode->right = current;
-			current->left = newNode;
-			newNode->lTag = newNode->rTag = false;
-			current->lTag = true;
-			
-		}
-		else if (direction_right_ )
-		{
-			newNode->right = current->right;
-			newNode->left = current;
-			current->right = newNode;
-			newNode->lTag = newNode->rTag = false;
-			current->rTag = true;
+			current = current->right;
 		}
 	}
+	if ( direction_left_ )
+	{
+		newNode->left = current->left;
+		newNode->right = current;
+		current->left = newNode;
+		newNode->lTag = newNode->rTag = false;
+		current->lTag = true;
+
+	}
+	else if ( direction_right_ )
+	{
+		newNode->right = current->right;
+		newNode->left = current;
+		current->right = newNode;
+		newNode->lTag = newNode->rTag = false;
+		current->rTag = true;
+	}
+	//}
 }
 
 void
 ThreadedBinaryTree::printInOrder( std::shared_ptr<CRect> clientWindow, CDC *pDC )
 {
 	int offset = 0;
-	auto current = root_->left;
+	auto current = root_;
 	while ( current->lTag )
 	{
 		current = current->left;
 	}
 	while ( current != root_ )
 	{
-		CString key = CString( current->keyValue );
+		CString key;
+		key.Format( L"%d", current->keyValue );
 		pDC->TextOutW( 10 + offset * 10, static_cast<int>(clientWindow->Height() * 0.9), key );
 		offset++;
 		if ( !current->rTag )
@@ -109,13 +108,23 @@ ThreadedBinaryTree::printInOrder( std::shared_ptr<CRect> clientWindow, CDC *pDC 
 			}
 		}
 	}
+	CString key;
+	key.Format( L"%d", current->keyValue );
+	pDC->TextOutW( 10 + offset * 10, static_cast<int>(clientWindow->Height() * 0.9), key );
+	offset++;
+}
+
+void ThreadedBinaryTree::draw( std::shared_ptr<CRect> clientWindow, CDC * pDC )
+{
+	if ( root_ )
+		drawNode( root_, clientWindow->Width() * 0.5, clientWindow->Height() * 0.1, 1, clientWindow, pDC );
 }
 
 
 bool ThreadedBinaryTree::findKey( const char key ) const
 {
 	auto current = root_;
-	for(;; )
+	for ( ;; )
 	{
 		if ( current->keyValue > key )
 		{
@@ -131,6 +140,29 @@ bool ThreadedBinaryTree::findKey( const char key ) const
 		}
 		else
 			return true;
+	}
+}
+
+void ThreadedBinaryTree::drawNode( std::shared_ptr<Node> node, int x, int y, int lvl, std::shared_ptr<CRect> clientWindow, CDC * pDC )
+{
+
+	if ( node->rTag )
+	{
+		pDC->MoveTo( x + 27, y + 27 );
+		pDC->LineTo( x + 200 / lvl + 5, y + 55 );
+		drawNode( node->right, x + 200 / lvl, y + 50, lvl + 1, clientWindow, pDC );
+	}
+
+	pDC->Ellipse( x, y, x + 32, y + 32 );
+	CString key;
+	key.Format( L"%d", node->keyValue );
+	pDC->TextOutW( x + 11, y + 5, key );
+
+	if ( node->lTag )
+	{
+		pDC->MoveTo( x + 5, y + 27 );
+		pDC->LineTo( x - 200 / lvl + 27, y + 55 );
+		drawNode( node->left, x - 200 / lvl, y + 50, lvl + 1, clientWindow, pDC );
 	}
 }
 

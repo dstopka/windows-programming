@@ -58,6 +58,7 @@ void CMyTreesView::OnDraw(CDC* pDC)
 	if (!document_ )
 		return;
 	GetClientRect( this->clientRect_.get() );
+	document_->getTree().draw( clientRect_, pDC );
 	if ( print_ )
 		document_->getTree().printInOrder(clientRect_, pDC);
 }
@@ -89,9 +90,10 @@ CMyTreesDoc* CMyTreesView::GetDocument() const // non-debug version is inline
 
 void CMyTreesView::OnTreeMake()
 {
-	for ( auto i = 0; i < 6; i++ )
+	document_->getTree().make();
+	for ( auto i = 0; i < 15; i++ )
 	{
-		const auto newKey = Random::random( MIN_VALUE, MAX_VALUE );
+		auto newKey = Random::random( MIN_VALUE, MAX_VALUE );
 		if ( !document_->getTree().findKey(newKey))
 		{
 			document_->getTree().insert( newKey);
@@ -116,7 +118,16 @@ void CMyTreesView::OnTreePrint()
 
 void CMyTreesView::OnTreeAddNode()
 {
-	// TODO: Add your command handler code here
+	int newKey;
+	do
+	{
+		newKey = Random::random( MIN_VALUE, MAX_VALUE );
+	} while ( document_->getTree().findKey( newKey ) );
+
+	document_->getTree().insert( newKey );
+
+	Invalidate();
+	UpdateWindow();
 }
 
 
