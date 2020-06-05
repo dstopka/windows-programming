@@ -3,6 +3,7 @@
 //
 
 #pragma once
+#include <memory>
 
 
 class CMyTreesView : public CView
@@ -37,6 +38,16 @@ protected:
 // Generated message map functions
 protected:
 	DECLARE_MESSAGE_MAP()
+
+private:
+	std::shared_ptr<CRect> clientRect_;
+	CMyTreesDoc* document_;
+	bool print_;
+public:
+	afx_msg void OnTreeMake();
+	afx_msg void OnTreePrint();
+	afx_msg void OnTreeAddNode();
+	afx_msg void OnTreeRobson();
 };
 
 #ifndef _DEBUG  // debug version in treesView.cpp

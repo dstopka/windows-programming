@@ -1,35 +1,31 @@
 #include "stdafx.h"
 #include "ThreadedBinaryTree.h"
 
-template<typename T>
-ThreadedBinaryTree<T>::ThreadedBinaryTree()
+ThreadedBinaryTree::ThreadedBinaryTree()
 {
-	root_ = std::make_shared<struct Node<T>>();
+	root_ = std::make_shared<struct Node>();
 	root_->right = root_->left = root_;
 	root_->lTag = root_->rTag = 0;
 	root_->keyValue = Random::random(MIN_VALUE, MAX_VALUE);
 }
 
-template<typename T>
-ThreadedBinaryTree<T>::~ThreadedBinaryTree()
+ThreadedBinaryTree::~ThreadedBinaryTree()
 {
 }
 
-template<typename T>
 void
-ThreadedBinaryTree<T>::clear()
+ThreadedBinaryTree::clear()
 {
-	root_ = std::make_shared<struct Node<T>>();
+	root_ = std::make_shared<struct Node>();
 	root_->right = root_->left = root_;
 	root_->lTag = root_->rTag = 0;
-	root_->keyValue = nullptr;
+	root_->keyValue = Random::random( MIN_VALUE, MAX_VALUE );
 }
 
-template<typename T>
 void
-ThreadedBinaryTree<T>::insert(const T key )
+ThreadedBinaryTree::insert(const char key )
 {
-	auto newNode = std::make_shared<struct Node<T>>();
+	auto newNode = std::make_shared<struct Node>();
 	newNode->keyValue = key;
 
 	if(root_ == root_->left && root_ == root_->right )
@@ -86,37 +82,37 @@ ThreadedBinaryTree<T>::insert(const T key )
 	}
 }
 
-template<typename T>
 void
-ThreadedBinaryTree<T>::printInOrder()
+ThreadedBinaryTree::printInOrder( std::shared_ptr<CRect> clientWindow, CDC *pDC )
 {
+	int offset = 0;
 	auto current = root_->left;
-	while ( current->l_tag )
+	while ( current->lTag )
 	{
 		current = current->left;
 	}
 	while ( current != root_ )
 	{
-		//std::cout << current->value << " ";
-
-		if ( !current->r_tag )
+		CString key = CString( current->keyValue );
+		pDC->TextOutW( 10 + offset * 10, static_cast<int>(clientWindow->Height() * 0.9), key );
+		offset++;
+		if ( !current->rTag )
 		{
 			current = current->right;
 		}
 		else
 		{
 			current = current->right;
-			while ( current->l_tag )
+			while ( current->lTag )
 			{
 				current = current->left;
 			}
 		}
 	}
-	//std::cout << std::endl;
 }
 
-template<typename T>
-bool ThreadedBinaryTree<T>::findKey( const T key ) const
+
+bool ThreadedBinaryTree::findKey( const char key ) const
 {
 	auto current = root_;
 	for(;; )

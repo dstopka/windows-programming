@@ -33,6 +33,11 @@ CMyTreesDoc::CMyTreesDoc()
 
 }
 
+ThreadedBinaryTree& CMyTreesDoc::getTree()
+{
+	return tree_;
+}
+
 CMyTreesDoc::~CMyTreesDoc()
 {
 }

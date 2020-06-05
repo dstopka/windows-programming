@@ -1,10 +1,9 @@
 #pragma once
 #include <memory>
 
-template <typename T>
 struct Node
 {
-	T keyValue;
+	char keyValue;
 	std::shared_ptr<Node> left;
 	std::shared_ptr<Node> right;
 	bool rTag;

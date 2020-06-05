@@ -4,7 +4,7 @@
 
 
 #pragma once
-
+#include "ThreadedBinaryTree.h"
 
 class CMyTreesDoc : public CDocument
 {
@@ -14,7 +14,7 @@ protected: // create from serialization only
 
 // Attributes
 public:
-
+	ThreadedBinaryTree& getTree();
 // Operations
 public:
 
@@ -33,6 +33,7 @@ public:
 #ifdef _DEBUG
 	virtual void AssertValid() const;
 	virtual void Dump(CDumpContext& dc) const;
+	
 #endif
 
 protected:
@@ -45,4 +46,7 @@ protected:
 	// Helper function that sets search content for a Search Handler
 	void SetSearchContent(const CString& value);
 #endif // SHARED_HANDLERS
+
+private:
+	ThreadedBinaryTree tree_;
 };
