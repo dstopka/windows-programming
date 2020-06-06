@@ -43,11 +43,15 @@ private:
 	std::shared_ptr<CRect> clientRect_;
 	CMyTreesDoc* document_;
 	bool print_;
+	bool draw_;
+	std::shared_ptr<CFont> fontObj_;
 public:
 	afx_msg void OnTreeMake();
 	afx_msg void OnTreePrint();
 	afx_msg void OnTreeAddNode();
 	afx_msg void OnTreeRobson();
+	afx_msg void OnTreeDrawtree();
+	afx_msg void OnTreeClear();
 };
 
 #ifndef _DEBUG  // debug version in treesView.cpp

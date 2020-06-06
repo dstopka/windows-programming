@@ -121,9 +121,11 @@ BEGIN
     POPUP "Tree"
     BEGIN
         MENUITEM "Make Tree",                   ID_TREE_MAKETREE
+        MENUITEM "Draw Tree",                   ID_TREE_DRAWTREE
         MENUITEM "Print InOrder",               ID_TREE_PRINTINORDER
         MENUITEM "Add Node",                    ID_TREE_ADDNODE
         MENUITEM "Robson's argorithm",          ID_TREE_ROBSON
+        MENUITEM "Clear Tree",                  ID_TREE_CLEARTREE
     END
     POPUP "&Help"
     BEGIN

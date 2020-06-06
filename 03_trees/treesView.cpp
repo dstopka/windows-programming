@@ -20,13 +20,15 @@
 
 // CMyTreesView
 
-IMPLEMENT_DYNCREATE(CMyTreesView, CView)
+IMPLEMENT_DYNCREATE( CMyTreesView, CView )
 
-BEGIN_MESSAGE_MAP(CMyTreesView, CView)
+BEGIN_MESSAGE_MAP( CMyTreesView, CView )
 	ON_COMMAND( ID_TREE_MAKETREE, &CMyTreesView::OnTreeMake )
 	ON_COMMAND( ID_TREE_PRINTINORDER, &CMyTreesView::OnTreePrint )
 	ON_COMMAND( ID_TREE_ADDNODE, &CMyTreesView::OnTreeAddNode )
 	ON_COMMAND( ID_TREE_ROBSON, &CMyTreesView::OnTreeRobson )
+	ON_COMMAND( ID_TREE_DRAWTREE, &CMyTreesView::OnTreeDrawtree )
+	ON_COMMAND( ID_TREE_CLEARTREE, &CMyTreesView::OnTreeClear )
 END_MESSAGE_MAP()
 
 // CMyTreesView construction/destruction
@@ -34,33 +36,53 @@ END_MESSAGE_MAP()
 CMyTreesView::CMyTreesView()
 {
 	clientRect_ = std::make_shared<CRect>();
+	fontObj_ = std::make_shared<CFont>();
+	draw_ = false;
 	print_ = false;
+	LOGFONT logFont;
+	memset( &logFont, 0, sizeof( LOGFONT ) );
+	lstrcpy( logFont.lfFaceName, L"Consolas" );
+	logFont.lfCharSet = DEFAULT_CHARSET;
+	logFont.lfWeight = FW_REGULAR;
+	logFont.lfHeight = 18;
+	logFont.lfWidth = 18;
+	if ( !fontObj_->CreateFontIndirect( &logFont ) )
+		TRACE0( "Could not create font for the trends\n" );
 }
 
 CMyTreesView::~CMyTreesView()
 {
 }
 
-BOOL CMyTreesView::PreCreateWindow(CREATESTRUCT& cs)
+BOOL CMyTreesView::PreCreateWindow( CREATESTRUCT& cs )
 {
 	// TODO: Modify the Window class or styles here by modifying
 	//  the CREATESTRUCT cs
 
-	return CView::PreCreateWindow(cs);
+	return CView::PreCreateWindow( cs );
 }
 
 // CMyTreesView drawing
 
-void CMyTreesView::OnDraw(CDC* pDC)
+void CMyTreesView::OnDraw( CDC* pDC )
 {
 	document_ = GetDocument();
 	ASSERT_VALID( document_ );
-	if (!document_ )
+	if ( !document_ )
 		return;
 	GetClientRect( this->clientRect_.get() );
-	document_->getTree().draw( clientRect_, pDC );
+	if ( draw_ )
+		document_->getTree().draw( clientRect_, pDC );
 	if ( print_ )
-		document_->getTree().printInOrder(clientRect_, pDC);
+	{
+		CString outText( document_->getTree().printInOrder().c_str() );
+		auto sz = pDC->GetTextExtent( outText );
+		CFont* oldFont = static_cast<CFont*>(pDC->SelectObject( fontObj_.get() ));
+		pDC->SetTextColor( RGB( 0, 0, 127 ) );
+		pDC->TextOutW( 10, static_cast<int>(clientRect_->Height() - 2 - sz.cy), outText );
+		pDC->SelectObject( oldFont );
+		pDC->SetTextColor( RGB( 0, 0, 0 ) );
+	}
 }
 
 
@@ -72,14 +94,14 @@ void CMyTreesView::AssertValid() const
 	CView::AssertValid();
 }
 
-void CMyTreesView::Dump(CDumpContext& dc) const
+void CMyTreesView::Dump( CDumpContext& dc ) const
 {
-	CView::Dump(dc);
+	CView::Dump( dc );
 }
 
 CMyTreesDoc* CMyTreesView::GetDocument() const // non-debug version is inline
 {
-	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CMyTreesDoc)));
+	ASSERT( m_pDocument->IsKindOf( RUNTIME_CLASS( CMyTreesDoc ) ) );
 	return (CMyTreesDoc*)m_pDocument;
 }
 #endif //_DEBUG
@@ -90,13 +112,12 @@ CMyTreesDoc* CMyTreesView::GetDocument() const // non-debug version is inline
 
 void CMyTreesView::OnTreeMake()
 {
-	document_->getTree().make();
 	for ( auto i = 0; i < 15; i++ )
 	{
 		auto newKey = Random::random( MIN_VALUE, MAX_VALUE );
-		if ( !document_->getTree().findKey(newKey))
+		if ( !document_->getTree().findKey( newKey ) )
 		{
-			document_->getTree().insert( newKey);
+			document_->getTree().insert( newKey );
 		}
 		else
 		{
@@ -110,7 +131,7 @@ void CMyTreesView::OnTreeMake()
 
 void CMyTreesView::OnTreePrint()
 {
-	print_ = true;
+	print_ = !print_;
 	Invalidate();
 	UpdateWindow();
 }
@@ -134,4 +155,20 @@ void CMyTreesView::OnTreeAddNode()
 void CMyTreesView::OnTreeRobson()
 {
 	// TODO: Add your command handler code here
+}
+
+
+void CMyTreesView::OnTreeDrawtree()
+{
+	draw_ = !draw_;
+	Invalidate();
+	UpdateWindow();
+}
+
+
+void CMyTreesView::OnTreeClear()
+{
+	document_->getTree().clear();
+	Invalidate();
+	UpdateWindow();
 }

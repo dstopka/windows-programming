@@ -1,4 +1,6 @@
 #pragma once
+#include <string>
+
 #include "Node.h"
 #include "RandomGenerator.h"
 
@@ -12,9 +14,9 @@ public:
 	~ThreadedBinaryTree();
 	//ThreadedBinaryTree( const ThreadedBinaryTree& tree );
 	//ThreadedBinaryTree& operator=( const ThreadedBinaryTree& tree );
-	void make();
+	void clear();
 	void insert(const char key );
-	void printInOrder( std::shared_ptr<CRect> clientWindow, CDC *pDC );
+	std::string printInOrder() const;
 	void draw( std::shared_ptr<CRect> clientWindow, CDC *pDC );
 	bool findKey( const char key ) const;
 
