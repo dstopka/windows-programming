@@ -11,6 +11,8 @@
 
 #include "treesDoc.h"
 #include "treesView.h"
+
+#include "MainFrm.h"
 #include "ThreadedBinaryTree.h"
 
 #ifdef _DEBUG
@@ -23,12 +25,13 @@
 IMPLEMENT_DYNCREATE( CMyTreesView, CView )
 
 BEGIN_MESSAGE_MAP( CMyTreesView, CView )
-	ON_COMMAND( ID_TREE_MAKETREE, &CMyTreesView::OnTreeMake )
+	ON_COMMAND( ID_TREE_MAKE, &CMyTreesView::OnTreeMake )
 	ON_COMMAND( ID_TREE_PRINTINORDER, &CMyTreesView::OnTreePrint )
 	ON_COMMAND( ID_TREE_ADDNODE, &CMyTreesView::OnTreeAddNode )
 	ON_COMMAND( ID_TREE_ROBSON, &CMyTreesView::OnTreeRobson )
-	ON_COMMAND( ID_TREE_DRAWTREE, &CMyTreesView::OnTreeDrawtree )
-	ON_COMMAND( ID_TREE_CLEARTREE, &CMyTreesView::OnTreeClear )
+	ON_COMMAND( ID_TREE_DRAW, &CMyTreesView::OnTreeDraw )
+	ON_COMMAND( ID_TREE_CLEAR, &CMyTreesView::OnTreeClear )
+	ON_UPDATE_COMMAND_UI( ID_TREE_MAKE, &CMyTreesView::OnUpdateTreeMake )
 END_MESSAGE_MAP()
 
 // CMyTreesView construction/destruction
@@ -39,6 +42,7 @@ CMyTreesView::CMyTreesView()
 	fontObj_ = std::make_shared<CFont>();
 	draw_ = false;
 	print_ = false;
+	treeIsEmpty_ = true;
 	LOGFONT logFont;
 	memset( &logFont, 0, sizeof( LOGFONT ) );
 	lstrcpy( logFont.lfFaceName, L"Consolas" );
@@ -112,26 +116,32 @@ CMyTreesDoc* CMyTreesView::GetDocument() const // non-debug version is inline
 
 void CMyTreesView::OnTreeMake()
 {
-	for ( auto i = 0; i < 15; i++ )
+	if ( treeIsEmpty_ )
 	{
-		auto newKey = Random::random( MIN_VALUE, MAX_VALUE );
-		if ( !document_->getTree().findKey( newKey ) )
+		for ( auto i = 0; i < 15; i++ )
 		{
-			document_->getTree().insert( newKey );
+			auto newKey = Random::random( MIN_VALUE, MAX_VALUE );
+			if ( !document_->getTree().findKey( newKey ) )
+			{
+				document_->getTree().insert( newKey );
+			}
+			else
+			{
+				i--;
+			}
 		}
-		else
-		{
-			i--;
-		}
+		treeIsEmpty_ = false;
+		Invalidate();
+		UpdateWindow();
 	}
-	Invalidate();
-	UpdateWindow();
 }
 
 
 void CMyTreesView::OnTreePrint()
 {
 	print_ = !print_;
+	CMainFrame* frame = static_cast<CMainFrame*>(GetParentFrame());
+	frame->resetButton( print_, 1 );
 	Invalidate();
 	UpdateWindow();
 }
@@ -158,9 +168,11 @@ void CMyTreesView::OnTreeRobson()
 }
 
 
-void CMyTreesView::OnTreeDrawtree()
+void CMyTreesView::OnTreeDraw()
 {
 	draw_ = !draw_;
+	CMainFrame* frame = static_cast<CMainFrame*>(GetParentFrame());
+	frame->resetButton( draw_, 0 );
 	Invalidate();
 	UpdateWindow();
 }
@@ -171,4 +183,10 @@ void CMyTreesView::OnTreeClear()
 	document_->getTree().clear();
 	Invalidate();
 	UpdateWindow();
+}
+
+
+void CMyTreesView::OnUpdateTreeMake( CCmdUI *pCmdUI )
+{
+	pCmdUI->Enable( treeIsEmpty_ );
 }

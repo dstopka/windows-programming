@@ -3,6 +3,7 @@
 //
 
 #pragma once
+#include <vector>
 
 class CMainFrame : public CFrameWnd
 {
@@ -16,7 +17,7 @@ public:
 
 // Operations
 public:
-
+	void resetButton(bool state, int idx);
 // Overrides
 public:
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
@@ -32,6 +33,7 @@ public:
 protected:  // control bar embedded members
 	CToolBar          m_wndToolBar;
 	CStatusBar        m_wndStatusBar;
+	static std::vector<UINT> m_buttonsIDs;
 
 // Generated message map functions
 protected:

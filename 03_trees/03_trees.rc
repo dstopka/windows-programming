@@ -96,18 +96,12 @@ IDR_MAINFRAME           BITMAP                  "res\\Toolbar.bmp"
 // Toolbar
 //
 
-IDR_MAINFRAME TOOLBAR 16, 15
+IDR_MAINFRAME TOOLBAR 25, 25
 BEGIN
-    BUTTON      ID_FILE_NEW
-    BUTTON      ID_FILE_OPEN
-    BUTTON      ID_FILE_SAVE
-    SEPARATOR
-    BUTTON      ID_EDIT_CUT
-    BUTTON      ID_EDIT_COPY
-    BUTTON      ID_EDIT_PASTE
-    SEPARATOR
-    BUTTON      ID_FILE_PRINT
-    BUTTON      ID_APP_ABOUT
+    BUTTON      ID_TREE_DRAW
+    BUTTON      ID_TREE_PRINTINORDER
+    BUTTON      ID_BUTTON32779
+    BUTTON      ID_BUTTON32780
 END
 
 
@@ -120,12 +114,14 @@ IDR_MAINFRAME MENU
 BEGIN
     POPUP "Tree"
     BEGIN
-        MENUITEM "Make Tree",                   ID_TREE_MAKETREE
-        MENUITEM "Draw Tree",                   ID_TREE_DRAWTREE
-        MENUITEM "Print InOrder",               ID_TREE_PRINTINORDER
+        MENUITEM "Make Tree",                   ID_TREE_MAKE
+        MENUITEM "Clear Tree",                  ID_TREE_CLEAR
         MENUITEM "Add Node",                    ID_TREE_ADDNODE
+        MENUITEM SEPARATOR
+        MENUITEM "Draw Tree",                   ID_TREE_DRAW
+        MENUITEM SEPARATOR
+        MENUITEM "Print InOrder",               ID_TREE_PRINTINORDER
         MENUITEM "Robson's argorithm",          ID_TREE_ROBSON
-        MENUITEM "Clear Tree",                  ID_TREE_CLEARTREE
     END
     POPUP "&Help"
     BEGIN
@@ -345,6 +341,14 @@ STRINGTABLE
 BEGIN
     AFX_IDS_SCRESTORE       "Restore the window to normal size"
     AFX_IDS_SCTASKLIST      "Activate Task List"
+END
+
+STRINGTABLE
+BEGIN
+    ID_BUTTON32778          "Print Tree Nodes"
+    ID_BUTTON32779          "Stop Drawing"
+    ID_BUTTON32780          "Stop Printing Nodes"
+    ID_TREE_DRAW            "Draw Tree"
 END
 
 #endif    // English (United States) resources
