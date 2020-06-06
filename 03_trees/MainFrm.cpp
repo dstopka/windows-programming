@@ -30,6 +30,8 @@ static UINT indicators[] =
 
 std::vector<UINT>CMainFrame::m_buttonsIDs =
 {
+	ID_TREE_MAKE,
+	ID_TREE_CLEAR,
 	ID_TREE_DRAW,
 	ID_TREE_PRINTINORDER
 };
@@ -89,11 +91,11 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 void CMainFrame::resetButton( bool state, int idx )
 {
 	const int buttonIx = m_buttonsIDs.size() + idx;
-	UINT button = m_buttonsIDs[idx];
+	UINT button = m_buttonsIDs[idx + 2];
 	if ( state )
-		m_wndToolBar.SetButtonInfo( idx, button, TBBS_BUTTON, buttonIx );
+		m_wndToolBar.SetButtonInfo( idx + 2, button, TBBS_BUTTON, buttonIx );
 	else
-		m_wndToolBar.SetButtonInfo( idx, button, TBBS_BUTTON, idx );
+		m_wndToolBar.SetButtonInfo( idx + 2, button, TBBS_BUTTON, idx + 2 );
 
 	m_wndToolBar.Invalidate();
 }

@@ -180,6 +180,7 @@ void CMyTreesView::OnTreeDraw()
 
 void CMyTreesView::OnTreeClear()
 {
+	treeIsEmpty_ = true;
 	document_->getTree().clear();
 	Invalidate();
 	UpdateWindow();
