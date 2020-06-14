@@ -20,7 +20,6 @@
 #endif
 
 #define IN_ORDER
-
 // CMyTreesView
 
 IMPLEMENT_DYNCREATE( CMyTreesView, CView )
@@ -43,6 +42,7 @@ CMyTreesView::CMyTreesView()
 	fontObj_ = std::make_shared<CFont>();
 	draw_ = false;
 	print_ = false;
+	robson_ = false;
 	treeIsEmpty_ = true;
 	insert_ = false;
 	LOGFONT logFont;
@@ -78,44 +78,50 @@ void CMyTreesView::OnDraw( CDC* pDC )
 		return;
 	GetClientRect( this->clientRect_.get() );
 
-	if ( draw_ )
-		document_->getTree().draw( clientRect_, pDC );
-	if ( print_ )
+	if ( robson_ )
 	{
-		CFont* oldFont = static_cast<CFont*>(pDC->SelectObject( fontObj_.get() ));
-		
-#ifdef IN_ORDER
-		CString outText( document_->getTree().printInOrder().c_str() );
-#endif
-		
-#ifdef PRE_ORDER
-		CString outText( document_->getTree().printPreOrder().c_str() );
-#endif
-		
-#ifdef POST_ORDER
-		CString outText( document_->getTree().printPostOrder().c_str() );
-#endif
-		
-		auto sz = pDC->GetTextExtent( outText );
-		pDC->SetTextColor( RGB( 0, 0, 127 ) );
-		pDC->TextOutW( 10, static_cast<int>(clientRect_->Height() - 2 - sz.cy), outText );
-		pDC->SelectObject( oldFont );
-		pDC->SetTextColor( RGB( 0, 0, 0 ) );
+
 	}
-	if ( insert_ )
+	else
 	{
-		int newKey;
-		do
+		if ( draw_ )
+			document_->getTree().draw( clientRect_, pDC );
+		if ( print_ )
 		{
-			newKey = Random::random( MIN_VALUE, MAX_VALUE );
-		} while ( document_->getTree().findKey( newKey ) );
+			CFont* oldFont = static_cast<CFont*>(pDC->SelectObject( fontObj_.get() ));
 
-		document_->getTree().insert( clientRect_, pDC, newKey );
-		insert_ = false;
-		Invalidate();
-		UpdateWindow();
+#ifdef IN_ORDER
+			CString outText( document_->getTree().printInOrder().c_str() );
+#endif
+
+#ifdef PRE_ORDER
+			CString outText( document_->getTree().printPreOrder().c_str() );
+#endif
+
+#ifdef POST_ORDER
+			CString outText( document_->getTree().printPostOrder().c_str() );
+#endif
+
+			auto sz = pDC->GetTextExtent( outText );
+			pDC->SetTextColor( RGB( 0, 0, 127 ) );
+			pDC->TextOutW( 10, static_cast<int>(clientRect_->Height() - 2 - sz.cy), outText );
+			pDC->SelectObject( oldFont );
+			pDC->SetTextColor( RGB( 0, 0, 0 ) );
+		}
+		if ( insert_ )
+		{
+			int newKey;
+			do
+			{
+				newKey = Random::random( MIN_VALUE, MAX_VALUE );
+			} while ( document_->getTree().findKey( newKey ) );
+
+			document_->getTree().insert( clientRect_, pDC, newKey );
+			insert_ = false;
+			Invalidate();
+			UpdateWindow();
+		}
 	}
-
 }
 
 
@@ -186,7 +192,11 @@ void CMyTreesView::OnTreeAddNode()
 
 void CMyTreesView::OnTreeRobson()
 {
-	// TODO: Add your command handler code here
+	robson_ = !robson_;
+	CMainFrame* frame = static_cast<CMainFrame*>(GetParentFrame());
+	frame->resetButton( robson_, 2 );
+	Invalidate();
+	UpdateWindow();
 }
 
 

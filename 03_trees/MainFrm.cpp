@@ -34,7 +34,8 @@ std::vector<UINT>CMainFrame::m_buttonsIDs =
 	ID_TREE_CLEAR,
 	ID_TREE_ADDNODE,
 	ID_TREE_DRAW,
-	ID_TREE_PRINTINORDER
+	ID_TREE_PRINTINORDER,
+	ID_TREE_ROBSON
 };
 
 // CMainFrame construction/destruction

@@ -45,6 +45,7 @@ private:
 	bool print_;
 	bool draw_;
 	bool insert_;
+	bool robson_;
 	bool treeIsEmpty_;
 	std::shared_ptr<CFont> fontObj_;
 public:
