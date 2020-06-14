@@ -55,6 +55,8 @@ public:
 	afx_msg void OnTreeDraw();
 	afx_msg void OnTreeClear();
 	afx_msg void OnUpdateTreeMake( CCmdUI *pCmdUI );
+	afx_msg void OnHScroll( UINT nSBCode, UINT nPos, CScrollBar* pScrollBar );
+	afx_msg void OnVScroll( UINT nSBCode, UINT nPos, CScrollBar* pScrollBar );
 };
 
 #ifndef _DEBUG  // debug version in treesView.cpp

@@ -19,6 +19,7 @@
 #define new DEBUG_NEW
 #endif
 
+#define IN_ORDER
 
 // CMyTreesView
 
@@ -81,9 +82,21 @@ void CMyTreesView::OnDraw( CDC* pDC )
 		document_->getTree().draw( clientRect_, pDC );
 	if ( print_ )
 	{
-		CString outText( document_->getTree().printInOrder().c_str() );
-		auto sz = pDC->GetTextExtent( outText );
 		CFont* oldFont = static_cast<CFont*>(pDC->SelectObject( fontObj_.get() ));
+		
+#ifdef IN_ORDER
+		CString outText( document_->getTree().printInOrder().c_str() );
+#endif
+		
+#ifdef PRE_ORDER
+		CString outText( document_->getTree().printPreOrder().c_str() );
+#endif
+		
+#ifdef POST_ORDER
+		CString outText( document_->getTree().printPostOrder().c_str() );
+#endif
+		
+		auto sz = pDC->GetTextExtent( outText );
 		pDC->SetTextColor( RGB( 0, 0, 127 ) );
 		pDC->TextOutW( 10, static_cast<int>(clientRect_->Height() - 2 - sz.cy), outText );
 		pDC->SelectObject( oldFont );
@@ -200,3 +213,4 @@ void CMyTreesView::OnUpdateTreeMake( CCmdUI *pCmdUI )
 {
 	pCmdUI->Enable( treeIsEmpty_ );
 }
+

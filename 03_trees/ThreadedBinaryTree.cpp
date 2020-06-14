@@ -10,7 +10,6 @@ ThreadedBinaryTree::ThreadedBinaryTree()
 	root_->lTag = false;
 	root_->rTag = true;
 	root_->keyValue = MAX_VALUE;
-	insertPen_ = std::make_shared<CPen>( PS_SOLID, 1, RGB(255, 0, 0) );
 	brush_ = std::make_shared<CBrush>( RGB( 255, 0, 0 ) );
 }
 
@@ -31,11 +30,14 @@ ThreadedBinaryTree::clear()
 void
 ThreadedBinaryTree::insert( std::shared_ptr<CRect> clientWindow, CDC * pDC, const int key )
 {
-	int offset = pow( 2, depth_ - 1 ) * 16 + 50;
+	int offset = static_cast<int>(pow( 2, depth_ - 1 )) * 16 + 50;
 	CBrush* oldBrush = static_cast<CBrush*>(pDC->SelectObject( brush_.get() ));
-	int x = clientWindow->Width() * 0.5;
-	int y = clientWindow->Height() * 0.1;
-	
+	int x = static_cast<int>(clientWindow->Width() * 0.5);
+	int y = static_cast<int>(clientWindow->Height() * 0.1);
+	CString keyStr;
+	keyStr.Format( L"New key: %d", key );
+	pDC->TextOutW( static_cast<int>(clientWindow->Width() * 0.2), static_cast<int>(clientWindow->Height() * 0.1), keyStr );
+
 	int dep = 0;
 	auto newNode = std::make_shared<struct Node>();
 	newNode->keyValue = key;
@@ -49,7 +51,6 @@ ThreadedBinaryTree::insert( std::shared_ptr<CRect> clientWindow, CDC * pDC, cons
 		newNode->lTag = newNode->rTag = false;
 		depth_ = 1;
 		pDC->Ellipse( x, y, x + 32, y + 32 );
-		CString keyStr;
 		keyStr.Format( L"%d", newNode->keyValue );
 		pDC->TextOutW( x + 8, y + 6, keyStr );
 		Sleep( 500 );
@@ -57,12 +58,11 @@ ThreadedBinaryTree::insert( std::shared_ptr<CRect> clientWindow, CDC * pDC, cons
 	else
 	{
 		auto current = root_->left;
-		
+
 		for ( ;;)
 		{
 			pDC->Ellipse( x, y, x + 32, y + 32 );
-			CString keyStr;
-			keyStr.Format( L"%d",current ->keyValue );
+			keyStr.Format( L"%d", current->keyValue );
 			pDC->TextOutW( x + 8, y + 6, keyStr );
 			Sleep( 500 );
 			if ( current->keyValue > newNode->keyValue )
@@ -77,7 +77,7 @@ ThreadedBinaryTree::insert( std::shared_ptr<CRect> clientWindow, CDC * pDC, cons
 				dep++;
 				x -= offset;
 				y += 50;
-				offset *= 0.5;
+				offset = static_cast<int>(offset * 0.5);
 			}
 			else
 			{
@@ -91,7 +91,7 @@ ThreadedBinaryTree::insert( std::shared_ptr<CRect> clientWindow, CDC * pDC, cons
 				dep++;
 				x += offset;
 				y += 50;
-				offset *= 0.5;
+				offset = static_cast<int>(offset * 0.5);
 			}
 		}
 		if ( direction_left_ )
@@ -117,7 +117,6 @@ ThreadedBinaryTree::insert( std::shared_ptr<CRect> clientWindow, CDC * pDC, cons
 			y += 50;
 		}
 		pDC->Ellipse( x, y, x + 32, y + 32 );
-		CString keyStr;
 		keyStr.Format( L"%d", newNode->keyValue );
 		pDC->TextOutW( x + 8, y + 6, keyStr );
 		Sleep( 1000 );
@@ -227,11 +226,58 @@ ThreadedBinaryTree::printInOrder() const
 	return result;
 }
 
+std::string ThreadedBinaryTree::printPreOrder()
+{
+	std::string result( "" );
+	printPreOrder( result, root_->left );
+	return result;
+}
+
+std::string ThreadedBinaryTree::printPostOrder()
+{
+	std::string result( "" );
+	printPostOrder( result, root_->left );
+	return result;
+}
+
+void ThreadedBinaryTree::printPreOrder( std::string& res, std::shared_ptr<struct Node> node )
+{
+	res += std::to_string( node->keyValue );
+	res += " ";
+
+	if ( node->lTag )
+	{
+		printPreOrder( res, node->left );
+	}
+
+	if ( node->rTag )
+	{
+		printPreOrder( res, node->right );
+	}
+
+}
+
+void ThreadedBinaryTree::printPostOrder( std::string & res, std::shared_ptr<struct Node> node )
+{
+	if ( node->lTag )
+	{
+		printPreOrder( res, node->left );
+	}
+
+	if ( node->rTag )
+	{
+		printPreOrder( res, node->right );
+	}
+
+	res += std::to_string( node->keyValue );
+	res += " ";
+}
+
 void
 ThreadedBinaryTree::draw( std::shared_ptr<CRect> clientWindow, CDC * pDC )
 {
 	if ( root_->lTag )
-		drawNode( root_->left, clientWindow->Width() * 0.5, clientWindow->Height() * 0.1, pow(2, depth_ - 1) * 16 + 50, clientWindow, pDC );
+		drawNode( root_->left, static_cast<int>(clientWindow->Width() * 0.5), static_cast<int>(clientWindow->Height() * 0.1), static_cast<int>(pow( 2, depth_ - 1 ) * 16 + 50), clientWindow, pDC );
 }
 
 
@@ -265,7 +311,7 @@ ThreadedBinaryTree::drawNode( std::shared_ptr<Node> node, int x, int y, int offs
 	{
 		pDC->MoveTo( x + 27, y + 27 );
 		pDC->LineTo( x + offset + 5, y + 55 );
-		drawNode( node->right, x + offset, y + 50, int( offset * 0.5), clientWindow, pDC );
+		drawNode( node->right, x + offset, y + 50, int( offset * 0.5 ), clientWindow, pDC );
 	}
 
 	pDC->Ellipse( x, y, x + 32, y + 32 );
@@ -277,7 +323,6 @@ ThreadedBinaryTree::drawNode( std::shared_ptr<Node> node, int x, int y, int offs
 	{
 		pDC->MoveTo( x + 5, y + 27 );
 		pDC->LineTo( x - offset + 27, y + 55 );
-		drawNode( node->left, x - offset, y + 50, int( offset * 0.5), clientWindow, pDC );
+		drawNode( node->left, x - offset, y + 50, int( offset * 0.5 ), clientWindow, pDC );
 	}
 }
-
