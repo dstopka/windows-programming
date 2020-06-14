@@ -45,6 +45,11 @@ void BinaryTree::draw( std::shared_ptr<CRect> clientWindow, CDC * pDC )
 	}
 }
 
+std::shared_ptr<Node> BinaryTree::getRoot()
+{
+	return root_;
+}
+
 void BinaryTree::insert( const int key )
 {
 	if (root_->right == root_ && root_->left == root_)
@@ -99,11 +104,13 @@ bool BinaryTree::search( std::shared_ptr<Node> node, const int key )
 	
 	if ( node->keyValue == key )
 		return true;
+	
+	auto res = search( node->left, key );
 
-	if ( node->keyValue < key )
-		return search( node->right, key );
+	if ( res )
+		return true;
 
-	return search( node->left, key );
+	return search( node->right, key );
 }
 
 int BinaryTree::depth( std::shared_ptr<Node> node )

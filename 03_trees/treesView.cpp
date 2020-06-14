@@ -13,13 +13,14 @@
 #include "treesView.h"
 
 #include "MainFrm.h"
+#include "RobsonAlgorithm.h"
 #include "ThreadedBinaryTree.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
 
-#define IN_ORDER
+#define PRE_ORDER
 // CMyTreesView
 
 IMPLEMENT_DYNCREATE( CMyTreesView, CView )
@@ -81,6 +82,26 @@ void CMyTreesView::OnDraw( CDC* pDC )
 	if ( robson_ )
 	{		
 		document_->getBinaryTree().draw( clientRect_, pDC );
+		RobsonTraversal robson = RobsonTraversal( document_->getBinaryTree().getRoot());
+		CFont* oldFont = static_cast<CFont*>(pDC->SelectObject( fontObj_.get() ));
+
+#ifdef IN_ORDER
+		CString outText( robson.inVisit().c_str() );
+#endif
+
+#ifdef PRE_ORDER
+		CString outText( robson.preVisit().c_str() );
+#endif
+
+#ifdef POST_ORDER
+		CString outText( robson.postVisit().c_str() );
+#endif
+
+		auto sz = pDC->GetTextExtent( outText );
+		pDC->SetTextColor( RGB( 0, 0, 127 ) );
+		pDC->TextOutW( 10, static_cast<int>(clientRect_->Height() - 2 - sz.cy), outText );
+		pDC->SelectObject( oldFont );
+		pDC->SetTextColor( RGB( 0, 0, 0 ) );
 	}
 	else
 	{

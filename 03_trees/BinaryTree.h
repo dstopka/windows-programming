@@ -12,7 +12,7 @@ public:
 	~BinaryTree();
 	void createRandTree();
 	void draw( std::shared_ptr<CRect> clientWindow, CDC *pDC );
-
+	std::shared_ptr<Node> getRoot();
 private:
 	std::shared_ptr<Node> root_;
 	void insert( const int key );
