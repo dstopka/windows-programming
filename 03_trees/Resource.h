@@ -18,14 +18,14 @@
 #define ID_TREE_DRAW                    32781
 #define ID_TREE_MAKE                    32782
 #define ID_TREE_CLEAR                   32783
-#define ID_BUTTON32787                  32787
+#define ID_BUTTON32789                  32789
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        310
-#define _APS_NEXT_COMMAND_VALUE         32788
+#define _APS_NEXT_COMMAND_VALUE         32790
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           310
 #endif

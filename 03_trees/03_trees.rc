@@ -100,6 +100,7 @@ IDR_MAINFRAME TOOLBAR 25, 25
 BEGIN
     BUTTON      ID_TREE_MAKE
     BUTTON      ID_TREE_CLEAR
+    BUTTON      ID_TREE_ADDNODE
     BUTTON      ID_TREE_DRAW
     BUTTON      ID_TREE_PRINTINORDER
     BUTTON      ID_BUTTON32779
@@ -114,7 +115,7 @@ END
 
 IDR_MAINFRAME MENU
 BEGIN
-    POPUP "Tree"
+    POPUP "Threaded Binary Tree"
     BEGIN
         MENUITEM "Make Tree",                   ID_TREE_MAKE
         MENUITEM "Clear Tree",                  ID_TREE_CLEAR

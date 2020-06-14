@@ -32,6 +32,7 @@ std::vector<UINT>CMainFrame::m_buttonsIDs =
 {
 	ID_TREE_MAKE,
 	ID_TREE_CLEAR,
+	ID_TREE_ADDNODE,
 	ID_TREE_DRAW,
 	ID_TREE_PRINTINORDER
 };
@@ -91,11 +92,11 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 void CMainFrame::resetButton( bool state, int idx )
 {
 	const int buttonIx = m_buttonsIDs.size() + idx;
-	UINT button = m_buttonsIDs[idx + 2];
+	UINT button = m_buttonsIDs[idx + 3];
 	if ( state )
-		m_wndToolBar.SetButtonInfo( idx + 2, button, TBBS_BUTTON, buttonIx );
+		m_wndToolBar.SetButtonInfo( idx + 3, button, TBBS_BUTTON, buttonIx );
 	else
-		m_wndToolBar.SetButtonInfo( idx + 2, button, TBBS_BUTTON, idx + 2 );
+		m_wndToolBar.SetButtonInfo( idx + 3, button, TBBS_BUTTON, idx + 3 );
 
 	m_wndToolBar.Invalidate();
 }

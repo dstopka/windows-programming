@@ -43,6 +43,7 @@ CMyTreesView::CMyTreesView()
 	draw_ = false;
 	print_ = false;
 	treeIsEmpty_ = true;
+	insert_ = false;
 	LOGFONT logFont;
 	memset( &logFont, 0, sizeof( LOGFONT ) );
 	lstrcpy( logFont.lfFaceName, L"Consolas" );
@@ -75,6 +76,7 @@ void CMyTreesView::OnDraw( CDC* pDC )
 	if ( !document_ )
 		return;
 	GetClientRect( this->clientRect_.get() );
+
 	if ( draw_ )
 		document_->getTree().draw( clientRect_, pDC );
 	if ( print_ )
@@ -87,6 +89,20 @@ void CMyTreesView::OnDraw( CDC* pDC )
 		pDC->SelectObject( oldFont );
 		pDC->SetTextColor( RGB( 0, 0, 0 ) );
 	}
+	if ( insert_ )
+	{
+		int newKey;
+		do
+		{
+			newKey = Random::random( MIN_VALUE, MAX_VALUE );
+		} while ( document_->getTree().findKey( newKey ) );
+
+		document_->getTree().insert( clientRect_, pDC, newKey );
+		insert_ = false;
+		Invalidate();
+		UpdateWindow();
+	}
+
 }
 
 
@@ -149,14 +165,7 @@ void CMyTreesView::OnTreePrint()
 
 void CMyTreesView::OnTreeAddNode()
 {
-	int newKey;
-	do
-	{
-		newKey = Random::random( MIN_VALUE, MAX_VALUE );
-	} while ( document_->getTree().findKey( newKey ) );
-
-	document_->getTree().insert( newKey );
-
+	insert_ = true;
 	Invalidate();
 	UpdateWindow();
 }

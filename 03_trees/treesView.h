@@ -44,6 +44,7 @@ private:
 	CMyTreesDoc* document_;
 	bool print_;
 	bool draw_;
+	bool insert_;
 	bool treeIsEmpty_;
 	std::shared_ptr<CFont> fontObj_;
 public:
