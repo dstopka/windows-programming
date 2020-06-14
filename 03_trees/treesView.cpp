@@ -79,8 +79,8 @@ void CMyTreesView::OnDraw( CDC* pDC )
 	GetClientRect( this->clientRect_.get() );
 
 	if ( robson_ )
-	{
-
+	{		
+		document_->getBinaryTree().draw( clientRect_, pDC );
 	}
 	else
 	{
@@ -195,6 +195,7 @@ void CMyTreesView::OnTreeRobson()
 	robson_ = !robson_;
 	CMainFrame* frame = static_cast<CMainFrame*>(GetParentFrame());
 	frame->resetButton( robson_, 2 );
+	document_->getBinaryTree().createRandTree();
 	Invalidate();
 	UpdateWindow();
 }

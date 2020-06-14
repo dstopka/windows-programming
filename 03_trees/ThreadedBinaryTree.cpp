@@ -5,7 +5,7 @@
 ThreadedBinaryTree::ThreadedBinaryTree()
 {
 	srand( time( nullptr ) );
-	root_ = std::make_shared<struct Node>();
+	root_ = std::make_shared<struct ThreadedNode>();
 	root_->right = root_->left = root_;
 	root_->lTag = false;
 	root_->rTag = true;
@@ -20,7 +20,7 @@ ThreadedBinaryTree::~ThreadedBinaryTree()
 void
 ThreadedBinaryTree::clear()
 {
-	root_ = std::make_shared<struct Node>();
+	root_ = std::make_shared<struct ThreadedNode>();
 	root_->right = root_->left = root_;
 	root_->lTag = false;
 	root_->rTag = true;
@@ -39,7 +39,7 @@ ThreadedBinaryTree::insert( std::shared_ptr<CRect> clientWindow, CDC * pDC, cons
 	pDC->TextOutW( static_cast<int>(clientWindow->Width() * 0.2), static_cast<int>(clientWindow->Height() * 0.1), keyStr );
 
 	int dep = 0;
-	auto newNode = std::make_shared<struct Node>();
+	auto newNode = std::make_shared<struct ThreadedNode>();
 	newNode->keyValue = key;
 
 	if ( root_ == root_->left && root_ == root_->right )
@@ -132,7 +132,7 @@ void
 ThreadedBinaryTree::insert( const int key )
 {
 	int dep = 0;
-	auto newNode = std::make_shared<struct Node>();
+	auto newNode = std::make_shared<struct ThreadedNode>();
 	newNode->keyValue = key;
 
 	if ( root_ == root_->left && root_ == root_->right )
@@ -240,7 +240,7 @@ std::string ThreadedBinaryTree::printPostOrder()
 	return result;
 }
 
-void ThreadedBinaryTree::printPreOrder( std::string& res, std::shared_ptr<struct Node> node )
+void ThreadedBinaryTree::printPreOrder( std::string& res, std::shared_ptr<struct ThreadedNode> node )
 {
 	res += std::to_string( node->keyValue );
 	res += " ";
@@ -257,7 +257,7 @@ void ThreadedBinaryTree::printPreOrder( std::string& res, std::shared_ptr<struct
 
 }
 
-void ThreadedBinaryTree::printPostOrder( std::string & res, std::shared_ptr<struct Node> node )
+void ThreadedBinaryTree::printPostOrder( std::string & res, std::shared_ptr<struct ThreadedNode> node )
 {
 	if ( node->lTag )
 	{
@@ -277,7 +277,7 @@ void
 ThreadedBinaryTree::draw( std::shared_ptr<CRect> clientWindow, CDC * pDC )
 {
 	if ( root_->lTag )
-		drawNode( root_->left, static_cast<int>(clientWindow->Width() * 0.5), static_cast<int>(clientWindow->Height() * 0.1), static_cast<int>(pow( 2, depth_ - 1 ) * 16 + 50), clientWindow, pDC );
+		drawNode( root_->left, static_cast<int>(clientWindow->Width() * 0.5), static_cast<int>(clientWindow->Height() * 0.1), static_cast<int>(pow( 2, depth_ - 1 ) * 16 + 50), pDC );
 }
 
 
@@ -305,13 +305,13 @@ ThreadedBinaryTree::findKey( const char key ) const
 }
 
 void
-ThreadedBinaryTree::drawNode( std::shared_ptr<Node> node, int x, int y, int offset, std::shared_ptr<CRect> clientWindow, CDC * pDC )
+ThreadedBinaryTree::drawNode( std::shared_ptr<ThreadedNode> node, int x, int y, int offset, CDC * pDC )
 {
 	if ( node->rTag )
 	{
 		pDC->MoveTo( x + 27, y + 27 );
 		pDC->LineTo( x + offset + 5, y + 55 );
-		drawNode( node->right, x + offset, y + 50, int( offset * 0.5 ), clientWindow, pDC );
+		drawNode( node->right, x + offset, y + 50, int( offset * 0.5 ), pDC );
 	}
 
 	pDC->Ellipse( x, y, x + 32, y + 32 );
@@ -323,6 +323,6 @@ ThreadedBinaryTree::drawNode( std::shared_ptr<Node> node, int x, int y, int offs
 	{
 		pDC->MoveTo( x + 5, y + 27 );
 		pDC->LineTo( x - offset + 27, y + 55 );
-		drawNode( node->left, x - offset, y + 50, int( offset * 0.5 ), clientWindow, pDC );
+		drawNode( node->left, x - offset, y + 50, int( offset * 0.5 ), pDC );
 	}
 }

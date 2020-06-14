@@ -22,11 +22,11 @@ public:
 	bool findKey( const char key ) const;
 
 private:
-	void drawNode( std::shared_ptr<Node> node, int x, int y, int lvl, std::shared_ptr<CRect> clientWindow, CDC * pDC );
-	void printPreOrder( std::string& res, std::shared_ptr<struct Node> node );
-	void printPostOrder( std::string& res, std::shared_ptr<struct Node> node );
+	void drawNode( std::shared_ptr<ThreadedNode> node, int x, int y, int offset, CDC * pDC );
+	void printPreOrder( std::string& res, std::shared_ptr<struct ThreadedNode> node );
+	void printPostOrder( std::string& res, std::shared_ptr<struct ThreadedNode> node );
 	int depth_;
-	std::shared_ptr<struct Node> root_;
+	std::shared_ptr<struct ThreadedNode> root_;
 	bool direction_left_;
 	bool direction_right_;
 	std::shared_ptr<CBrush> brush_;

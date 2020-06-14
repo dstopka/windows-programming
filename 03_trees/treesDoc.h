@@ -4,6 +4,7 @@
 
 
 #pragma once
+#include "BinaryTree.h"
 #include "ThreadedBinaryTree.h"
 
 class CMyTreesDoc : public CDocument
@@ -15,6 +16,7 @@ protected: // create from serialization only
 // Attributes
 public:
 	ThreadedBinaryTree& getTree();
+	BinaryTree& getBinaryTree();
 // Operations
 public:
 
@@ -49,4 +51,5 @@ protected:
 
 private:
 	ThreadedBinaryTree tree_;
+	BinaryTree binaryTree_;
 };
