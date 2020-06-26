@@ -93,12 +93,12 @@ void RobsonTraversal::start(std::string& res)
 		{
 			if ( visitType_ == visitType::inOrder )
 			{
-				res += std::to_string( present_->keyValue );
+				res += std::to_string( previous_->keyValue );
 				res += " -> ";
 			}
 			else if ( visitType_ == visitType::postOrder )
 			{
-				res += std::to_string( present_->keyValue );
+				res += std::to_string( previous_->keyValue );
 				res += " -> ";
 			}
 			next_ = previous_->left;
@@ -112,7 +112,7 @@ void RobsonTraversal::start(std::string& res)
 		{
 			if ( visitType_ == visitType::postOrder )
 			{
-				res += std::to_string( present_->keyValue );
+				res += std::to_string( previous_->keyValue );
 				res += " -> ";
 			}
 			next_ = previous_->right;
@@ -126,7 +126,7 @@ void RobsonTraversal::start(std::string& res)
 		{
 			if ( visitType_ == visitType::postOrder )
 			{
-				res += std::to_string( present_->keyValue );
+				res += std::to_string( previous_->keyValue );
 				res += " -> ";
 			}
 			next_ = stack_;
@@ -144,7 +144,7 @@ void RobsonTraversal::start(std::string& res)
 
 		if ( visitType_ == visitType::inOrder )
 		{
-			res += std::to_string( present_->keyValue );
+			res += std::to_string( previous_->keyValue );
 			res += " -> ";
 		}
 		avail_->left = stack_;

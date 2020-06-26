@@ -20,7 +20,7 @@
 #define new DEBUG_NEW
 #endif
 
-#define PRE_ORDER
+#define IN_ORDER
 // CMyTreesView
 
 IMPLEMENT_DYNCREATE( CMyTreesView, CView )
