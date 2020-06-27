@@ -8,7 +8,7 @@ public:
 	TimeDate( TimeDate const& timeDate );
 	TimeDate( Time const& time, Date const& date );
 	TimeDate& operator=( TimeDate const& timeDate );
-	void setTimeDate( int, int, int, int, int, int );
+	void setTimeDate( int h, int min, int s, int year, int month, int day );
 	friend ZDLL_API std::ostream & operator<<( std::ostream& out, TimeDate& timeDate );
 	friend ZDLL_API std::istream & operator >> ( std::istream& in, TimeDate& timeDate );
 };

@@ -4,12 +4,7 @@
 
 TimeDate::TimeDate( int h, int min, int s, int year, int month, int day )
 {
-	this->setYear( year );
-	this->setMonth( month );
-	this->setDay( day );
-	this->setHour( h );
-	this->setMin( min );
-	this->setSec( s );
+	this->setTimeDate(h, min, s, year, month, day );
 }
 
 TimeDate::TimeDate( TimeDate const& timeDate )
@@ -23,23 +18,15 @@ TimeDate::TimeDate( Time const& time, Date const& date ) : Time( time ), Date( d
 
 TimeDate& TimeDate::operator=( TimeDate const& timeDate )
 {
-	this->setYear( timeDate.getYear() );
-	this->setMonth( timeDate.getMonth() );
-	this->setDay( timeDate.getDay() );
-	this->setHour( timeDate.getHour() );
-	this->setMin( timeDate.getMin() );
-	this->setSec( timeDate.getSec() );
+	this->setTimeDate( timeDate.getHour(), timeDate.getMin(), timeDate.getSec(),
+						timeDate.getYear(), timeDate.getMonth(), timeDate.getDay());
 	return *this;
 }
 
-void TimeDate::setTimeDate( int h, int min, int s, int y, int m, int d )
+void TimeDate::setTimeDate( int h, int min, int s, int year, int month, int day )
 {
-	this->setYear( y );
-	this->setMonth( m );
-	this->setDay( d );
-	this->setHour( h );
-	this->setMin( min );
-	this->setSec( s );
+	this->setDate( year, month, day );
+	this->setTime( h, min, s );
 }
 
 ZDLL_API std::ostream& operator<<(std::ostream& out, TimeDate& timeDay )

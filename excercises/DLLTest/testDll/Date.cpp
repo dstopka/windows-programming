@@ -3,9 +3,7 @@
 
 Date::Date( int y, int m, int d )
 {
-	this->m_nYear = y;
-	this->m_nMonth = m;
-	this->m_nDay = d;
+	this->setDate(y, m, d);
 }
 
 Date::Date( Date const& date )
@@ -15,9 +13,7 @@ Date::Date( Date const& date )
 
 Date& Date::operator=( Date const& date )
 {
-	m_nYear = date.m_nYear;
-	m_nMonth = date.m_nMonth;
-	m_nDay = date.m_nDay;
+	this->setDate( date.getYear(), date.getMonth(), date.getDay() );
 	return *this;
 }
 

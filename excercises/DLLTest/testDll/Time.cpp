@@ -3,9 +3,7 @@
 
 Time::Time( int h, int m, int s )
 {
-	this->m_nHour = h;
-	this->m_nMin = m;
-	this->m_nSec = s;
+	this->setTime( h, m, s );
 }
 
 Time::Time( Time const& time )
@@ -15,10 +13,7 @@ Time::Time( Time const& time )
 
 Time& Time::operator=( Time const& time )
 {
-	m_nHour = time.m_nHour;
-	m_nMin = time.m_nMin;
-	m_nSec = time.m_nSec;
-	
+	this->setTime( time.getHour(), time.getMin(), time.getSec() );	
 	return *this;
 }
 

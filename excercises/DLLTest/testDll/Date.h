@@ -51,7 +51,15 @@ inline void
 Date::setYear( int year ) { this->m_nYear = year; }
 
 inline void
-Date::setMonth( int month ) { this->m_nMonth = month; }
+Date::setMonth( int month )
+{
+	if(month > 0 && month <= 12 )
+		this->m_nMonth = month;
+}
 
 inline void
-Date::setDay( int day ) { this->m_nDay = day; }
+Date::setDay( int day )
+{
+	
+	this->m_nDay = day;
+}

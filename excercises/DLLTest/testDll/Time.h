@@ -49,11 +49,23 @@ Time::setTime( int h, int min, int s )
 }
 
 inline void
-Time::setHour( int h ) { this->m_nHour = h; }
+Time::setHour( int h )
+{
+	if( h >= 0 && h <= 24 )
+		this->m_nHour = h;
+}
 
 inline void
-Time::setMin( int min ) { this->m_nMin = min; }
+Time::setMin( int min )
+{
+	if( min >= 0 && min < 60 )
+		this->m_nMin = min;
+}
 
 inline void
-Time::setSec( int s ) { this->m_nSec = s; }
+Time::setSec( int s )
+{
+	if (s >= 0 && s < 60 )
+		this->m_nSec = s;
+}
 
